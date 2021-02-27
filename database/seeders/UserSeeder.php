@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Organisation;
+use App\Models\Organization;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 
@@ -15,15 +15,15 @@ class UserSeeder extends Seeder
 	 */
 	public function run()
 	{
-		$organisations = Organisation::all();
+		$organizations = Organization::all();
 
-		foreach ($organisations as $organisation) {
+		foreach ($organizations as $organization) {
 			User::factory()->count(1000)->create([
-				'organisation_id' => $organisation->id
+				'organization_id' => $organization->id
 			]);
 
 			User::factory()->create([
-				'organisation_id' => $organisation->id,
+				'organization_id' => $organization->id,
 				'is_admin' => true,
 			]);
 		}

@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Organisation;
+use App\Models\Organization;
 use App\Models\SiteType;
 use Illuminate\Database\Seeder;
 
@@ -15,11 +15,11 @@ class SiteTypeSeeder extends Seeder
 	 */
 	public function run()
 	{
-		$organisations = Organisation::all();
+		$organizations = Organization::all();
 
-		foreach ($organisations as $organisation) {
+		foreach ($organizations as $organization) {
 			SiteType::factory()->count(4)->create([
-				'organisation_id' => $organisation->id,
+				'organization_id' => $organization->id,
 			]);
 		}
 	}

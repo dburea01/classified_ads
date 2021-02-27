@@ -15,7 +15,7 @@ class CreateUsersTable extends Migration
 	{
 		Schema::create('users', function (Blueprint $table) {
 			$table->uuid('id')->primary();
-			$table->uuid('organisation_id');
+			$table->uuid('organization_id');
 			$table->boolean('is_admin')->default('false');
 			$table->string('first_name');
 			$table->string('last_name');
@@ -24,8 +24,8 @@ class CreateUsersTable extends Migration
 			$table->string('upated_by')->nullable();
 			$table->timestamps();
 
-			$table->foreign('organisation_id')->references('id')->on('organisations')->onDelete('cascade');
-			$table->unique(['organisation_id', 'email']);
+			$table->foreign('organization_id')->references('id')->on('organizations')->onDelete('cascade');
+			$table->unique(['organization_id', 'email']);
 		});
 	}
 

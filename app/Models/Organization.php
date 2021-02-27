@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\CategoryGroup;
 
-class Organisation extends Model
+class Organization extends Model
 {
 	use HasFactory;
 

@@ -7,14 +7,23 @@ use Illuminate\Http\Request;
 
 class ClassifiedAdController extends Controller
 {
+    private $organizationId;
+
+    public function __construct(Request $request)
+    {
+        $this->organizationId = $request->header('x-api-key');
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $classifiedAds = ClassifiedAd::with('site')->paginate(10);
+
+        return response()->json($classifiedAds, 200);
     }
 
     /**
@@ -25,7 +34,6 @@ class ClassifiedAdController extends Controller
      */
     public function store(Request $request)
     {
-        //
     }
 
     /**
@@ -36,7 +44,6 @@ class ClassifiedAdController extends Controller
      */
     public function show(ClassifiedAd $classifiedAd)
     {
-        //
     }
 
     /**
@@ -48,7 +55,6 @@ class ClassifiedAdController extends Controller
      */
     public function update(Request $request, ClassifiedAd $classifiedAd)
     {
-        //
     }
 
     /**
@@ -59,6 +65,5 @@ class ClassifiedAdController extends Controller
      */
     public function destroy(ClassifiedAd $classifiedAd)
     {
-        //
     }
 }

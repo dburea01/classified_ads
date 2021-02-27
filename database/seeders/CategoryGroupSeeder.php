@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\CategoryGroup;
-use App\Models\Organisation;
+use App\Models\Organization;
 use Illuminate\Database\Seeder;
 
 class CategoryGroupSeeder extends Seeder
@@ -15,11 +15,11 @@ class CategoryGroupSeeder extends Seeder
 	 */
 	public function run()
 	{
-		$organisations = Organisation::all();
+		$organizations = Organization::all();
 
-		foreach ($organisations as $organisation) {
+		foreach ($organizations as $organization) {
 			CategoryGroup::factory()->count(\random_int(5, 10))->create([
-				'organisation_id' => $organisation->id
+				'organization_id' => $organization->id
 			]);
 		}
 	}

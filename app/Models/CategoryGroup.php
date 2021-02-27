@@ -34,9 +34,9 @@ class CategoryGroup extends Model
 	// tell Eloquent that key is a string, not an integer
 	protected $keyType = 'string';
 
-	public function organisation()
+	public function organization()
 	{
-		return $this->belongsTo(Organisation::class);
+		return $this->belongsTo(Organization::class);
 	}
 
 	public function categories()

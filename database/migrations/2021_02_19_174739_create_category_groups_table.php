@@ -15,7 +15,7 @@ class CreateCategoryGroupsTable extends Migration
 	{
 		Schema::create('category_groups', function (Blueprint $table) {
 			$table->uuid('id')->primary();
-			$table->uuid('organisation_id');
+			$table->uuid('organization_id');
 			$table->tinyInteger('position');
 			$table->string('name');
 			$table->string('status');
@@ -23,7 +23,7 @@ class CreateCategoryGroupsTable extends Migration
 			$table->string('updated_by')->nullable();
 			$table->timestamps();
 
-			$table->foreign('organisation_id')->references('id')->on('organisations')->cascadeOnDelete();
+			$table->foreign('organization_id')->references('id')->on('organizations')->cascadeOnDelete();
 		});
 	}
 

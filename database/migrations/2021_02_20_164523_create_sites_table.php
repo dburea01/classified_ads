@@ -15,7 +15,7 @@ class CreateSitesTable extends Migration
 	{
 		Schema::create('sites', function (Blueprint $table) {
 			$table->uuid('id')->primary();
-			$table->uuid('organisation_id');
+			$table->uuid('organization_id');
 			$table->uuid('site_type_id');
 			$table->string('country_id', 2);
 			$table->string('name');
@@ -27,7 +27,7 @@ class CreateSitesTable extends Migration
 			$table->string('status');
 			$table->timestamps();
 
-			$table->foreign('organisation_id')->references('id')->on('organisations')->cascadeOnDelete();
+			$table->foreign('organization_id')->references('id')->on('organizations')->cascadeOnDelete();
 			$table->foreign('country_id')->references('id')->on('countries')->nullOnDelete();
 			$table->foreign('site_type_id')->references('id')->on('site_types')->nullOnDelete();
 		});

@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Country;
-use App\Models\Organisation;
+use App\Models\Organization;
 use App\Models\Site;
 use App\Models\SiteType;
 use Illuminate\Database\Seeder;
@@ -17,15 +17,15 @@ class SiteSeeder extends Seeder
 	 */
 	public function run()
 	{
-		$organisations = Organisation::all();
+		$organizations = Organization::all();
 		$countries = Country::all();
 
-		foreach ($organisations as $organisation) {
-			$siteTypes = SiteType::where('organisation_id', $organisation->id)->get();
+		foreach ($organizations as $organization) {
+			$siteTypes = SiteType::where('organization_id', $organization->id)->get();
 
 			for ($i = 0; $i < 100; $i++) {
 				Site::factory()->create([
-					'organisation_id' => $organisation->id,
+					'organization_id' => $organization->id,
 					'country_id' => $countries->random()->id,
 					'site_type_id' => $siteTypes->random()->id
 				]);
