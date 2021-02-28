@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ClassifiedAdController;
+use App\Http\Middleware\CheckBearerToken;
+use App\Http\Middleware\CheckXApiKey;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +16,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware(['checkXApiKey', 'checkBearerToken'])->group(function () {
+Route::middleware([CheckXApiKey::class, CheckBearerToken::class])->group(function () {
     Route::get('classified_ads', [ClassifiedAdController::class, 'index']);
 });
+
+// Route::get('classified_ads', [ClassifiedAdController::class, 'index'])->middleware(['checkXApiKey', 'checkBearerToken']);

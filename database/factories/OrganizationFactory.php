@@ -7,26 +7,30 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 class OrganizationFactory extends Factory
 {
-	/**
-	 * The name of the factory's corresponding model.
-	 *
-	 * @var string
-	 */
-	protected $model = Organization::class;
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Organization::class;
 
-	/**
-	 * Define the model's default state.
-	 *
-	 * @return array
-	 */
-	public function definition()
-	{
-		return [
-			'name' => $this->faker->company,
-			'code' => $this->faker->word(),
-			'comment' => $this->faker->sentence(random_int(6, 20)),
-			'ads_max' => random_int(0, 100000),
-			'status' => $this->faker->boolean(80) ? 'ACTIVE' : 'INACTIVE'
-		];
-	}
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'name' => $this->faker->company,
+            'code' => $this->faker->word(),
+            'comment' => $this->faker->sentence(random_int(6, 20)),
+            'ads_max' => random_int(0, 100000),
+            'status' => $this->faker->boolean(80) ? 'ACTIVE' : 'INACTIVE',
+            'logo' => 'logo_' . $this->faker->word,
+            'introspection_url' => 'introspection_url_' . $this->faker->word,
+            'introspection_login' => 'introspection_login_' . $this->faker->word,
+            'introspection_password' => $this->faker->password(10, 20),
+        ];
+    }
 }

@@ -38,4 +38,19 @@ class ClassifiedAd extends Model
     {
         return $this->belongsTo(Site::class);
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    public function organization()
+    {
+        return $this->belongsTo(Organization::class);
+    }
 }

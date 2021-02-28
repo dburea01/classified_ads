@@ -20,6 +20,10 @@ class CreateOrganizationsTable extends Migration
             $table->string('comment')->nullable();
             $table->integer('ads_max');
             $table->string('status');
+            $table->string('logo')->nullable();
+            $table->string('introspection_url');
+            $table->string('introspection_login');
+            $table->string('introspection_password');
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();
             $table->timestamps();

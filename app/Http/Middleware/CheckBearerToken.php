@@ -20,7 +20,7 @@ class CheckBearerToken
         // dd($request->bearerToken());
 
         if (!$request->bearerToken()) {
-            return response()->json(['message' => 'no bearerToken'], 403);
+            return response()->json(['message' => 'no bearerToken'], 401);
         }
 
         $organization = Organization::where('code', $request->header('x-api-key'))->first();

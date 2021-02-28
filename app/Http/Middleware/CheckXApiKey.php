@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use App\Models\Organization;
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class CheckXApiKey
 {
@@ -20,6 +21,8 @@ class CheckXApiKey
         // dd($request->header('x-api_key'));
 
         if (!$request->header('x-api-key')) {
+            Log::info('no x-api-key');
+
             return response()->json(['message' => 'no x-api_key'], 403);
         }
 

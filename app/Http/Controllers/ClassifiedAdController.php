@@ -2,16 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ClassifiedAdResource;
 use App\Models\ClassifiedAd;
+use App\Repositories\ClassifiedAdRepository;
+use App\Repositories\OrganizationRepository;
 use Illuminate\Http\Request;
 
 class ClassifiedAdController extends Controller
 {
     private $organizationId;
 
-    public function __construct(Request $request)
+    private $classifiedAdRepository;
+
+    private $organizationRepository;
+
+    public function __construct(Request $request, ClassifiedAdRepository $classifiedAdRepository, OrganizationRepository $organizationRepository)
     {
-        $this->organizationId = $request->header('x-api-key');
+        $this->organizationRepository = $organizationRepository;
+        $this->organizationId = $this->organizationRepository->getOrganizationFromRequest($request->header('x-api-key'));
+        $this->classifiedAdRepository = $classifiedAdRepository;
     }
 
     /**
@@ -21,9 +30,13 @@ class ClassifiedAdController extends Controller
      */
     public function index(Request $request)
     {
-        $classifiedAds = ClassifiedAd::with('site')->paginate(10);
+        try {
+            $classifiedAds = $this->classifiedAdRepository->getAll($this->organizationId);
 
-        return response()->json($classifiedAds, 200);
+            return ClassifiedAdResource::collection($classifiedAds);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 400);
+        }
     }
 
     /**
