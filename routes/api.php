@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ClassifiedAdController;
+use App\Http\Controllers\OrganizationController;
+use App\Http\Controllers\UserController;
 use App\Http\Middleware\CheckBearerToken;
 use App\Http\Middleware\CheckXApiKey;
 use Illuminate\Support\Facades\Route;
@@ -16,7 +18,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware([CheckXApiKey::class, CheckBearerToken::class])->group(function () {
+Route::get('organizations', [OrganizationController::class, 'index']);
+
+Route::post('register', [UserController::class, 'register']);
+Route::post('login', [UserController::class, 'login']);
+Route::post('validate-registration', [UserController::class, 'validateRegistration']);
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('logout', [UserController::class, 'logout']);
     Route::get('classified_ads', [ClassifiedAdController::class, 'index']);
 });
 

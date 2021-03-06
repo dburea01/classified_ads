@@ -35,6 +35,11 @@ class Organization extends Model
     // tell Eloquent that key is a string, not an integer
     protected $keyType = 'string';
 
+    public function domains()
+    {
+        return $this->hasMany(Domain::class);
+    }
+
     public function category_groups()
     {
         return $this->hasMany(CategoryGroup::class);

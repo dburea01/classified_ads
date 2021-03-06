@@ -10,16 +10,12 @@ use Illuminate\Http\Request;
 
 class ClassifiedAdController extends Controller
 {
-    private $organizationId;
-
     private $classifiedAdRepository;
 
     private $organizationRepository;
 
-    public function __construct(Request $request, ClassifiedAdRepository $classifiedAdRepository, OrganizationRepository $organizationRepository)
+    public function __construct(Request $request, ClassifiedAdRepository $classifiedAdRepository)
     {
-        $this->organizationRepository = $organizationRepository;
-        $this->organizationId = $this->organizationRepository->getOrganizationFromRequest($request->header('x-api-key'));
         $this->classifiedAdRepository = $classifiedAdRepository;
     }
 

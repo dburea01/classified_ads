@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\Domain;
 use App\Models\Organization;
 use Illuminate\Database\Seeder;
-use App\Models\User;
 
-class UserSeeder extends Seeder
+class DomainSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -18,13 +18,8 @@ class UserSeeder extends Seeder
         $organizations = Organization::all();
 
         foreach ($organizations as $organization) {
-            User::factory()->count(random_int(10, 100))->create([
+            Domain::factory()->count(10)->create([
                 'organization_id' => $organization->id
-            ]);
-
-            User::factory()->create([
-                'organization_id' => $organization->id,
-                'is_admin' => true,
             ]);
         }
     }

@@ -10,8 +10,14 @@ use Spatie\QueryBuilder\QueryBuilder;
 
 class OrganizationRepository
 {
-    public function getOrganizationFromRequest(string $codeOrganization)
+    public function index()
     {
-        return Organization::where('code', $codeOrganization)->first()->id;
+        $organizations = QueryBuilder::for(Organization::class)
+        ->allowedFilters([
+            AllowedFilter::partial('name')
+        ])
+        ->defaultSort('name');
+
+        return $organizations->paginate(10);
     }
 }

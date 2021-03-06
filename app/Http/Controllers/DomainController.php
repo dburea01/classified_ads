@@ -2,20 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\OrganizationResource;
-use App\Models\organization;
-use App\Repositories\OrganizationRepository;
+use App\Models\Domain;
 use Illuminate\Http\Request;
 
-class OrganizationController extends Controller
+class DomainController extends Controller
 {
-    private $organizationRepository;
-
-    public function __construct(OrganizationRepository $organizationRepository)
-    {
-        $this->organizationRepository = $organizationRepository;
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -23,9 +14,17 @@ class OrganizationController extends Controller
      */
     public function index()
     {
-        $organizations = $this->organizationRepository->index();
+        //
+    }
 
-        return OrganizationResource::collection($organizations);
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
     }
 
     /**
@@ -36,36 +35,51 @@ class OrganizationController extends Controller
      */
     public function store(Request $request)
     {
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\organisation  $organisation
+     * @param  \App\Models\Domain  $domain
      * @return \Illuminate\Http\Response
      */
-    public function show(organization $organization)
+    public function show(Domain $domain)
     {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\Domain  $domain
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Domain $domain)
+    {
+        //
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\organisation  $organisation
+     * @param  \App\Models\Domain  $domain
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, organization $organization)
+    public function update(Request $request, Domain $domain)
     {
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\organisation  $organisation
+     * @param  \App\Models\Domain  $domain
      * @return \Illuminate\Http\Response
      */
-    public function destroy(organization $organization)
+    public function destroy(Domain $domain)
     {
+        //
     }
 }
