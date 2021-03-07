@@ -12,7 +12,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Facades\Notification;
 use Tests\TestCase;
 
-class AuthTest extends TestCase
+class AuthRegistrationTest extends TestCase
 {
     use DatabaseTransactions;
     use Request;
@@ -131,16 +131,5 @@ class AuthTest extends TestCase
         $this->assertEquals($userRegistred->status, 'CREATED');
 
         Notification::assertSentTo($userRegistred, SendEmailValidateUser::class);
-    }
-
-    public function testTryToConnectWithoutCredential(): void
-    {
-        $response = $this->postJson($this->getUrl() . '/login');
-
-        $response->assertStatus(422)
-        ->assertJsonValidationErrors([
-            'email',
-            'password'
-        ]);
     }
 }

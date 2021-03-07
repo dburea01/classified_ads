@@ -9,7 +9,10 @@ use App\Http\Requests\ResetPasswordRequest;
 use App\Http\Requests\ValidateRegistrationRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
+use App\Notifications\SendEmailPasswordLost;
+use App\Notifications\SendEmailPasswordResetOK;
 use App\Notifications\SendEmailValidateUser;
+use App\Notifications\SendEmailValidationUserOk;
 use App\Repositories\PasswordResetRepository;
 use App\Repositories\UserHistoEmailRepository;
 use App\Repositories\UserRepository;
@@ -58,7 +61,8 @@ class AuthController extends Controller
 
         try {
             $this->userRepository->validateUser($user);
-            // @todo : send email to inform the user is validated
+            $user->notify(new SendEmailValidationUserOk());
+
             return response()->json(['message' => 'User validated.']);
         } catch (\Exception $ex) {
             return response()->json(['message' => $ex->getMessage()], 422);
@@ -119,7 +123,7 @@ class AuthController extends Controller
         if ($quantityEmailSent < config('params.max_emails_forgot_password_a_day')) {
             try {
                 $this->passwordResetRepository->insert($user->email, $token);
-                // $user->notify(new SendEmailPasswordLost($token, config('params.delay_validity_token_reset_password')));
+                $user->notify(new SendEmailPasswordLost($token, config('params.delay_validity_token_reset_password')));
                 $this->userHistoEmailRepository->insert($user->id, 'PASSWORD_LOST');
             } catch (\Exception $ex) {
                 Log::error($ex->getMessage());
@@ -140,7 +144,7 @@ class AuthController extends Controller
             $this->userRepository->changePassword($user, $request->password);
             $this->passwordResetRepository->token_used($request->token);
 
-            // $user->notify(new SendEmailPasswordResetOK);
+            $user->notify(new SendEmailPasswordResetOK());
             DB::commit();
 
             return response()->json(['message' => 'mot de passe modifié.'], 200);
