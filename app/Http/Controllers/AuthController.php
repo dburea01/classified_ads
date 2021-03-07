@@ -9,6 +9,7 @@ use App\Http\Requests\ResetPasswordRequest;
 use App\Http\Requests\ValidateRegistrationRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
+use App\Notifications\SendEmailValidateUser;
 use App\Repositories\PasswordResetRepository;
 use App\Repositories\UserHistoEmailRepository;
 use App\Repositories\UserRepository;
@@ -41,7 +42,8 @@ class AuthController extends Controller
         try {
             $user = $this->userRepository->insert($request->all());
 
-            // @todo : send email to validate the user.
+            $user->notify(new SendEmailValidateUser());
+
             return new UserResource($user);
         } catch (\Exception $ex) {
             return response()->json([

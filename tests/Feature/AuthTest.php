@@ -7,7 +7,9 @@ namespace Tests\Feature;
 use App\Models\Domain;
 use App\Models\Organization;
 use App\Models\User;
+use App\Notifications\SendEmailValidateUser;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Support\Facades\Notification;
 use Tests\TestCase;
 
 class AuthTest extends TestCase
@@ -95,6 +97,8 @@ class AuthTest extends TestCase
 
     public function testRegisterOk(): void
     {
+        Notification::fake();
+
         $organization = Organization::factory()->create();
 
         $domain = Domain::factory()->create([
@@ -125,6 +129,8 @@ class AuthTest extends TestCase
         $this->assertEquals($userToRegister['email'], $userRegistred->email);
         $this->assertEquals($organization->id, $userRegistred->organization_id);
         $this->assertEquals($userRegistred->status, 'CREATED');
+
+        Notification::assertSentTo($userRegistred, SendEmailValidateUser::class);
     }
 
     public function testTryToConnectWithoutCredential(): void

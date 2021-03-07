@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Default Mailer
@@ -88,6 +87,11 @@ return [
         'name' => env('MAIL_FROM_NAME', 'Example'),
     ],
 
+    'to' => [
+        'address' => 'dburea01@gmail.com',
+        'name' => env('APP_NAME', 'Example'),
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Markdown Mail Settings
@@ -106,5 +110,4 @@ return [
             resource_path('views/vendor/mail'),
         ],
     ],
-
 ];

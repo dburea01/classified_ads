@@ -3,6 +3,8 @@
 declare(strict_types=1);
 
 return [
+    'app_url_front' => env('APP_URL'),
+
     /*
     |--------------------------------------------------------------------------
     | max_emails_forgot_access_code_a_day
