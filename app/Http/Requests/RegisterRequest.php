@@ -29,14 +29,15 @@ class RegisterRequest extends FormRequest
         return [
             'first_name' => 'required',
             'last_name' => 'required',
-            'email' => ['required',
+            'email' => [
+                'required',
                 'email',
                 Rule::unique('users')->where(function ($query) use ($request) {
                     return $query->where('organization_id', $request->input('organization_id'));
                 }),
                 new CheckOrganizationDomain($request->input('organization_id'))],
             'organization_id' => 'required|uuid|exists:organizations,id',
-            'password' => 'required|confirmed'
+            'password' => 'required|min:6|confirmed'
         ];
     }
 

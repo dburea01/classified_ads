@@ -24,9 +24,26 @@ class UserRepository
         return $user;
     }
 
+    public function changePassword(User $user, string $password)
+    {
+        User::where('id', $user->id)
+        ->update([
+            'password' => Hash::make($password)
+        ]);
+    }
+
     public function changeUserStatus(User $user, string $status)
     {
         User::where('id', $user->id)
         ->update(['status' => $status]);
+    }
+
+    public function validateUser(User $user)
+    {
+        User::where('id', $user->id)
+        ->update([
+            'status' => 'ACTIVE',
+            'email_verified_at' => now()
+        ]);
     }
 }

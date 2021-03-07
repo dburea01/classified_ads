@@ -15,7 +15,7 @@ class CheckOrganizationDomain implements Rule
      *
      * @return void
      */
-    public function __construct(string $organizationId)
+    public function __construct(string $organizationId = null)
     {
         $this->organizationId = $organizationId;
     }
@@ -30,6 +30,10 @@ class CheckOrganizationDomain implements Rule
     public function passes($attribute, $value)
     {
         $parts = explode('@', $value);
+
+        if (!isset($parts[1])) {
+            return false;
+        }
 
         $domainOfThisEmail = $parts[1];
         // dd($this->organizationId);
