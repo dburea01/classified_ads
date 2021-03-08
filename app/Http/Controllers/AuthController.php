@@ -71,11 +71,10 @@ class AuthController extends Controller
 
     public function login(LoginRequest $request)
     {
-        // $credentials = request(['email', 'password']);
         $credentials = [
             'email' => $request->email,
             'password' => $request->password,
-            'status' => 'ACTIVE'
+            'state_id' => 'VALIDATED'
         ];
 
         if (!Auth::attempt($credentials)) {

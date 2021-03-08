@@ -18,7 +18,8 @@ class UserRepository
         $user->fill($data);
         $user->password = Hash::make($data['password']);
         $user->email_verification_code = Str::random();
-        $user->status = 'CREATED';
+        $user->state_id = 'CREATED';
+        $user->role_id = 'EMPLOYEE';
         $user->save();
 
         return $user;
@@ -32,17 +33,17 @@ class UserRepository
         ]);
     }
 
-    public function changeUserStatus(User $user, string $status)
+    public function changeUserState(User $user, string $stateId)
     {
         User::where('id', $user->id)
-        ->update(['status' => $status]);
+        ->update(['state_id' => $stateId]);
     }
 
     public function validateUser(User $user)
     {
         User::where('id', $user->id)
         ->update([
-            'status' => 'ACTIVE',
+            'state_id' => 'VALIDATED',
             'email_verified_at' => now()
         ]);
     }

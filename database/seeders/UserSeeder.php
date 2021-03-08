@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Organization;
+use App\Models\Role;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 
@@ -19,12 +20,13 @@ class UserSeeder extends Seeder
 
         foreach ($organizations as $organization) {
             User::factory()->count(random_int(10, 100))->create([
-                'organization_id' => $organization->id
+                'organization_id' => $organization->id,
+                'role_id' => 'EMPLOYEE'
             ]);
 
             User::factory()->create([
                 'organization_id' => $organization->id,
-                'is_admin' => true,
+                'role_id' => 'ADMIN',
             ]);
         }
     }

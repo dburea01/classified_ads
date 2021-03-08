@@ -30,7 +30,7 @@ class CheckEmailVerificationCode implements Rule
     {
         $user = User::where('email', $this->email)
         ->where('email_verification_code', $value)
-        ->where('status', 'CREATED')
+        ->where('state_id', 'CREATED')
         ->first();
 
         return $user ? true : false;
