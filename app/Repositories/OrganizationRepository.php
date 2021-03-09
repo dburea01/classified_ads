@@ -20,4 +20,26 @@ class OrganizationRepository
 
         return $organizations->paginate(10);
     }
+
+    public function insertOrganisation(array $data) : Organization
+    {
+        $organization = new Organization();
+        $organization->fill($data);
+        $organization->save();
+
+        return $organization;
+    }
+
+    public function updateOrganization(Organization $organization, array $data) : Organization
+    {
+        $organization->fill($data);
+        $organization->save();
+
+        return $organization;
+    }
+
+    public function deleteOrganization(Organization $organization) : void
+    {
+        $organization->delete();
+    }
 }

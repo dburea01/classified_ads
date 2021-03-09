@@ -35,6 +35,15 @@ class Organization extends Model
     // tell Eloquent that key is a string, not an integer
     protected $keyType = 'string';
 
+    protected $fillable = [
+        'name',
+        'contact',
+        'comment',
+        'ads_max',
+        'state_id',
+        'logo'
+    ];
+
     public function domains()
     {
         return $this->hasMany(Domain::class);

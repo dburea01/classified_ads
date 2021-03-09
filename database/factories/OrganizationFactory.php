@@ -23,9 +23,10 @@ class OrganizationFactory extends Factory
     {
         return [
             'name' => $this->faker->company,
+            'contact' => $this->faker->name,
             'comment' => $this->faker->sentence(random_int(6, 20)),
             'ads_max' => random_int(0, 100000),
-            'status' => $this->faker->boolean(80) ? 'ACTIVE' : 'INACTIVE',
+            'state_id' => $this->faker->boolean(80) ? 'VALIDATED' : 'BLOCKED',
             'logo' => 'logo_' . $this->faker->word,
         ];
     }

@@ -16,9 +16,10 @@ class CreateOrganizationsTable extends Migration
         Schema::create('organizations', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('name', 50);
+            $table->string('contact');
             $table->string('comment')->nullable();
             $table->integer('ads_max');
-            $table->string('status');
+            $table->string('state_id');
             $table->string('logo')->nullable();
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();

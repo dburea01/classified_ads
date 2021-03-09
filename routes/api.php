@@ -28,6 +28,11 @@ Route::post('reset-password', [AuthController::class, 'resetPassword']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);
+
+    Route::apiResource('organizations', OrganizationController::class)->except('index')->whereUuid('organization');
+    Route::post('organizations/{organization}/logos', [OrganizationController::class, 'updateLogo'])->whereUuid('organization');
+    Route::delete('organizations/{organization}/logos', [OrganizationController::class, 'deleteLogo'])->whereUuid('organization');
+
     Route::get('classified_ads', [ClassifiedAdController::class, 'index']);
 });
 

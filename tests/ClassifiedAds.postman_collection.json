@@ -1,0 +1,677 @@
+{
+	"info": {
+		"_postman_id": "53efd4e3-609e-4c95-869e-7c820e35041a",
+		"name": "ClassifiedAds",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "register & login Copy",
+			"item": [
+				{
+					"name": "post register",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "Application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"first_name\": \"Marcel\",\r\n    \"last_name\": \"AMONT\",\r\n    \"email\": \"toto.toto@bosco.com\",\r\n    \"organization_id\": \"fb3bbad0-3824-4a23-b462-ebad9e5b1d3f\",\r\n    \"password\": \"azerty\",\r\n    \"password_confirmation\" : \"azerty\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{path}}/register",
+							"host": [
+								"{{path}}"
+							],
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post validate registration",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "Application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"toto.toto@bosco.com\",\r\n    \"email_verification_code\": \"kbhZoRtzHVSmtSFg\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{path}}/validate-registration",
+							"host": [
+								"{{path}}"
+							],
+							"path": [
+								"validate-registration"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;\r",
+									"\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"token\", jsonData.token);\r",
+									"\r",
+									"tests[\"Token is generated\"] = jsonData.hasOwnProperty('token');"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "Application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\" : \"toto.toto@bosco.com\",\r\n    \"password\" : \"azerty\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{path}}/login",
+							"host": [
+								"{{path}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post logout",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|IwkeBeFoQsF202cFOBPgUQsBdFNRMCiJzVmHYr1W",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "Application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\" : \"toto.toto@douglas.com\",\r\n    \"password\" : \"azerty\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{path}}/logout",
+							"host": [
+								"{{path}}"
+							],
+							"path": [
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post lost password",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "Application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\" : \"toto.toto@fadel.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{path}}/lost-password",
+							"host": [
+								"{{path}}"
+							],
+							"path": [
+								"lost-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post reset password",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "Application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"toto.toto@fadel.com\",\r\n    \"token\": \"e6SFJdI0DXfF1XSm\",\r\n    \"password\": \"azerty\",\r\n    \"password_confirmation\": \"azerty\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{path}}/reset-password",
+							"host": [
+								"{{path}}"
+							],
+							"path": [
+								"reset-password"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "organizations",
+			"item": [
+				{
+					"name": "photo of organization",
+					"item": [
+						{
+							"name": "organizations logo only",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {}
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										},
+										{
+											"key": "password",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "Application/json"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "logo_file",
+											"type": "file",
+											"src": "/C:/Users/Dominique/Pictures/CAT2003 is a set from my zone yes is a size group yes.png"
+										}
+									],
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{path}}/organizations/428902c3-a51c-4434-babf-db4c95f9b535/logos",
+									"host": [
+										"{{path}}"
+									],
+									"path": [
+										"organizations",
+										"428902c3-a51c-4434-babf-db4c95f9b535",
+										"logos"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "organizations logo",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {}
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										},
+										{
+											"key": "password",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "Application/json",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "{{path}}/organizations/428902c3-a51c-4434-babf-db4c95f9b535/logos",
+									"host": [
+										"{{path}}"
+									],
+									"path": [
+										"organizations",
+										"428902c3-a51c-4434-babf-db4c95f9b535",
+										"logos"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get organizations filtered",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{path}}/organizations?filter[name]=boul",
+							"host": [
+								"{{path}}"
+							],
+							"path": [
+								"organizations"
+							],
+							"query": [
+								{
+									"key": "filter[name]",
+									"value": "boul"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get organizations all",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{path}}/organizations",
+							"host": [
+								"{{path}}"
+							],
+							"path": [
+								"organizations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post organizations",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "Application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "logo_file",
+									"type": "file",
+									"src": "/C:/Users/Dominique/Downloads/logo_google.png"
+								},
+								{
+									"key": "name",
+									"value": "toto",
+									"type": "text"
+								},
+								{
+									"key": "contact",
+									"value": "contact",
+									"type": "text"
+								},
+								{
+									"key": "state_id",
+									"value": "VALIDATED",
+									"type": "text"
+								},
+								{
+									"key": "ads_max",
+									"value": "1234",
+									"type": "text"
+								},
+								{
+									"key": "comment",
+									"value": "comment",
+									"type": "text"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{path}}/organizations",
+							"host": [
+								"{{path}}"
+							],
+							"path": [
+								"organizations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "put organizations",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"mon organization moif\",\r\n    \"contact\" : \"contact name modif\",\r\n    \"comment\": \"comment comment comment modif\",\r\n    \"ads_max\" : 12345,\r\n    \"state_id\": \"VALIDATED\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{path}}/organizations/428902c3-a51c-4434-babf-db4c95f9b535",
+							"host": [
+								"{{path}}"
+							],
+							"path": [
+								"organizations",
+								"428902c3-a51c-4434-babf-db4c95f9b535"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "organizations",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{path}}/organizations/f62ef906-639c-438e-8cae-f129c81acf00",
+							"host": [
+								"{{path}}"
+							],
+							"path": [
+								"organizations",
+								"f62ef906-639c-438e-8cae-f129c81acf00"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "organizations",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "Application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"mon organization\",\r\n    \"contact\" : \"contact name\",\r\n    \"comment\": \"comment comment comment\",\r\n    \"ads_max\" : 10000,\r\n    \"state_id\": \"VALIDATED\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{path}}/organizations/f62ef906-639c-438e-8cae-f129c81acf00",
+							"host": [
+								"{{path}}"
+							],
+							"path": [
+								"organizations",
+								"f62ef906-639c-438e-8cae-f129c81acf00"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "GET classifiedAds",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "4|mU44ioNMrSrvfaxPbTZ6lGWF8mvlh0xdsUnzW8qZ",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{path}}/classified_ads?fields[classified_ads]=id,organization_id,title,description,created_at,category_id&fields[category]=id,name&filter[title]=archi&filter[description]=sunt&include=category",
+					"host": [
+						"{{path}}"
+					],
+					"path": [
+						"classified_ads"
+					],
+					"query": [
+						{
+							"key": "fields[classified_ads]",
+							"value": "id,organization_id,title,description,created_at,category_id"
+						},
+						{
+							"key": "fields[category]",
+							"value": "id,name"
+						},
+						{
+							"key": "filter[title]",
+							"value": "archi"
+						},
+						{
+							"key": "filter[description]",
+							"value": "sunt"
+						},
+						{
+							"key": "include",
+							"value": "category"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
