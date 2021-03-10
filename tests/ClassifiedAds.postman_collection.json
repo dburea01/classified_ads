@@ -614,6 +614,487 @@
 			]
 		},
 		{
+			"name": "domains",
+			"item": [
+				{
+					"name": "all domains",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{path}}/organizations/1a52ef80-9f9e-4172-9d8c-e63595ad3712/domains",
+							"host": [
+								"{{path}}"
+							],
+							"path": [
+								"organizations",
+								"1a52ef80-9f9e-4172-9d8c-e63595ad3712",
+								"domains"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "one domain",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{path}}/organizations/1a52ef80-9f9e-4172-9d8c-e63595ad3712/domains/e7e6149a-646c-4133-9ab7-9d22b3f216e0",
+							"host": [
+								"{{path}}"
+							],
+							"path": [
+								"organizations",
+								"1a52ef80-9f9e-4172-9d8c-e63595ad3712",
+								"domains",
+								"e7e6149a-646c-4133-9ab7-9d22b3f216e0"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "domain",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"domain name\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{path}}/organizations/1a52ef80-9f9e-4172-9d8c-e63595ad3712/domains",
+							"host": [
+								"{{path}}"
+							],
+							"path": [
+								"organizations",
+								"1a52ef80-9f9e-4172-9d8c-e63595ad3712",
+								"domains"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "domain",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"domain name modifié encore étt\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{path}}/organizations/1a52ef80-9f9e-4172-9d8c-e63595ad3712/domains/e7e6149a-646c-4133-9ab7-9d22b3f216e0",
+							"host": [
+								"{{path}}"
+							],
+							"path": [
+								"organizations",
+								"1a52ef80-9f9e-4172-9d8c-e63595ad3712",
+								"domains",
+								"e7e6149a-646c-4133-9ab7-9d22b3f216e0"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "domain",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"domain name modifié encore étt\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{path}}/organizations/1a52ef80-9f9e-4172-9d8c-e63595ad3712/domains/e7e6149a-646c-4133-9ab7-9d22b3f216e0",
+							"host": [
+								"{{path}}"
+							],
+							"path": [
+								"organizations",
+								"1a52ef80-9f9e-4172-9d8c-e63595ad3712",
+								"domains",
+								"e7e6149a-646c-4133-9ab7-9d22b3f216e0"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "domain",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "site-types",
+			"item": [
+				{
+					"name": "site-types",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{path}}/organizations/6a91080b-2cf7-4569-9a60-8e3e1da81ee4/site-types",
+							"host": [
+								"{{path}}"
+							],
+							"path": [
+								"organizations",
+								"6a91080b-2cf7-4569-9a60-8e3e1da81ee4",
+								"site-types"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get one site-type",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{path}}/organizations/6a91080b-2cf7-4569-9a60-8e3e1da81ee4/site-types/717873ed-fbd7-4d3a-8e50-5aef2fb684db",
+							"host": [
+								"{{path}}"
+							],
+							"path": [
+								"organizations",
+								"6a91080b-2cf7-4569-9a60-8e3e1da81ee4",
+								"site-types",
+								"717873ed-fbd7-4d3a-8e50-5aef2fb684db"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post site-types",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"site type name\",\r\n    \"state_id\": \"ACTIVE\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{path}}/organizations/6a91080b-2cf7-4569-9a60-8e3e1da81ee4/site-types",
+							"host": [
+								"{{path}}"
+							],
+							"path": [
+								"organizations",
+								"6a91080b-2cf7-4569-9a60-8e3e1da81ee4",
+								"site-types"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "put site-types",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"site type name modifie\",\r\n    \"state_id\": \"ACTIVE\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{path}}/organizations/6a91080b-2cf7-4569-9a60-8e3e1da81ee4/site-types/2129283c-a850-4665-b580-d028e0745c17",
+							"host": [
+								"{{path}}"
+							],
+							"path": [
+								"organizations",
+								"6a91080b-2cf7-4569-9a60-8e3e1da81ee4",
+								"site-types",
+								"2129283c-a850-4665-b580-d028e0745c17"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete site-types",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"site type name modifie\",\r\n    \"state_id\": \"ACTIVE\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{path}}/organizations/6a91080b-2cf7-4569-9a60-8e3e1da81ee4/site-types/2129283c-a850-4665-b580-d028e0745c17",
+							"host": [
+								"{{path}}"
+							],
+							"path": [
+								"organizations",
+								"6a91080b-2cf7-4569-9a60-8e3e1da81ee4",
+								"site-types",
+								"2129283c-a850-4665-b580-d028e0745c17"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "GET classifiedAds",
 			"request": {
 				"auth": {
