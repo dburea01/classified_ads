@@ -2,19 +2,34 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreSiteTypeRequest;
+use App\Http\Resources\SiteTypeResource;
+use App\Models\Organization;
 use App\Models\SiteType;
+use App\Policies\SiteTypePolicy;
+use App\Repositories\SiteTypeRepository;
 use Illuminate\Http\Request;
 
 class SiteTypeController extends Controller
 {
+    private $siteTypeRepository;
+
+    public function __construct(SiteTypeRepository $siteTypeRepository)
+    {
+        $this->siteTypeRepository = $siteTypeRepository;
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Organization $organization)
     {
-        //
+        $this->authorize('view', $organization);
+        $siteTypes = $this->siteTypeRepository->index($organization->id);
+
+        return SiteTypeResource::collection($siteTypes);
     }
 
     /**
@@ -23,9 +38,12 @@ class SiteTypeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreSiteTypeRequest $request, Organization $organization)
     {
-        //
+        $this->authorize('create', [SiteType::class, $organization]);
+        $siteType = $this->siteTypeRepository->insertSiteType($organization->id, $request->only(['name', 'state_id']));
+
+        return new SiteTypeResource($siteType);
     }
 
     /**
@@ -34,9 +52,11 @@ class SiteTypeController extends Controller
      * @param  \App\Models\SiteType  $siteType
      * @return \Illuminate\Http\Response
      */
-    public function show(SiteType $siteType)
+    public function show(Organization $organization, SiteType $siteType)
     {
-        //
+        $this->authorize('view', $organization);
+
+        return new SiteTypeResource($siteType);
     }
 
     /**
@@ -46,9 +66,12 @@ class SiteTypeController extends Controller
      * @param  \App\Models\SiteType  $siteType
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, SiteType $siteType)
+    public function update(StoreSiteTypeRequest $request, Organization $organization, SiteType $siteType)
     {
-        //
+        $this->authorize('update', [SiteType::class, $organization]);
+        $this->siteTypeRepository->updateSiteType($siteType, $request->only(['name', 'state_id']));
+
+        return new SiteTypeResource($siteType);
     }
 
     /**
@@ -57,8 +80,11 @@ class SiteTypeController extends Controller
      * @param  \App\Models\SiteType  $siteType
      * @return \Illuminate\Http\Response
      */
-    public function destroy(SiteType $siteType)
+    public function destroy(Organization $organization, SiteType $siteType)
     {
-        //
+        $this->authorize('delete', [SiteType::class, $organization]);
+        $this->siteTypeRepository->deleteSiteType($siteType);
+
+        return response()->noContent();
     }
 }

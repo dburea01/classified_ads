@@ -46,7 +46,8 @@ class OrganizationController extends Controller
             $this->processImage($organization, $request->logo_file);
         }
 
-        return new OrganizationResource($organization);
+        return (new OrganizationResource($organization))->response()->setStatusCode(201);
+        ;
     }
 
     /**
@@ -69,12 +70,13 @@ class OrganizationController extends Controller
      */
     public function update(StoreOrganizationRequest $request, Organization $organization)
     {
+        // dd($organization);
         $this->authorize('update', Organization::class);
 
-        $organizationUpdated = $this->organizationRepository->updateOrganization($organization, $request->only(['name', 'contact', 'comment', 'ads_max', 'state_id']));
+        $this->organizationRepository->updateOrganization($organization, $request->only(['name', 'contact', 'comment', 'ads_max', 'state_id']));
 
-        // return (new OrganizationResource($organizationUpdated))->response()->setStatusCode(200);
-        return new OrganizationResource($organizationUpdated);
+        return (new OrganizationResource($organization))->response()->setStatusCode(200);
+        // return new OrganizationResource($organization);
         // return response()->json($organizationUpdated);
     }
 

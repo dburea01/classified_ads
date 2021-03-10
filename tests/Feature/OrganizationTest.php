@@ -109,8 +109,9 @@ class OrganizationTest extends TestCase
             'ads_max' => 12345,
             'state_id' => 'VALIDATED'
         ];
-
-        $response = $this->json('PUT', $this->getUrl() . '/organizations/' . $organization->id, $organizationToModify);
+        // echo('avant appel' . $organization->id);
+        // $response = $this->json('PUT', $this->getUrl() . '/organizations/' . $organization->id, $organizationToModify);
+        $response = $this->put($this->getUrl() . '/organizations/' . $organization->id, $organizationToModify);
         // $response->dump();
         $response->assertStatus(200);
 

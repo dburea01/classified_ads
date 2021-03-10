@@ -3,6 +3,8 @@
 use App\Http\Controllers\ClassifiedAdController;
 use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DomainController;
+use App\Http\Controllers\SiteTypeController;
 use App\Http\Middleware\CheckBearerToken;
 use App\Http\Middleware\CheckXApiKey;
 use Illuminate\Support\Facades\Route;
@@ -33,6 +35,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('organizations/{organization}/logos', [OrganizationController::class, 'updateLogo'])->whereUuid('organization');
     Route::delete('organizations/{organization}/logos', [OrganizationController::class, 'deleteLogo'])->whereUuid('organization');
 
+    Route::apiResource('organizations/{organization}/domains', DomainController::class)->whereUuid(['organization', 'domain']);
+    Route::apiResource('organizations/{organization}/site-types', SiteTypeController::class)->whereUuid(['organization', 'site_type']);
     Route::get('classified_ads', [ClassifiedAdController::class, 'index']);
 });
 

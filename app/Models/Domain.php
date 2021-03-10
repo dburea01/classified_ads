@@ -34,6 +34,11 @@ class Domain extends Model
     // tell Eloquent that key is a string, not an integer
     protected $keyType = 'string';
 
+    protected $fillable = [
+        'organization_id',
+        'name'
+    ];
+
     public function organization()
     {
         return $this->belongsTo(Organization::class);
