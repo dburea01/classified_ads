@@ -25,14 +25,16 @@ class CreateSitesTable extends Migration
             $table->string('address3')->nullable();
             $table->string('zip_code')->nullable();
             $table->string('city');
-            $table->string('status');
+            $table->string('state_id');
+            $table->string('created_by')->nullable();
+            $table->string('updated_by')->nullable();
             $table->timestamps();
 
             $table->foreign('organization_id')->references('id')->on('organizations')->cascadeOnDelete();
             $table->foreign('country_id')->references('id')->on('countries')->nullOnDelete();
             $table->foreign('site_type_id')->references('id')->on('site_types')->nullOnDelete();
 
-            $table->unique(['id', 'internal_id']);
+            $table->unique(['organization_id', 'internal_id']);
         });
     }
 

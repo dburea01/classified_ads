@@ -24,13 +24,13 @@ trait Request
         ];
     }
     */
-    public function actingAsSuperAdmin(Organization $organization)
+    public function actingAsRole(string $roleId, string $organizationId = null)
     {
-        $superAdmin = User::factory()->create([
-            'organization_id' => $organization->id,
-            'role_id' => 'SUPERADMIN'
+        $user = User::factory()->create([
+            'organization_id' => $organizationId,
+            'role_id' => $roleId
         ]);
 
-        Sanctum::actingAs($superAdmin);
+        Sanctum::actingAs($user);
     }
 }

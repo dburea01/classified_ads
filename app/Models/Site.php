@@ -34,6 +34,20 @@ class Site extends Model
     // tell Eloquent that key is a string, not an integer
     protected $keyType = 'string';
 
+    protected $fillable = [
+        'organization_id',
+        'site_type_id',
+        'country_id',
+        'internal_id',
+        'name',
+        'address1',
+        'address2',
+        'address3',
+        'zip_code',
+        'city',
+        'state_id'
+    ];
+
     public function organization()
     {
         return $this->belongsTo(Organization::class);

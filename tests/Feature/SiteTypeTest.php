@@ -2,13 +2,9 @@
 
 namespace Tests\Feature;
 
-use App\Models\Domain;
 use App\Models\Organization;
 use App\Models\SiteType;
-use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
 
 class SiteTypeTest extends TestCase
@@ -19,7 +15,7 @@ class SiteTypeTest extends TestCase
     public function testPostSiteTypeWithErrors(): void
     {
         $organization = Organization::factory()->create();
-        $this->actingAsSuperAdmin($organization);
+        $this->actingAsRole('ADMIN', $organization->id);
 
         $response = $this->json('POST', $this->getUrl() . "/organizations/{$organization->id}/site-types");
 
@@ -33,7 +29,7 @@ class SiteTypeTest extends TestCase
     public function testPostSiteTypeOk(): void
     {
         $organization = Organization::factory()->create();
-        $this->actingAsSuperAdmin($organization);
+        $this->actingAsRole('ADMIN', $organization->id);
 
         $siteTypeToCreate = [
             'name' => 'domain name',
@@ -50,7 +46,7 @@ class SiteTypeTest extends TestCase
         $organization = Organization::factory()->create();
         $siteType = SiteType::factory()->create(['organization_id' => $organization->id]);
 
-        $this->actingAsSuperAdmin($organization);
+        $this->actingAsRole('ADMIN', $organization->id);
 
         $response = $this->json('PUT', $this->getUrl() . "/organizations/{$organization->id}/site-types/{$siteType->id}");
 
@@ -66,7 +62,7 @@ class SiteTypeTest extends TestCase
         $organization = Organization::factory()->create();
         $siteType = SiteType::factory()->create(['organization_id' => $organization->id]);
 
-        $this->actingAsSuperAdmin($organization);
+        $this->actingAsRole('ADMIN', $organization->id);
 
         $siteTypeToModify = [
             'name' => 'domain name modif',
@@ -83,7 +79,7 @@ class SiteTypeTest extends TestCase
         $organization = Organization::factory()->create();
         $siteTypes = SiteType::factory()->count(10)->create(['organization_id' => $organization->id]);
 
-        $this->actingAsSuperAdmin($organization);
+        $this->actingAsRole('ADMIN', $organization->id);
 
         $response = $this->json('GET', $this->getUrl() . "/organizations/{$organization->id}/site-types");
 
@@ -95,7 +91,7 @@ class SiteTypeTest extends TestCase
         $organization = Organization::factory()->create();
         $siteType = SiteType::factory()->create(['organization_id' => $organization->id]);
 
-        $this->actingAsSuperAdmin($organization);
+        $this->actingAsRole('ADMIN', $organization->id);
 
         $response = $this->json('GET', $this->getUrl() . "/organizations/{$organization->id}/site-types/{$siteType->id}");
 
@@ -107,7 +103,7 @@ class SiteTypeTest extends TestCase
         $organization = Organization::factory()->create();
         $siteType = SiteType::factory()->create(['organization_id' => $organization->id]);
 
-        $this->actingAsSuperAdmin($organization);
+        $this->actingAsRole('ADMIN', $organization->id);
 
         $response = $this->delete($this->getUrl() . "/organizations/{$organization->id}/site-types/{$siteType->id}");
 

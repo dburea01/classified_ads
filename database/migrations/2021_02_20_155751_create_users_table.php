@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 class CreateUsersTable extends Migration
@@ -15,7 +16,7 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->uuid('organization_id');
+            $table->uuid('organization_id')->nullable();
             $table->string('role_id');
             $table->string('state_id');
             $table->string('first_name');
@@ -33,6 +34,8 @@ class CreateUsersTable extends Migration
             $table->foreign('state_id')->references('id')->on('states')->cascadeOnUpdate();
             $table->unique(['organization_id', 'email']);
         });
+
+        DB::statement('ALTER TABLE users ADD CONSTRAINT check_is_super_admin CHECK ( (organization_id IS NULL AND role_id = \'SUPERADMIN\') OR (organization_id IS NOT NULL) )');
     }
 
     /**

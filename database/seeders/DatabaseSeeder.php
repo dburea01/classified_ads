@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
             CategoryGroupSeeder::class,
             CategorySeeder::class,
             UserSeeder::class,
-            SuperAdminSeeder::class,
+            // SuperAdminSeeder::class,
             SiteTypeSeeder::class,
             SiteSeeder::class,
             ClassifiedAdSeeder::class

@@ -4,16 +4,12 @@ namespace Tests\Feature;
 
 use App\Models\Domain;
 use App\Models\Organization;
-use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
 
 class DomainTest extends TestCase
 {
     use DatabaseTransactions;
-    // use WithoutMiddleware;
     use Request;
 
     /**
@@ -23,9 +19,8 @@ class DomainTest extends TestCase
      */
     public function testPostDomainWithoutBody(): void
     {
-        $this->actingAsSuperAdmin(Organization::factory()->create());
-
         $organization = Organization::factory()->create();
+        $this->actingAsRole('SUPERADMIN', $organization->id);
 
         $response = $this->json('POST', $this->getUrl() . '/organizations/' . $organization->id . '/domains');
 
@@ -38,7 +33,7 @@ class DomainTest extends TestCase
     public function testPostDomainOk(): void
     {
         $organization = Organization::factory()->create();
-        $this->actingAsSuperAdmin($organization);
+        $this->actingAsRole('SUPERADMIN', $organization->id);
 
         $domainToCreate = [
             'name' => 'domain name'
@@ -52,7 +47,7 @@ class DomainTest extends TestCase
     public function testPutDomainWithErrors()
     {
         $organization = Organization::factory()->create();
-        $this->actingAsSuperAdmin($organization);
+        $this->actingAsRole('SUPERADMIN', $organization->id);
 
         $response = $this->json('PUT', $this->getUrl() . '/organizations/' . $organization->id);
 
@@ -65,9 +60,8 @@ class DomainTest extends TestCase
     public function testPutDomainOk()
     {
         $organization = Organization::factory()->create();
+        $this->actingAsRole('SUPERADMIN', $organization->id);
         $domain = Domain::factory()->create(['organization_id' => $organization->id]);
-
-        $this->actingAsSuperAdmin($organization);
 
         $domainToModify = [
             'name' => 'domain name modif'
@@ -81,9 +75,8 @@ class DomainTest extends TestCase
     public function testGetDomain() : void
     {
         $organization = Organization::factory()->create();
+        $this->actingAsRole('SUPERADMIN', $organization->id);
         $domain = Domain::factory()->create(['organization_id' => $organization->id]);
-
-        $this->actingAsSuperAdmin($organization);
 
         $response = $this->get($this->getUrl() . "/organizations/{$organization->id}/domains/{$domain->id}");
 
@@ -93,9 +86,8 @@ class DomainTest extends TestCase
     public function testGetDomains() : void
     {
         $organization = Organization::factory()->create();
+        $this->actingAsRole('SUPERADMIN', $organization->id);
         Domain::factory()->count(10)->create(['organization_id' => $organization->id]);
-
-        $this->actingAsSuperAdmin($organization);
 
         $response = $this->get($this->getUrl() . "/organizations/{$organization->id}/domains");
 
@@ -105,9 +97,8 @@ class DomainTest extends TestCase
     public function testDeleteDomain() :void
     {
         $organization = Organization::factory()->create();
+        $this->actingAsRole('SUPERADMIN', $organization->id);
         $domain = Domain::factory()->create(['organization_id' => $organization->id]);
-
-        $this->actingAsSuperAdmin($organization);
 
         $response = $this->delete($this->getUrl() . "/organizations/{$organization->id}/domains/{$domain->id}");
 

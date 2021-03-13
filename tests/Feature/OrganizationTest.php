@@ -5,14 +5,12 @@ namespace Tests\Feature;
 use App\Models\Organization;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
 
 class OrganizationTest extends TestCase
 {
     use DatabaseTransactions;
-    use WithoutMiddleware;
     use Request;
 
     /**
@@ -22,7 +20,8 @@ class OrganizationTest extends TestCase
      */
     public function testPostOrganizationWithoutBody(): void
     {
-        // $response = $this->post($this->getUrl() . '/organizations');
+        $this->actingAsRole('SUPERADMIN', null);
+
         $response = $this->json('POST', $this->getUrl() . '/organizations');
 
         $response->assertStatus(422)
@@ -35,6 +34,8 @@ class OrganizationTest extends TestCase
 
     public function testPostOrganizationWithErrors(): void
     {
+        $this->actingAsRole('SUPERADMIN', null);
+
         $response = $this->json('POST', $this->getUrl() . '/organizations', [
             'name' => 'a',
             'contact' => '',
@@ -51,6 +52,8 @@ class OrganizationTest extends TestCase
 
     public function testPostOrganizationOk(): void
     {
+        $this->actingAsRole('SUPERADMIN', null);
+
         $organization = Organization::factory()->create();
         $superAdmin = User::factory()->create([
             'organization_id' => $organization->id,
@@ -79,6 +82,8 @@ class OrganizationTest extends TestCase
 
     public function testPutOrganizationWithErrors()
     {
+        $this->actingAsRole('SUPERADMIN', null);
+
         $organization = Organization::factory()->create();
 
         $response = $this->json('PUT', $this->getUrl() . '/organizations/' . $organization->id);
@@ -93,14 +98,9 @@ class OrganizationTest extends TestCase
 
     public function testPutOrganizationOk()
     {
+        $this->actingAsRole('SUPERADMIN', null);
+
         $organization = Organization::factory()->create();
-
-        $superAdmin = User::factory()->create([
-            'organization_id' => $organization->id,
-            'role_id' => 'SUPERADMIN'
-        ]);
-
-        Sanctum::actingAs($superAdmin);
 
         $organizationToModify = [
             'name' => 'mon organization moif',
@@ -114,42 +114,21 @@ class OrganizationTest extends TestCase
         $response = $this->put($this->getUrl() . '/organizations/' . $organization->id, $organizationToModify);
         // $response->dump();
         $response->assertStatus(200);
-
-        /*
-        ->assertJson([
-            'data' => [
-                'id' => $organization->id,
-                'name' => $organizationToModify['name'],
-                'contact' => $organizationToModify['contact'],
-                'comment' => $organizationToModify['comment'],
-                'ads_max' => $organizationToModify['ads_max'],
-                'state_id' => $organizationToModify['state_id'],
-            ]
-        ]);
-        */
     }
 
     public function testGetOrganization() : void
     {
+        $this->actingAsRole('SUPERADMIN', null);
         $organization = Organization::factory()->create();
 
-        $response = $this->get($this->getUrl() . '/organizations/' . $organization->id);
+        $response = $this->json('GET', $this->getUrl() . '/organizations/' . $organization->id);
         // $response->dump();
         $response->assertStatus(200);
-
-        /*
-        $response->assertJson([
-            'data' => [
-                'id' => $organization->id,
-                'name' => $organization->name
-            ]
-        ]);
-        */
     }
 
     public function testGetOrganizations() : void
     {
-        $organization = Organization::factory()->create();
+        $organizations = Organization::factory()->count(10)->create();
 
         $response = $this->get($this->getUrl() . '/organizations/');
 
@@ -158,14 +137,10 @@ class OrganizationTest extends TestCase
 
     public function testDeleteOrganization() :void
     {
+        $this->actingAsRole('SUPERADMIN', null);
+
         $organization = Organization::factory()->create();
 
-        $superAdmin = User::factory()->create([
-            'organization_id' => $organization->id,
-            'role_id' => 'SUPERADMIN'
-        ]);
-
-        Sanctum::actingAs($superAdmin);
         $response = $this->json('DELETE', $this->getUrl() . '/organizations/' . $organization->id);
 
         $response->assertStatus(204);

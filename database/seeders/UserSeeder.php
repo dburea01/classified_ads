@@ -19,7 +19,7 @@ class UserSeeder extends Seeder
         $organizations = Organization::all();
 
         foreach ($organizations as $organization) {
-            User::factory()->count(random_int(10, 100))->create([
+            User::factory()->count(random_int(1, 10))->create([
                 'organization_id' => $organization->id,
                 'role_id' => 'EMPLOYEE'
             ]);
@@ -29,5 +29,9 @@ class UserSeeder extends Seeder
                 'role_id' => 'ADMIN',
             ]);
         }
+
+        User::factory()->create([
+            'role_id' => 'SUPERADMIN',
+        ]);
     }
 }
