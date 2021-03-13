@@ -12,6 +12,23 @@ use Spatie\QueryBuilder\QueryBuilder;
 
 class UserRepository
 {
+    public function index(String $organizationId)
+    {
+        $users = QueryBuilder::for(User::class)
+        ->allowedFilters([
+            AllowedFilter::partial('first_name'),
+            AllowedFilter::partial('last_name'),
+            AllowedFilter::partial('email'),
+            AllowedFilter::exact('state_id')
+        ])
+        ->allowedFields(['id', 'organization_id', 'first_name', 'last_name', 'email'])
+        ->allowedSorts('first_name', 'last_name', 'email')
+        ->where('organization_id', $organizationId)
+        ->defaultSort('last_name');
+
+        return $users->paginate(10)->appends(request()->query());
+    }
+
     public function insert(array $data)
     {
         $user = new User();
@@ -23,6 +40,19 @@ class UserRepository
         $user->save();
 
         return $user;
+    }
+
+    public function update(User $user, array $data)
+    {
+        $user->fill($data);
+        $user->save();
+
+        return $user;
+    }
+
+    public function delete(string $organizationId, $userId)
+    {
+        User::where('organization_id', $organizationId)->where('id', $userId)->delete();
     }
 
     public function changePassword(User $user, string $password)

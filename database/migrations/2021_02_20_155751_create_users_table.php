@@ -26,7 +26,7 @@ class CreateUsersTable extends Migration
             $table->string('email_verification_code');
             $table->dateTime('email_verified_at')->nullable();
             $table->string('created_by')->nullable();
-            $table->string('upated_by')->nullable();
+            $table->string('updated_by')->nullable();
             $table->timestamps();
 
             $table->foreign('organization_id')->references('id')->on('organizations')->cascadeOnDelete();

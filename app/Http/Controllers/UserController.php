@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreUserRequest;
 use App\Http\Resources\UserResource;
+use App\Models\Organization;
 use App\Models\User;
 use App\Repositories\UserRepository;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
+use PhpParser\ErrorHandler\Collecting;
 
 class UserController extends Controller
 {
@@ -21,8 +25,12 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Organization $organization)
     {
+        $this->authorize('viewAny', [User::class, $organization]);
+        $users = $this->userRepository->index($organization->id);
+
+        return UserResource::collection($users);
     }
 
     /**
@@ -41,8 +49,11 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show(Organization $organization, User $user)
     {
+        $this->authorize('view', [User::class, $organization]);
+
+        return new Collection($user);
     }
 
     /**
@@ -52,8 +63,13 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(StoreUserRequest $request, Organization $organization, User $user)
     {
+        $this->authorize('update', [User::class, $organization]);
+
+        $this->userRepository->update($user, $request->only(['first_name', 'last_name', 'role_id', 'state_id', 'email']));
+
+        return new Collection($user);
     }
 
     /**
@@ -62,7 +78,12 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy(Organization $organization, User $user)
     {
+        $this->authorize('delete', [User::class, $organization]);
+
+        $this->userRepository->delete($organization->id, $user->id);
+
+        return response()->noContent();
     }
 }

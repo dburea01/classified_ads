@@ -41,7 +41,14 @@ class User extends Authenticatable
         'email',
         'first_name',
         'last_name',
-        'organization_id'
+        'organization_id',
+        'role_id',
+        'state_id',
+    ];
+
+    protected $hidden = [
+        'password',
+        'email_verification_code'
     ];
 
     public function organisation()
