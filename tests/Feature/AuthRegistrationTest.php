@@ -79,7 +79,7 @@ class AuthRegistrationTest extends TestCase
         $user = User::factory()->create([
             'organization_id' => $organization->id,
             'role_id' => 'EMPLOYEE',
-            'state_id' => 'VALIDATED'
+            'user_state_id' => 'VALIDATED'
         ]);
 
         $response = $this->postJson($this->getUrl() . '/register', [
@@ -130,7 +130,7 @@ class AuthRegistrationTest extends TestCase
         $this->assertEquals($userToRegister['last_name'], $userRegistred->last_name);
         $this->assertEquals($userToRegister['email'], $userRegistred->email);
         $this->assertEquals($organization->id, $userRegistred->organization_id);
-        $this->assertEquals($userRegistred->state_id, 'CREATED');
+        $this->assertEquals($userRegistred->user_state_id, 'CREATED');
         $this->assertEquals($userRegistred->role_id, 'EMPLOYEE');
 
         Notification::assertSentTo($userRegistred, SendEmailValidateUser::class);

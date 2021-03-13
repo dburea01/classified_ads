@@ -67,7 +67,7 @@ class UserController extends Controller
     {
         $this->authorize('update', [User::class, $organization]);
 
-        $this->userRepository->update($user, $request->only(['first_name', 'last_name', 'role_id', 'state_id', 'email']));
+        $this->userRepository->update($user, $request->only(['first_name', 'last_name', 'role_id', 'user_state_id', 'email']));
 
         return new Collection($user);
     }

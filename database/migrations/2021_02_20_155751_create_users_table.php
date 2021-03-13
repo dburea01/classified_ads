@@ -18,7 +18,7 @@ class CreateUsersTable extends Migration
             $table->uuid('id')->primary();
             $table->uuid('organization_id')->nullable();
             $table->string('role_id');
-            $table->string('state_id');
+            $table->string('user_state_id');
             $table->string('first_name');
             $table->string('last_name');
             $table->string('email');
@@ -31,7 +31,7 @@ class CreateUsersTable extends Migration
 
             $table->foreign('organization_id')->references('id')->on('organizations')->cascadeOnDelete();
             $table->foreign('role_id')->references('id')->on('roles')->cascadeOnUpdate();
-            $table->foreign('state_id')->references('id')->on('states')->cascadeOnUpdate();
+            $table->foreign('user_state_id')->references('id')->on('user_states')->cascadeOnUpdate();
             $table->unique(['organization_id', 'email']);
         });
 

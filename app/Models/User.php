@@ -43,7 +43,7 @@ class User extends Authenticatable
         'last_name',
         'organization_id',
         'role_id',
-        'state_id',
+        'user_state_id',
     ];
 
     protected $hidden = [

@@ -30,7 +30,6 @@ class StoreUserRequest extends FormRequest
             'last_name' => 'required',
             'first_name' => 'required',
             'email' => [
-                'required',
                 'email',
                 Rule::unique('users', 'email')->where(function ($query) {
                     return $query->where('organization_id', $this->route('organization')->id);
@@ -38,7 +37,7 @@ class StoreUserRequest extends FormRequest
             ],
             'coherence_organization_user' => new CheckOrganizationDomain($this->route('organization')->id, $this->route('user')->id),
             'role_id' => 'required|in:EMPLOYEE,ADMIN',
-            'state_id' => 'required|exists:states,id'
+            'user_state_id' => 'required|exists:user_states,id'
         ];
     }
 

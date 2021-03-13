@@ -26,7 +26,7 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'state_id' => $this->faker->boolean(90) ? 'VALIDATED' : 'CREATED',
+            'user_state_id' => $this->faker->boolean(90) ? 'VALIDATED' : 'CREATED',
             'first_name' => $this->faker->firstName(),
             'last_name' => $this->faker->lastName(),
             'email' => $this->faker->unique()->safeEmail,

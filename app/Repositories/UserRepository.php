@@ -19,9 +19,9 @@ class UserRepository
             AllowedFilter::partial('first_name'),
             AllowedFilter::partial('last_name'),
             AllowedFilter::partial('email'),
-            AllowedFilter::exact('state_id')
+            AllowedFilter::exact('user_state_id')
         ])
-        ->allowedFields(['id', 'organization_id', 'first_name', 'last_name', 'email'])
+        ->allowedFields(['id', 'organization_id', 'first_name', 'last_name', 'email', 'user_state_id'])
         ->allowedSorts('first_name', 'last_name', 'email')
         ->where('organization_id', $organizationId)
         ->defaultSort('last_name');
@@ -35,7 +35,7 @@ class UserRepository
         $user->fill($data);
         $user->password = Hash::make($data['password']);
         $user->email_verification_code = Str::random();
-        $user->state_id = 'CREATED';
+        $user->user_state_id = 'CREATED';
         $user->role_id = 'EMPLOYEE';
         $user->save();
 
@@ -63,17 +63,17 @@ class UserRepository
         ]);
     }
 
-    public function changeUserState(User $user, string $stateId)
+    public function changeUserState(User $user, string $userStateId)
     {
         User::where('id', $user->id)
-        ->update(['state_id' => $stateId]);
+        ->update(['user_state_id' => $userStateId]);
     }
 
     public function validateUser(User $user)
     {
         User::where('id', $user->id)
         ->update([
-            'state_id' => 'VALIDATED',
+            'user_state_id' => 'VALIDATED',
             'email_verified_at' => now()
         ]);
     }

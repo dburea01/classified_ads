@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\State;
 use Illuminate\Http\Request;
 
-class StateController extends Controller
+class UserStateController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,6 @@ class StateController extends Controller
      */
     public function index()
     {
-        //
     }
 
     /**
@@ -24,7 +23,6 @@ class StateController extends Controller
      */
     public function create()
     {
-        //
     }
 
     /**
@@ -35,7 +33,6 @@ class StateController extends Controller
      */
     public function store(Request $request)
     {
-        //
     }
 
     /**
@@ -46,7 +43,6 @@ class StateController extends Controller
      */
     public function show(State $state)
     {
-        //
     }
 
     /**
@@ -57,7 +53,6 @@ class StateController extends Controller
      */
     public function edit(State $state)
     {
-        //
     }
 
     /**
@@ -69,7 +64,6 @@ class StateController extends Controller
      */
     public function update(Request $request, State $state)
     {
-        //
     }
 
     /**
@@ -80,6 +74,5 @@ class StateController extends Controller
      */
     public function destroy(State $state)
     {
-        //
     }
 }
