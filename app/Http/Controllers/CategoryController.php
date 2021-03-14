@@ -2,19 +2,34 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreCategoryRequest;
+use App\Http\Resources\CategoryResource;
 use App\Models\Category;
+use App\Models\Organization;
+use App\Repositories\CategoryRepository;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
+    private $categoryRepository;
+
+    public function __construct(CategoryRepository $categoryRepository)
+    {
+        $this->categoryRepository = $categoryRepository;
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Organization $organization)
     {
-        //
+        $this->authorize('viewAny', [Category::class, $organization]);
+        $categories = $this->categoryRepository->index($organization->id);
+
+        return CategoryResource::collection($categories);
     }
 
     /**
@@ -23,9 +38,12 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreCategoryRequest $request, Organization $organization)
     {
-        //
+        $this->authorize('create', [Category::class, $organization]);
+        $category = $this->categoryRepository->insert($request->only(['category_group_id', 'name', 'position', 'state_id']));
+
+        return new CategoryResource($category);
     }
 
     /**
@@ -34,9 +52,11 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show(Organization $organization, Category $category)
     {
-        //
+        $this->authorize('view', [Category::class, $organization]);
+
+        return new CategoryResource($category);
     }
 
     /**
@@ -46,9 +66,12 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(StoreCategoryRequest $request, Organization $organization, Category $category)
     {
-        //
+        $this->authorize('update', [Category::class, $organization]);
+        $this->categoryRepository->update($category, $request->only(['category_group_id', 'name', 'position', 'state_id']));
+
+        return new Collection($category);
     }
 
     /**
@@ -57,8 +80,11 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy(Organization $organization, Category $category)
     {
-        //
+        $this->authorize('delete', [Category::class, $organization]);
+        $this->categoryRepository->delete($category);
+
+        return response()->noContent();
     }
 }

@@ -504,7 +504,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"mon organization moif\",\r\n    \"contact\" : \"contact name modif\",\r\n    \"comment\": \"comment comment comment modif\",\r\n    \"ads_max\" : 12345,\r\n    \"state_id\": \"VALIDATED\"\r\n}",
+							"raw": "{\r\n    \"name\": \"mon organization tutuy\",\r\n    \"contact\" : \"contact name modif\",\r\n    \"comment\": \"comment comment comment modif\",\r\n    \"ads_max\" : 12345,\r\n    \"state_id\": \"VALIDATED\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -733,13 +733,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{path}}/organizations/1a52ef80-9f9e-4172-9d8c-e63595ad3712/domains",
+							"raw": "{{path}}/organizations/f85d637c-84b3-4979-8eeb-7eddb67ca16e/domains",
 							"host": [
 								"{{path}}"
 							],
 							"path": [
 								"organizations",
-								"1a52ef80-9f9e-4172-9d8c-e63595ad3712",
+								"f85d637c-84b3-4979-8eeb-7eddb67ca16e",
 								"domains"
 							]
 						}
@@ -782,15 +782,15 @@
 							}
 						},
 						"url": {
-							"raw": "{{path}}/organizations/1a52ef80-9f9e-4172-9d8c-e63595ad3712/domains/e7e6149a-646c-4133-9ab7-9d22b3f216e0",
+							"raw": "{{path}}/organizations/bd568584-7420-4d97-b3f9-834cada8e9d8/domains/2d4fb3ef-3a5a-47f9-bbf4-3126d63be014",
 							"host": [
 								"{{path}}"
 							],
 							"path": [
 								"organizations",
-								"1a52ef80-9f9e-4172-9d8c-e63595ad3712",
+								"bd568584-7420-4d97-b3f9-834cada8e9d8",
 								"domains",
-								"e7e6149a-646c-4133-9ab7-9d22b3f216e0"
+								"2d4fb3ef-3a5a-47f9-bbf4-3126d63be014"
 							]
 						}
 					},
@@ -889,13 +889,13 @@
 							}
 						],
 						"url": {
-							"raw": "{{path}}/organizations/6a91080b-2cf7-4569-9a60-8e3e1da81ee4/site-types",
+							"raw": "{{path}}/organizations/509bf4f6-d5e2-4638-940e-f42ae3a1cdfb/site-types",
 							"host": [
 								"{{path}}"
 							],
 							"path": [
 								"organizations",
-								"6a91080b-2cf7-4569-9a60-8e3e1da81ee4",
+								"509bf4f6-d5e2-4638-940e-f42ae3a1cdfb",
 								"site-types"
 							]
 						}
@@ -929,15 +929,15 @@
 							}
 						],
 						"url": {
-							"raw": "{{path}}/organizations/6a91080b-2cf7-4569-9a60-8e3e1da81ee4/site-types/717873ed-fbd7-4d3a-8e50-5aef2fb684db",
+							"raw": "{{path}}/organizations/509bf4f6-d5e2-4638-940e-f42ae3a1cdfb/site-types/47bd0798-e667-41c0-a062-62b49ec90088",
 							"host": [
 								"{{path}}"
 							],
 							"path": [
 								"organizations",
-								"6a91080b-2cf7-4569-9a60-8e3e1da81ee4",
+								"509bf4f6-d5e2-4638-940e-f42ae3a1cdfb",
 								"site-types",
-								"717873ed-fbd7-4d3a-8e50-5aef2fb684db"
+								"47bd0798-e667-41c0-a062-62b49ec90088"
 							]
 						}
 					},
@@ -1087,6 +1087,1021 @@
 								"6a91080b-2cf7-4569-9a60-8e3e1da81ee4",
 								"site-types",
 								"2129283c-a850-4665-b580-d028e0745c17"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "sites",
+			"item": [
+				{
+					"name": "get sites of one organization",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{path}}/organizations/24ddc30f-d19b-4e92-820e-c9ec3a674076/sites",
+							"host": [
+								"{{path}}"
+							],
+							"path": [
+								"organizations",
+								"24ddc30f-d19b-4e92-820e-c9ec3a674076",
+								"sites"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get sites of one organization filtered",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{path}}/organizations/3b75924b-6e74-4c7e-bb8c-e839c3a8d03e/sites?fields[sites]=id,name,site_type_id",
+							"host": [
+								"{{path}}"
+							],
+							"path": [
+								"organizations",
+								"3b75924b-6e74-4c7e-bb8c-e839c3a8d03e",
+								"sites"
+							],
+							"query": [
+								{
+									"key": "fields[sites]",
+									"value": "id,name,site_type_id"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get 1 site of 1 organization",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{path}}/organizations/3b75924b-6e74-4c7e-bb8c-e839c3a8d03e/sites/dd5b41eb-1921-40e3-9829-e511c49113db",
+							"host": [
+								"{{path}}"
+							],
+							"path": [
+								"organizations",
+								"3b75924b-6e74-4c7e-bb8c-e839c3a8d03e",
+								"sites",
+								"dd5b41eb-1921-40e3-9829-e511c49113db"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post site",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"site_type_id\": \"4763da1a-43bf-4161-9db1-144350c617c1\",\r\n    \"country_id\": \"FR\",\r\n    \"internal_id\": \"turlututudf\",\r\n    \"name\": \"site name\",\r\n    \"address1\": \"line1\",\r\n    \"address2\": \"line2\",\r\n    \"address3\" : \"line3\",\r\n    \"zip_code\": \"59320\",\r\n    \"city\": \"city\",\r\n    \"state_id\": \"ACTIVE\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{path}}/organizations/24ddc30f-d19b-4e92-820e-c9ec3a674076/sites",
+							"host": [
+								"{{path}}"
+							],
+							"path": [
+								"organizations",
+								"24ddc30f-d19b-4e92-820e-c9ec3a674076",
+								"sites"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "put site",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"site_type_id\": \"4763da1a-43bf-4161-9db1-144350c617c1\",\r\n    \"country_id\": \"BE\",\r\n    \"internal_id\": \"turlututudf\",\r\n    \"name\": \"site name modif\",\r\n    \"address1\": \"line1 dfgdf\",\r\n    \"address2\": \"line2 dfgdg\",\r\n    \"address3\" : \"line3dd df\",\r\n    \"zip_code\": \"5932 sdfs d fg0\",\r\n    \"city\": \"ci dfg gty\",\r\n    \"state_id\": \"ACTIVE\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{path}}/organizations/24ddc30f-d19b-4e92-820e-c9ec3a674076/sites/fabe0594-ac5f-400a-9ddd-bce726ea8fd5",
+							"host": [
+								"{{path}}"
+							],
+							"path": [
+								"organizations",
+								"24ddc30f-d19b-4e92-820e-c9ec3a674076",
+								"sites",
+								"fabe0594-ac5f-400a-9ddd-bce726ea8fd5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete site",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"site_type_id\": \"4763da1a-43bf-4161-9db1-144350c617c1\",\r\n    \"country_id\": \"BE\",\r\n    \"internal_id\": \"turlututudf\",\r\n    \"name\": \"site name modif\",\r\n    \"address1\": \"line1 dfgdf\",\r\n    \"address2\": \"line2 dfgdg\",\r\n    \"address3\" : \"line3dd df\",\r\n    \"zip_code\": \"5932 sdfs d fg0\",\r\n    \"city\": \"ci dfg gty\",\r\n    \"state_id\": \"ACTIVE\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{path}}/organizations/24ddc30f-d19b-4e92-820e-c9ec3a674076/sites/fabe0594-ac5f-400a-9ddd-bce726ea8fd5",
+							"host": [
+								"{{path}}"
+							],
+							"path": [
+								"organizations",
+								"24ddc30f-d19b-4e92-820e-c9ec3a674076",
+								"sites",
+								"fabe0594-ac5f-400a-9ddd-bce726ea8fd5"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "get users",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{path}}/organizations/cdf16692-bb13-4058-9658-295537c5d310/users",
+							"host": [
+								"{{path}}"
+							],
+							"path": [
+								"organizations",
+								"cdf16692-bb13-4058-9658-295537c5d310",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get users filtered",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{path}}/organizations/cdf16692-bb13-4058-9658-295537c5d310/users?fields[users]=id,last_name&filter[last_name]=k&sort=-last_name",
+							"host": [
+								"{{path}}"
+							],
+							"path": [
+								"organizations",
+								"cdf16692-bb13-4058-9658-295537c5d310",
+								"users"
+							],
+							"query": [
+								{
+									"key": "fields[users]",
+									"value": "id,last_name"
+								},
+								{
+									"key": "filter[last_name]",
+									"value": "k"
+								},
+								{
+									"key": "sort",
+									"value": "-last_name"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{path}}/organizations/cdf16692-bb13-4058-9658-295537c5d310/users/16e6b7fe-3fca-47ff-9d6d-c2a9f860258a",
+							"host": [
+								"{{path}}"
+							],
+							"path": [
+								"organizations",
+								"cdf16692-bb13-4058-9658-295537c5d310",
+								"users",
+								"16e6b7fe-3fca-47ff-9d6d-c2a9f860258a"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "put user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"last_name\": \"name modif\",\r\n    \"first_name\": \"prenom modif\",\r\n    \"email\": \"email.email@emeil.fr\",\r\n    \"role_id\": \"ADMIN\",\r\n    \"state_id\": \"VALIDATED\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{path}}/organizations/cdf16692-bb13-4058-9658-295537c5d310/users/8ee708a0-8eb0-491c-b064-700b4f22552f",
+							"host": [
+								"{{path}}"
+							],
+							"path": [
+								"organizations",
+								"cdf16692-bb13-4058-9658-295537c5d310",
+								"users",
+								"8ee708a0-8eb0-491c-b064-700b4f22552f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"last_name\": \"name modif\",\r\n    \"first_name\": \"prenom modif\",\r\n    \"email\": \"email.email@emeil.fr\",\r\n    \"role_id\": \"ADMIN\",\r\n    \"state_id\": \"VALIDATED\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{path}}/organizations/cdf16692-bb13-4058-9658-295537c5d310/users/16e6b7fe-3fca-47ff-9d6d-c2a9f860258a",
+							"host": [
+								"{{path}}"
+							],
+							"path": [
+								"organizations",
+								"cdf16692-bb13-4058-9658-295537c5d310",
+								"users",
+								"16e6b7fe-3fca-47ff-9d6d-c2a9f860258a"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "category_groups",
+			"item": [
+				{
+					"name": "Get category groups of an organization",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "aplication/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{path}}/organizations/afc72b17-6bc7-49bf-9310-54aa956b9a5d/category-groups?filter[state_id]=ACTIVE&fields[category_groups]=id,position,name&sort=position",
+							"host": [
+								"{{path}}"
+							],
+							"path": [
+								"organizations",
+								"afc72b17-6bc7-49bf-9310-54aa956b9a5d",
+								"category-groups"
+							],
+							"query": [
+								{
+									"key": "filter[state_id]",
+									"value": "ACTIVE"
+								},
+								{
+									"key": "fields[category_groups]",
+									"value": "id,position,name"
+								},
+								{
+									"key": "sort",
+									"value": "position"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get 1 category group of an organization",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "aplication/json"
+							}
+						],
+						"url": {
+							"raw": "{{path}}/organizations/1b7fb52b-9664-4fbf-95c6-8b8a3851af09/category-groups/d044476a-afac-45a4-94bd-e259810a5dce",
+							"host": [
+								"{{path}}"
+							],
+							"path": [
+								"organizations",
+								"1b7fb52b-9664-4fbf-95c6-8b8a3851af09",
+								"category-groups",
+								"d044476a-afac-45a4-94bd-e259810a5dce"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post category group",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"mon nom de category group\",\r\n    \"position\": \"4\",\r\n    \"state_id\": \"ACTIVE\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{path}}/organizations/1b7fb52b-9664-4fbf-95c6-8b8a3851af09/category-groups",
+							"host": [
+								"{{path}}"
+							],
+							"path": [
+								"organizations",
+								"1b7fb52b-9664-4fbf-95c6-8b8a3851af09",
+								"category-groups"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "put category group",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"mon nom de category group modif\",\r\n    \"position\": \"56\",\r\n    \"state_id\": \"INACTIVE\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{path}}/organizations/1b7fb52b-9664-4fbf-95c6-8b8a3851af09/category-groups/f0e6b8bd-ba88-4bc8-8688-d9f2b684cc78",
+							"host": [
+								"{{path}}"
+							],
+							"path": [
+								"organizations",
+								"1b7fb52b-9664-4fbf-95c6-8b8a3851af09",
+								"category-groups",
+								"f0e6b8bd-ba88-4bc8-8688-d9f2b684cc78"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete category group",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"mon nom de category group modif\",\r\n    \"position\": \"56\",\r\n    \"state_id\": \"INACTIVE\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{path}}/organizations/afc72b17-6bc7-49bf-9310-54aa956b9a5d/category-groups/48c653ae-7f82-457c-bf5c-c5892ba7a769",
+							"host": [
+								"{{path}}"
+							],
+							"path": [
+								"organizations",
+								"afc72b17-6bc7-49bf-9310-54aa956b9a5d",
+								"category-groups",
+								"48c653ae-7f82-457c-bf5c-c5892ba7a769"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "categories",
+			"item": [
+				{
+					"name": "Get categories",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{path}}/organizations/afc72b17-6bc7-49bf-9310-54aa956b9a5d/categories?sort=categories.position&filter[category_groups.id]=22a4d073-9135-40c2-8a48-d5be37c047cd",
+							"host": [
+								"{{path}}"
+							],
+							"path": [
+								"organizations",
+								"afc72b17-6bc7-49bf-9310-54aa956b9a5d",
+								"categories"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "categories.position"
+								},
+								{
+									"key": "filter[category_groups.id]",
+									"value": "22a4d073-9135-40c2-8a48-d5be37c047cd"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get category",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{path}}/organizations/afc72b17-6bc7-49bf-9310-54aa956b9a5d/categories/99d1ad90-8e86-40ca-895b-d016a043c44b",
+							"host": [
+								"{{path}}"
+							],
+							"path": [
+								"organizations",
+								"afc72b17-6bc7-49bf-9310-54aa956b9a5d",
+								"categories",
+								"99d1ad90-8e86-40ca-895b-d016a043c44b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post category",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"category_group_id\": \"22a4d073-9135-40c2-8a48-d5be37c047cd\",\r\n    \"name\": \"category name\",\r\n    \"state_id\": \"ACTIVE\",\r\n    \"position\" : \"12\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{path}}/organizations/afc72b17-6bc7-49bf-9310-54aa956b9a5d/categories",
+							"host": [
+								"{{path}}"
+							],
+							"path": [
+								"organizations",
+								"afc72b17-6bc7-49bf-9310-54aa956b9a5d",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "put category",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"category_group_id\": \"22a4d073-9135-40c2-8a48-d5be37c047cd\",\r\n    \"name\": \"category name modif\",\r\n    \"state_id\": \"ACTIVE\",\r\n    \"position\" : \"14562\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{path}}/organizations/afc72b17-6bc7-49bf-9310-54aa956b9a5d/categories/84b78a49-dd40-47af-be20-06ce175e5c88",
+							"host": [
+								"{{path}}"
+							],
+							"path": [
+								"organizations",
+								"afc72b17-6bc7-49bf-9310-54aa956b9a5d",
+								"categories",
+								"84b78a49-dd40-47af-be20-06ce175e5c88"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete category",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"category_group_id\": \"22a4d073-9135-40c2-8a48-d5be37c047cd\",\r\n    \"name\": \"category name modif\",\r\n    \"state_id\": \"ACTIVE\",\r\n    \"position\" : \"14562\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{path}}/organizations/afc72b17-6bc7-49bf-9310-54aa956b9a5d/categories/84b78a49-dd40-47af-be20-06ce175e5c88",
+							"host": [
+								"{{path}}"
+							],
+							"path": [
+								"organizations",
+								"afc72b17-6bc7-49bf-9310-54aa956b9a5d",
+								"categories",
+								"84b78a49-dd40-47af-be20-06ce175e5c88"
 							]
 						}
 					},

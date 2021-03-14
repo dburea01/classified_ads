@@ -35,6 +35,15 @@ class Category extends Model
     // tell Eloquent that key is a string, not an integer
     protected $keyType = 'string';
 
+    protected $table = 'categories';
+
+    protected $fillable = [
+        'category_group_id',
+        'name',
+        'position',
+        'state_id'
+    ];
+
     public function category_group()
     {
         return $this->belongsTo(CategoryGroup::class);

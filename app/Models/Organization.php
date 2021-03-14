@@ -56,7 +56,10 @@ class Organization extends Model
 
     public function categories()
     {
-        return $this->hasManyThrough(Category::class, CategoryGroup::class);
+        return $this->hasManyThrough(
+            Category::class,
+            CategoryGroup::class,
+        );
     }
 
     public function classifiedAds()

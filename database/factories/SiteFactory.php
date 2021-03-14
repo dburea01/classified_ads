@@ -22,7 +22,7 @@ class SiteFactory extends Factory
     public function definition()
     {
         return [
-            'internal_id' => random_int(1, 1000),
+            'internal_id' => $this->faker->word() . ' ' . random_int(1, 1000),
             'name' => 'SITE ' . $this->faker->word(),
             'address1' => $this->faker->streetAddress(),
             'address2' => $this->faker->secondaryAddress(),

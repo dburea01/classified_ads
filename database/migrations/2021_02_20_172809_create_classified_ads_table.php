@@ -16,7 +16,7 @@ class CreateClassifiedAdsTable extends Migration
         Schema::create('classified_ads', function (Blueprint $table) {
             $table->uuid('id');
             $table->uuid('organization_id');
-            $table->uuid('category_id')->nullable;
+            $table->uuid('category_id')->nullable();
             $table->uuid('user_id')->nullable();
             $table->uuid('site_id')->nullable();
             $table->string('ads_status_id', 10);

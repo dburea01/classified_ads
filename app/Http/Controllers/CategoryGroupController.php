@@ -2,19 +2,37 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreCategoryGroup;
+use App\Http\Requests\StoreCategoryGroupRequest;
+use App\Http\Resources\CategoryGroupResource;
 use App\Models\CategoryGroup;
+use App\Models\Organization;
+use App\Repositories\CategoryGroupRepository;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
+use PhpParser\ErrorHandler\Collecting;
 
 class CategoryGroupController extends Controller
 {
+    private $categoryGroupRepository;
+
+    public function __construct(CategoryGroupRepository $categoryGroupRepository)
+    {
+        $this->categoryGroupRepository = $categoryGroupRepository;
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Organization $organization)
     {
-        //
+        $this->authorize('viewAny', [CategoryGroup::class, $organization]);
+
+        $categoryGroups = $this->categoryGroupRepository->index($organization->id);
+
+        return CategoryGroupResource::collection($categoryGroups);
     }
 
     /**
@@ -23,9 +41,13 @@ class CategoryGroupController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreCategoryGroupRequest $request, Organization $organization)
     {
-        //
+        $this->authorize('create', [CategoryGroup::class, $organization]);
+
+        $categoryGroup = $this->categoryGroupRepository->insert($organization->id, $request->only(['name', 'position', 'state_id']));
+
+        return new Collection($categoryGroup);
     }
 
     /**
@@ -34,9 +56,11 @@ class CategoryGroupController extends Controller
      * @param  \App\Models\CategoryGroup  $categoryGroup
      * @return \Illuminate\Http\Response
      */
-    public function show(CategoryGroup $categoryGroup)
+    public function show(Organization $organization, CategoryGroup $categoryGroup)
     {
-        //
+        $this->authorize('view', [CategoryGroup::class, $organization]);
+
+        return new CategoryGroupResource($categoryGroup);
     }
 
     /**
@@ -46,9 +70,13 @@ class CategoryGroupController extends Controller
      * @param  \App\Models\CategoryGroup  $categoryGroup
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, CategoryGroup $categoryGroup)
+    public function update(StoreCategoryGroupRequest $request, Organization $organization, CategoryGroup $categoryGroup)
     {
-        //
+        $this->authorize('update', [CategoryGroup::class, $organization]);
+
+        $this->categoryGroupRepository->update($categoryGroup, $request->only(['name', 'position', 'state_id']));
+
+        return new collection($categoryGroup);
     }
 
     /**
@@ -57,8 +85,12 @@ class CategoryGroupController extends Controller
      * @param  \App\Models\CategoryGroup  $categoryGroup
      * @return \Illuminate\Http\Response
      */
-    public function destroy(CategoryGroup $categoryGroup)
+    public function destroy(Organization $organization, CategoryGroup $categoryGroup)
     {
-        //
+        $this->authorize('delete', [CategoryGroup::class, $organization]);
+
+        $this->categoryGroupRepository->delete($categoryGroup);
+
+        return response()->noContent();
     }
 }
