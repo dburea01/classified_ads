@@ -47,7 +47,7 @@ class CategoryGroupController extends Controller
 
         $categoryGroup = $this->categoryGroupRepository->insert($organization->id, $request->only(['name', 'position', 'state_id']));
 
-        return new Collection($categoryGroup);
+        return new CategoryGroupResource($categoryGroup);
     }
 
     /**

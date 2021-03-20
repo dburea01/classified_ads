@@ -6,6 +6,7 @@ use App\Models\Organization;
 use App\Models\SiteType;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Support\Facades\Log;
 
 class CategoryPolicy
 {
@@ -30,6 +31,9 @@ class CategoryPolicy
 
     public function create(User $user, Organization $organization)
     {
+        Log::info($user);
+        Log::info($organization);
+
         return  $user->role_id === 'ADMIN' && $user->organization_id === $organization->id;
     }
 
