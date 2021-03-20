@@ -43,8 +43,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('organizations/{organization}/users', UserController::class)->except('store')->whereUuid(['organization', 'user']);
     Route::apiResource('organizations/{organization}/category-groups', CategoryGroupController::class)->whereUuid(['organization', 'category_group']);
     Route::apiResource('organizations/{organization}/categories', CategoryController::class)->whereUuid(['organization', 'category']);
-
-    Route::get('classified_ads', [ClassifiedAdController::class, 'index']);
+    Route::apiResource('organizations/{organization}/classified-ads', ClassifiedAdController::class)->whereUuid(['organization', 'clasified_ad']);
 });
-
-// Route::get('classified_ads', [ClassifiedAdController::class, 'index'])->middleware(['checkXApiKey', 'checkBearerToken']);

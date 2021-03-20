@@ -76,6 +76,7 @@ class CategoryTest extends TestCase
         $categoryGroup = CategoryGroup::factory()->create(['organization_id' => $organization->id]);
 
         $category = Category::factory()->create([
+            'organization_id' => $organization->id,
             'category_group_id' => $categoryGroup->id,
             'name' => 'category name',
             'state_id' => 'ACTIVE',
@@ -105,6 +106,7 @@ class CategoryTest extends TestCase
         $categoryGroup = CategoryGroup::factory()->create(['organization_id' => $organization->id]);
 
         $category = Category::factory()->create([
+            'organization_id' => $organization->id,
             'category_group_id' => $categoryGroup->id,
             'name' => 'category name',
             'state_id' => 'ACTIVE',
@@ -130,6 +132,7 @@ class CategoryTest extends TestCase
         $categoryGroup = CategoryGroup::factory()->create(['organization_id' => $organization->id]);
 
         $categories = Category::factory()->count(10)->create([
+            'organization_id' => $organization->id,
             'category_group_id' => $categoryGroup->id
         ]);
         $this->actingAsRole('ADMIN', $organization->id);
@@ -145,6 +148,7 @@ class CategoryTest extends TestCase
         $categoryGroup = CategoryGroup::factory()->create(['organization_id' => $organization->id]);
 
         $category = Category::factory()->create([
+            'organization_id' => $organization->id,
             'category_group_id' => $categoryGroup->id,
             'name' => 'category name',
             'state_id' => 'ACTIVE',
@@ -163,6 +167,7 @@ class CategoryTest extends TestCase
         $categoryGroup = CategoryGroup::factory()->create(['organization_id' => $organization->id]);
 
         $category = Category::factory()->create([
+            'organization_id' => $organization->id,
             'category_group_id' => $categoryGroup->id,
             'name' => 'category name',
             'state_id' => 'ACTIVE',

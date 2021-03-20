@@ -7,37 +7,42 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateCountriesTable extends Migration
 {
-	/**
-	 * Run the migrations.
-	 *
-	 * @return void
-	 */
-	public function up()
-	{
-		Schema::create('countries', function (Blueprint $table) {
-			$table->string('id', 2)->primary();
-			$table->string('name');
-			$table->timestamps();
-		});
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('countries', function (Blueprint $table) {
+            $table->string('id', 2)->primary();
+            $table->string('local_name');
+            $table->string('english_name');
+            $table->string('currency_id');
+            $table->timestamps();
 
-		// insert some countries
-		$countries = [
-			['id' => 'FR', 'name' => 'France'],
-			['id' => 'BE', 'name' => 'Belgium'],
-			['id' => 'IT', 'name' => 'Italy']
-		];
-		foreach ($countries as $country) {
-			Country::create($country);
-		}
-	}
+            $table->foreign('currency_id')->references('id')->on('currencies')->nullOnDelete();
+        });
 
-	/**
-	 * Reverse the migrations.
-	 *
-	 * @return void
-	 */
-	public function down()
-	{
-		Schema::dropIfExists('countries');
-	}
+        // insert some countries
+        $countries = [
+            ['id' => 'FR', 'local_name' => 'France', 'english_name' => 'France', 'currency_id' => 'EUR'],
+            ['id' => 'BE', 'local_name' => 'Belgique', 'english_name' => 'Belgium', 'currency_id' => 'EUR'],
+            ['id' => 'IT', 'local_name' => 'Italia', 'english_name' => 'Italy', 'currency_id' => 'EUR'],
+            ['id' => 'UK', 'local_name' => 'United Kingdom', 'english_name' => 'United Kingdom', 'currency_id' => 'GBP'],
+        ];
+        foreach ($countries as $country) {
+            Country::create($country);
+        }
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('countries');
+    }
 }

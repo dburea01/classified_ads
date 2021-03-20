@@ -48,6 +48,10 @@ class Site extends Model
         'state_id'
     ];
 
+    protected $hidden = [
+        'created_at', 'updated_at', 'created_by', 'updated_by'
+    ];
+
     public function organization()
     {
         return $this->belongsTo(Organization::class);

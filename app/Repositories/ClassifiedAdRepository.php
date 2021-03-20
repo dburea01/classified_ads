@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Repositories;
 
 use App\Models\ClassifiedAd;
+use Illuminate\Support\Facades\Auth;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
@@ -23,24 +24,34 @@ class ClassifiedAdRepository
                     AllowedFilter::exact('site_id'),
                     AllowedFilter::exact('ad_status_id')
                 ])
-                ->allowedFields(['id', 'organization_id', 'title', 'description', 'category_id', 'created_at',
+                ->allowedFields(['id', 'organization_id', 'site_id', 'title', 'description', 'category_id', 'created_at', 'price', 'currency_id',
                     'category.id', 'category.name'])
-                ->allowedIncludes(['category'])
-                // ->with('category')
+                ->allowedIncludes(['category', 'site', 'currency'])
                 ->where('organization_id', $organizationId)
-                ->defaultSort('created_at');
+                ->defaultSort('-created_at');
 
         return $classifiedAds->paginate(10);
     }
 
     public function getById(string $id)
     {
-        $song = QueryBuilder::for(Song::class)
-                ->allowedFields(['songs.id', 'songs.name', 'songs.duration', 'songs.position', 'songs.album_id',
-                    'albums.id', 'albums.name'])
-                ->allowedIncludes(['album', 'lyrics'])
+        $classifiedAd = QueryBuilder::for(ClassifiedAd::class)
+                ->allowedFields(['id', 'organization_id', 'site_id', 'title', 'description', 'category_id', 'created_at', 'price', 'currency_id',
+                    'category.id', 'category.name', 'site.id', 'site.name'])
+                ->allowedIncludes(['category', 'site', 'currency'])
                 ->find($id);
 
-        return $song;
+        return $classifiedAd;
+    }
+
+    public function insert(string $organizationId, array $data)
+    {
+        $classifiedAd = new ClassifiedAd();
+        $classifiedAd->organization_id = $organizationId;
+        $classifiedAd->user_id = Auth::user()->id;
+        $classifiedAd->fill($data);
+        $classifiedAd->save();
+
+        return $classifiedAd;
     }
 }

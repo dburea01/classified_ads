@@ -22,12 +22,17 @@ class CreateClassifiedAdsTable extends Migration
             $table->string('ads_status_id', 10);
             $table->string('title');
             $table->text('description')->nullable();
+            $table->integer('price');
+            $table->string('currency_id')->nullable();
+            $table->string('created_by')->nullable();
+            $table->string('updated_by')->nullable();
             $table->timestamps();
 
             $table->foreign('organization_id')->references('id')->on('organizations')->cascadeOnDelete();
             $table->foreign('user_id')->references('id')->on('users')->nullOnDelete();
             $table->foreign('category_id')->references('id')->on('categories')->nullOnDelete();
             $table->foreign('site_id')->references('id')->on('sites')->nullOnDelete();
+            $table->foreign('currency_id')->references('id')->on('currencies')->nullOnDelete();
         });
     }
 

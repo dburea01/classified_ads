@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Database\Seeders\ClassifiedAdSeeder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Ramsey\Uuid\Uuid;
@@ -38,6 +37,7 @@ class Category extends Model
     protected $table = 'categories';
 
     protected $fillable = [
+        'organization_id',
         'category_group_id',
         'name',
         'position',

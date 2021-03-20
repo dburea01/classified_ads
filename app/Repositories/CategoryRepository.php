@@ -41,9 +41,10 @@ class CategoryRepository
         return $categories->get();
     }
 
-    public function insert(array $data) : Category
+    public function insert(string $organizationId, array $data) : Category
     {
         $category = new Category();
+        $category->organization_id = $organizationId;
         $category->fill($data);
         $category->save();
 

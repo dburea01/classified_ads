@@ -41,7 +41,7 @@ class CategoryController extends Controller
     public function store(StoreCategoryRequest $request, Organization $organization)
     {
         $this->authorize('create', [Category::class, $organization]);
-        $category = $this->categoryRepository->insert($request->only(['category_group_id', 'name', 'position', 'state_id']));
+        $category = $this->categoryRepository->insert($organization->id, $request->only(['category_group_id', 'name', 'position', 'state_id']));
 
         return new CategoryResource($category);
     }

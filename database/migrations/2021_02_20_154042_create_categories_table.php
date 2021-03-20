@@ -16,7 +16,8 @@ class CreateCategoriesTable extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->uuid('category_group_id');
+            $table->uuid('organization_id');
+            $table->uuid('category_group_id')->nullable();
             $table->tinyInteger('position');
             $table->string('name');
             $table->string('state_id');
@@ -24,7 +25,8 @@ class CreateCategoriesTable extends Migration
             $table->string('updated_by')->nullable();
             $table->timestamps();
 
-            $table->foreign('category_group_id')->references('id')->on('category_groups')->cascadeOnDelete();
+            $table->foreign('organization_id')->references('id')->on('organizations')->cascadeOnDelete();
+            $table->foreign('category_group_id')->references('id')->on('category_groups')->nullOnDelete();
         });
     }
 

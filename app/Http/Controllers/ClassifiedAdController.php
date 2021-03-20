@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreClassifiedAdRequest;
 use App\Http\Resources\ClassifiedAdResource;
 use App\Models\ClassifiedAd;
+use App\Models\Organization;
+use App\Policies\ClassifiedAdPolicy;
 use App\Repositories\ClassifiedAdRepository;
 use App\Repositories\OrganizationRepository;
 use Illuminate\Http\Request;
@@ -14,7 +17,7 @@ class ClassifiedAdController extends Controller
 
     private $organizationRepository;
 
-    public function __construct(Request $request, ClassifiedAdRepository $classifiedAdRepository)
+    public function __construct(ClassifiedAdRepository $classifiedAdRepository)
     {
         $this->classifiedAdRepository = $classifiedAdRepository;
     }
@@ -24,10 +27,12 @@ class ClassifiedAdController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(Organization $organization)
     {
+        $this->authorize('viewAny', [ClassifiedAd::class, $organization]);
+
         try {
-            $classifiedAds = $this->classifiedAdRepository->getAll($this->organizationId);
+            $classifiedAds = $this->classifiedAdRepository->getAll($organization->id);
 
             return ClassifiedAdResource::collection($classifiedAds);
         } catch (\Exception $e) {
@@ -41,8 +46,13 @@ class ClassifiedAdController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Organization $organization, StoreClassifiedAdRequest $request)
     {
+        $this->authorize('create', [ClassifiedAd::class, $organization]);
+
+        $classifiedAd = $this->classifiedAdRepository->insert($organization->id, $request->only(['category_id', 'site_id', 'ads_status_id', 'title', 'description', 'price', 'currency_id']));
+
+        return new ClassifiedAdResource($classifiedAd);
     }
 
     /**
@@ -51,8 +61,13 @@ class ClassifiedAdController extends Controller
      * @param  \App\Models\ClassifiedAd  $classifiedAd
      * @return \Illuminate\Http\Response
      */
-    public function show(ClassifiedAd $classifiedAd)
+    public function show(Organization $organization, ClassifiedAd $classifiedAd)
     {
+        $this->authorize('view', [ClassifiedAd::class, $organization]);
+
+        $classifiedAd = $this->classifiedAdRepository->getById($classifiedAd->id);
+
+        return new ClassifiedAdResource($classifiedAd);
     }
 
     /**

@@ -34,6 +34,15 @@ class ClassifiedAd extends Model
     // tell Eloquent that key is a string, not an integer
     protected $keyType = 'string';
 
+    protected $fillable = [
+        'category_id',
+        'site_id',
+        'title',
+        'price',
+        'currency_id',
+        'ads_status_id'
+    ];
+
     public function site()
     {
         return $this->belongsTo(Site::class);
@@ -52,5 +61,10 @@ class ClassifiedAd extends Model
     public function organization()
     {
         return $this->belongsTo(Organization::class);
+    }
+
+    public function currency()
+    {
+        return $this->belongsTo(Currency::class);
     }
 }
