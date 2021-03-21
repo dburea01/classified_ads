@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace tests\Feature;
 
-use App\Models\Organization;
 use App\Models\User;
 use Laravel\Sanctum\Sanctum;
 
@@ -24,7 +23,7 @@ trait Request
         ];
     }
     */
-    public function actingAsRole(string $roleId, string $organizationId = null)
+    public function actingAsRole(string $roleId, string $organizationId = null) : User
     {
         $user = User::factory()->create([
             'organization_id' => $organizationId,
@@ -32,5 +31,7 @@ trait Request
         ]);
 
         Sanctum::actingAs($user);
+
+        return $user;
     }
 }

@@ -42,7 +42,7 @@ class StoreClassifiedAdRequest extends FormRequest
             'title' => 'required|min:2',
             'price' => 'required|int|gt:0',
             'currency_id' => 'required|exists:currencies,id',
-            'ads_status_id' => 'required|in:CREATED,VALIDATED,BLOCKED,ARCHIVED'
+            // 'ads_status_id' => 'required|in:CREATED,VALIDATED,BLOCKED,ARCHIVED'
         ];
     }
 }

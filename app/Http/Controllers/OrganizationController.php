@@ -7,6 +7,7 @@ use App\Http\Resources\OrganizationResource;
 use App\Models\Organization;
 use App\Repositories\OrganizationRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 class OrganizationController extends Controller
@@ -47,7 +48,6 @@ class OrganizationController extends Controller
         }
 
         return (new OrganizationResource($organization))->response()->setStatusCode(201);
-        ;
     }
 
     /**
@@ -126,14 +126,15 @@ class OrganizationController extends Controller
     {
         $fileName = 'logo_' . $organization->id . '.' . $image->getClientOriginalExtension();
 
-        Storage::disk('logos')->putFileAs('', $image, $fileName);
+        $response = Storage::disk('organizations')->putFileAs('', $image, $fileName);
+        Log::info($response);
         $this->organizationRepository->updateOrganization($organization, ['logo' => $fileName]);
     }
 
     public function deleteImage(Organization $organization)
     {
-        if (Storage::disk('logos')->exists($organization->logo)) {
-            Storage::disk('logos')->delete($organization->logo);
+        if (Storage::disk('organizations')->exists($organization->logo)) {
+            Storage::disk('organizations')->delete($organization->logo);
         }
     }
 }

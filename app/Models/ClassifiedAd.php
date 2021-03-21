@@ -38,6 +38,7 @@ class ClassifiedAd extends Model
         'category_id',
         'site_id',
         'title',
+        'description',
         'price',
         'currency_id',
         'ads_status_id'

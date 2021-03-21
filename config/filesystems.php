@@ -28,12 +28,23 @@ return [
     */
 
     'disks' => [
+        'organizations' => [
+            'driver' => 's3',
+            'key' => env('AWS_ACCESS_KEY_ID'),
+            'secret' => env('AWS_SECRET_ACCESS_KEY'),
+            'region' => env('AWS_DEFAULT_REGION'),
+            'bucket' => env('AWS_BUCKET'),
+            'root' => 'organizations',
+            'visibility' => 'public'
+        ],
+        /*
         'logos' => [
             'driver' => 'local',
             'root' => storage_path('app/public/images/logos'),
             'url' => env('APP_URL') . '/storage',
             'visibility' => 'public',
         ],
+        */
 
         'local' => [
             'driver' => 'local',

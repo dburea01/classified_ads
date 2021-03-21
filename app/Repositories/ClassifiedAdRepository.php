@@ -49,9 +49,23 @@ class ClassifiedAdRepository
         $classifiedAd = new ClassifiedAd();
         $classifiedAd->organization_id = $organizationId;
         $classifiedAd->user_id = Auth::user()->id;
+        $classifiedAd->ads_status_id = 'CREATED';
         $classifiedAd->fill($data);
         $classifiedAd->save();
 
         return $classifiedAd;
+    }
+
+    public function update(ClassifiedAd $classifiedAd, array $data) : ClassifiedAd
+    {
+        $classifiedAd->fill($data);
+        $classifiedAd->save();
+
+        return $classifiedAd;
+    }
+
+    public function delete(ClassifiedAd $classifiedAd)
+    {
+        $classifiedAd->delete();
     }
 }

@@ -53,8 +53,11 @@ class ClassifiedAdPolicy
      * @param  \App\Models\ClassifiedAd  $classifiedAd
      * @return mixed
      */
-    public function update(User $user, ClassifiedAd $classifiedAd)
+    public function update(User $user, Organization $organization, ClassifiedAd $classifiedAd)
     {
+        return
+        ($user->id === $classifiedAd->user_id) ||
+        ($user->role_id === 'ADMIN' && $user->organization_id === $organization->id);
     }
 
     /**
@@ -64,8 +67,11 @@ class ClassifiedAdPolicy
      * @param  \App\Models\ClassifiedAd  $classifiedAd
      * @return mixed
      */
-    public function delete(User $user, ClassifiedAd $classifiedAd)
+    public function delete(User $user, Organization $organization, ClassifiedAd $classifiedAd)
     {
+        return
+        ($user->id === $classifiedAd->user_id) ||
+        ($user->role_id === 'ADMIN' && $user->organization_id === $organization->id);
     }
 
     /**
