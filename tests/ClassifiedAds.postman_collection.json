@@ -599,13 +599,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{path}}/organizations/f62ef906-639c-438e-8cae-f129c81acf00",
+							"raw": "{{path}}/organizations/0a89b04f-6b2d-446a-a089-4254d587e09a",
 							"host": [
 								"{{path}}"
 							],
 							"path": [
 								"organizations",
-								"f62ef906-639c-438e-8cae-f129c81acf00"
+								"0a89b04f-6b2d-446a-a089-4254d587e09a"
 							]
 						}
 					},
@@ -1749,13 +1749,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{path}}/organizations/1b7fb52b-9664-4fbf-95c6-8b8a3851af09/category-groups",
+							"raw": "{{path}}/organizations/afc72b17-6bc7-49bf-9310-54aa956b9a5d/category-groups",
 							"host": [
 								"{{path}}"
 							],
 							"path": [
 								"organizations",
-								"1b7fb52b-9664-4fbf-95c6-8b8a3851af09",
+								"afc72b17-6bc7-49bf-9310-54aa956b9a5d",
 								"category-groups"
 							]
 						}
@@ -1986,7 +1986,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"category_group_id\": \"22a4d073-9135-40c2-8a48-d5be37c047cd\",\r\n    \"name\": \"category name\",\r\n    \"state_id\": \"ACTIVE\",\r\n    \"position\" : \"12\"\r\n}",
+							"raw": "{\r\n    \"category_group_id\": \"bce0b095-df68-4e38-9b26-6a89d051eb45\",\r\n    \"name\": \"category name\",\r\n    \"state_id\": \"ACTIVE\",\r\n    \"position\" : \"12\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2075,7 +2075,7 @@
 								}
 							]
 						},
-						"method": "PUT",
+						"method": "DELETE",
 						"header": [
 							{
 								"key": "Accept",
@@ -2110,64 +2110,311 @@
 			]
 		},
 		{
-			"name": "GET classifiedAds",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "4|mU44ioNMrSrvfaxPbTZ6lGWF8mvlh0xdsUnzW8qZ",
-							"type": "string"
+			"name": "classified_ads",
+			"item": [
+				{
+					"name": "GET classifiedAds All",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
 						},
-						{
-							"key": "password",
-							"value": "{{token}}",
-							"type": "string"
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{path}}/organizations/7902e165-6380-4b70-9e52-e748c435d54c/classified-ads",
+							"host": [
+								"{{path}}"
+							],
+							"path": [
+								"organizations",
+								"7902e165-6380-4b70-9e52-e748c435d54c",
+								"classified-ads"
+							]
 						}
-					]
+					},
+					"response": []
 				},
-				"method": "GET",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"url": {
-					"raw": "{{path}}/classified_ads?fields[classified_ads]=id,organization_id,title,description,created_at,category_id&fields[category]=id,name&filter[title]=archi&filter[description]=sunt&include=category",
-					"host": [
-						"{{path}}"
-					],
-					"path": [
-						"classified_ads"
-					],
-					"query": [
-						{
-							"key": "fields[classified_ads]",
-							"value": "id,organization_id,title,description,created_at,category_id"
+				{
+					"name": "GET classifiedAds Filtered",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
 						},
-						{
-							"key": "fields[category]",
-							"value": "id,name"
-						},
-						{
-							"key": "filter[title]",
-							"value": "archi"
-						},
-						{
-							"key": "filter[description]",
-							"value": "sunt"
-						},
-						{
-							"key": "include",
-							"value": "category"
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{path}}/organizations/7902e165-6380-4b70-9e52-e748c435d54c/classified-ads?fields[classified_ads]=id,organization_id,site_id,title,description,created_at,category_id,price,currency_id&fields[category]=id,name&include=category,currency,site",
+							"host": [
+								"{{path}}"
+							],
+							"path": [
+								"organizations",
+								"7902e165-6380-4b70-9e52-e748c435d54c",
+								"classified-ads"
+							],
+							"query": [
+								{
+									"key": "fields[classified_ads]",
+									"value": "id,organization_id,site_id,title,description,created_at,category_id,price,currency_id"
+								},
+								{
+									"key": "fields[category]",
+									"value": "id,name"
+								},
+								{
+									"key": "include",
+									"value": "category,currency,site"
+								}
+							]
 						}
-					]
+					},
+					"response": []
+				},
+				{
+					"name": "GET 1 classifiedAd",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{path}}/organizations/7902e165-6380-4b70-9e52-e748c435d54c/classified-ads/cc1d358a-d266-4ce0-bbab-9cdd467c2828?fields[classified_ads]=id,organization_id,site_id,title,description,created_at,category_id,price,currency_id&fields[category]=id,name&fields[site]=id,name&include=category,currency,site",
+							"host": [
+								"{{path}}"
+							],
+							"path": [
+								"organizations",
+								"7902e165-6380-4b70-9e52-e748c435d54c",
+								"classified-ads",
+								"cc1d358a-d266-4ce0-bbab-9cdd467c2828"
+							],
+							"query": [
+								{
+									"key": "fields[classified_ads]",
+									"value": "id,organization_id,site_id,title,description,created_at,category_id,price,currency_id"
+								},
+								{
+									"key": "fields[category]",
+									"value": "id,name"
+								},
+								{
+									"key": "fields[site]",
+									"value": "id,name"
+								},
+								{
+									"key": "include",
+									"value": "category,currency,site"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "classifiedAd",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"category_id\" : \"720038cd-daaf-4223-98a5-0cb9ddf9a46b\",\r\n    \"site_id\" : \"af477301-ae5d-44c0-bca1-031d36785d2b\",\r\n    \"title\" : \"zr\",\r\n    \"price\" : \"123\",\r\n    \"description\" : \"description\",\r\n    \"currency_id\" : \"EUR\",\r\n    \"ads_status_id\" : \"CREATED\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{path}}/organizations/9707313f-fd35-489b-acbc-a6d5a4280a8c/classified-ads",
+							"host": [
+								"{{path}}"
+							],
+							"path": [
+								"organizations",
+								"9707313f-fd35-489b-acbc-a6d5a4280a8c",
+								"classified-ads"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "classifiedAd",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"category_id\" : \"720038cd-daaf-4223-98a5-0cb9ddf9a46b\",\r\n    \"site_id\" : \"af477301-ae5d-44c0-bca1-031d36785d2b\",\r\n    \"title\" : \"zr modif\",\r\n    \"price\" : \"1243\",\r\n    \"description\" : \"description modif\",\r\n    \"currency_id\" : \"GBP\",\r\n    \"ads_status_id\" : \"CREATED\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{path}}/organizations/9707313f-fd35-489b-acbc-a6d5a4280a8c/classified-ads/cd95170b-1f72-4d59-a314-73f75b9ca024",
+							"host": [
+								"{{path}}"
+							],
+							"path": [
+								"organizations",
+								"9707313f-fd35-489b-acbc-a6d5a4280a8c",
+								"classified-ads",
+								"cd95170b-1f72-4d59-a314-73f75b9ca024"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "classifiedAd",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"category_id\" : \"720038cd-daaf-4223-98a5-0cb9ddf9a46b\",\r\n    \"site_id\" : \"af477301-ae5d-44c0-bca1-031d36785d2b\",\r\n    \"title\" : \"zr modif\",\r\n    \"price\" : \"1243\",\r\n    \"description\" : \"description modif\",\r\n    \"currency_id\" : \"GBP\",\r\n    \"ads_status_id\" : \"CREATED\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{path}}/organizations/9707313f-fd35-489b-acbc-a6d5a4280a8c/classified-ads/cd95170b-1f72-4d59-a314-73f75b9ca024",
+							"host": [
+								"{{path}}"
+							],
+							"path": [
+								"organizations",
+								"9707313f-fd35-489b-acbc-a6d5a4280a8c",
+								"classified-ads",
+								"cd95170b-1f72-4d59-a314-73f75b9ca024"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		}
 	]
 }
