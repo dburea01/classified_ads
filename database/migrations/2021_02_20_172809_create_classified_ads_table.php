@@ -14,7 +14,7 @@ class CreateClassifiedAdsTable extends Migration
     public function up()
     {
         Schema::create('classified_ads', function (Blueprint $table) {
-            $table->uuid('id');
+            $table->uuid('id')->primary();
             $table->uuid('organization_id');
             $table->uuid('category_id')->nullable();
             $table->uuid('user_id')->nullable();

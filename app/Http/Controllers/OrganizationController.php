@@ -44,7 +44,7 @@ class OrganizationController extends Controller
         $organization = $this->organizationRepository->insertOrganisation($request->only(['name', 'contact', 'comment', 'ads_max', 'state_id']));
 
         if ($request->has('logo_file')) {
-            $this->processImage($organization, $request->logo_file);
+            $this->processImageLogo($organization, $request->logo_file);
         }
 
         return (new OrganizationResource($organization))->response()->setStatusCode(201);
@@ -89,8 +89,8 @@ class OrganizationController extends Controller
         ]);
 
         if ($request->has('logo_file')) {
-            $this->deleteImage($organization);
-            $this->processImage($organization, $request->logo_file);
+            $this->deleteImageLogo($organization);
+            $this->processImageLogo($organization, $request->logo_file);
         }
 
         return new OrganizationResource($organization);
@@ -100,7 +100,7 @@ class OrganizationController extends Controller
     {
         $this->authorize('delete', Organization::class);
 
-        $this->deleteImage($organization);
+        $this->deleteImageLogo($organization);
         $this->organizationRepository->updateOrganization($organization, ['logo' => null]);
 
         return new OrganizationResource($organization);
@@ -116,25 +116,26 @@ class OrganizationController extends Controller
     {
         $this->authorize('delete', Organization::class);
 
-        $this->deleteImage($organization);
         $this->organizationRepository->deleteOrganization($organization);
+        $this->deleteImageLogo($organization);
 
         return response()->noContent();
     }
 
-    public function processImage(Organization $organization, $image)
+    public function processImageLogo(Organization $organization, $image)
     {
         $fileName = 'logo_' . $organization->id . '.' . $image->getClientOriginalExtension();
 
-        $response = Storage::disk('organizations')->putFileAs('', $image, $fileName);
-        Log::info($response);
+        $response = Storage::disk('organizations')->putFileAs("/{$organization->container_folder}/logo", $image, $fileName);
+        // Log::info($response);
         $this->organizationRepository->updateOrganization($organization, ['logo' => $fileName]);
     }
 
-    public function deleteImage(Organization $organization)
+    public function deleteImageLogo(Organization $organization)
     {
-        if (Storage::disk('organizations')->exists($organization->logo)) {
-            Storage::disk('organizations')->delete($organization->logo);
+        $path = "/{$organization->container_folder}/logo/$organization->logo";
+        if (Storage::disk('organizations')->exists($path)) {
+            Storage::disk('organizations')->delete($path);
         }
     }
 }

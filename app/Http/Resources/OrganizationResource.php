@@ -21,14 +21,12 @@ class OrganizationResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            /*
-            $this->mergeWhen(Storage::disk('organizations')->exists($this->logo), [
-                'logo' => asset('storage/images/logos/' . $this->logo),
+
+            $this->mergeWhen($this->logo, [
+                'url_logo' => Storage::disk('organizations')->url("{$this->container_folder}/logo/{$this->logo}"),
             ]),
-            */
-            'logo' => $this->logo,
-            // 'url_logo' => 'https://essaidom.s3.eu-west-3.amazonaws.com/organizations/' . $this->logo,
-            'url_logo' => Storage::disk('organizations')->url($this->logo),
+
+            // 'url_logo' => Storage::disk('organizations')->url("{$this->container_folder}/logo/{$this->logo}"),
             $this->mergeWhen(Auth::user() && Auth::user()->role_id === 'SUPERADMIN', [
                 'contact' => $this->contact,
                 'comment' => $this->comment,

@@ -21,6 +21,7 @@ class CreateOrganizationsTable extends Migration
             $table->integer('ads_max');
             $table->string('state_id');
             $table->string('logo')->nullable();
+            $table->string('container_folder');
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();
             $table->timestamps();

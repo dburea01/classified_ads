@@ -4,10 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Ramsey\Uuid\Uuid;
 use Illuminate\Support\Facades\Auth;
+use Ramsey\Uuid\Uuid;
 
-class ClassifiedAd extends Model
+class Media extends Model
 {
     use HasFactory;
 
@@ -29,48 +29,20 @@ class ClassifiedAd extends Model
         });
     }
 
+    protected $table = 'medias';
+
     public $incrementing = false;
 
     // tell Eloquent that key is a string, not an integer
     protected $keyType = 'string';
 
     protected $fillable = [
-        'category_id',
-        'site_id',
-        'title',
-        'description',
-        'price',
-        'currency_id',
-        'ads_status_id'
+        'classified_ad_id',
+        'name'
     ];
 
-    public function site()
+    public function classified_ad()
     {
-        return $this->belongsTo(Site::class);
-    }
-
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
-
-    public function category()
-    {
-        return $this->belongsTo(Category::class);
-    }
-
-    public function organization()
-    {
-        return $this->belongsTo(Organization::class);
-    }
-
-    public function currency()
-    {
-        return $this->belongsTo(Currency::class);
-    }
-
-    public function medias()
-    {
-        return $this->hasMany(Media::class);
+        return $this->belongsTo(ClassifiedAd::class);
     }
 }
