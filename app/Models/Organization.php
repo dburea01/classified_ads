@@ -40,6 +40,7 @@ class Organization extends Model
         'contact',
         'comment',
         'ads_max',
+        'media_max',
         'state_id',
         'logo'
     ];

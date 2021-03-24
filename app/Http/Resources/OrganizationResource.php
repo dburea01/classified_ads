@@ -31,6 +31,7 @@ class OrganizationResource extends JsonResource
                 'contact' => $this->contact,
                 'comment' => $this->comment,
                 'ads_max' => $this->ads_max,
+                'media_max' => $this->media_max,
                 'state_id' => $this->state_id,
             ])
         ];

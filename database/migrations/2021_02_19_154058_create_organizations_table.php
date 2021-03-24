@@ -19,6 +19,7 @@ class CreateOrganizationsTable extends Migration
             $table->string('contact');
             $table->string('comment')->nullable();
             $table->integer('ads_max');
+            $table->integer('media_max')->default(3);
             $table->string('state_id');
             $table->string('logo')->nullable();
             $table->string('container_folder');

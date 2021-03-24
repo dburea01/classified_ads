@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreMediaRequest;
 use App\Http\Resources\MediaResource;
+use App\Models\Organization;
 use App\Repositories\MediaRepository;
 use Illuminate\Http\Request;
 
@@ -20,8 +21,9 @@ class MediaController extends Controller
     {
     }
 
-    public function store(StoreMediaRequest $request)
+    public function store(Organization $organization, StoreMediaRequest $request)
     {
+        $this->authorize('create', [Media::class, $organization->id, $request->classified_ad_id]);
         $media = $this->mediaRepository->insert($request->only(['classified_ad_id']), 'toto');
 
         return new MediaResource($media);

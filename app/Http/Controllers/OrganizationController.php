@@ -41,7 +41,7 @@ class OrganizationController extends Controller
     {
         $this->authorize('create', Organization::class);
 
-        $organization = $this->organizationRepository->insertOrganisation($request->only(['name', 'contact', 'comment', 'ads_max', 'state_id']));
+        $organization = $this->organizationRepository->insertOrganisation($request->only(['name', 'contact', 'comment', 'ads_max', 'media_max', 'state_id']));
 
         if ($request->has('logo_file')) {
             $this->processImageLogo($organization, $request->logo_file);
@@ -73,7 +73,7 @@ class OrganizationController extends Controller
         // dd($organization);
         $this->authorize('update', Organization::class);
 
-        $this->organizationRepository->updateOrganization($organization, $request->only(['name', 'contact', 'comment', 'ads_max', 'state_id']));
+        $this->organizationRepository->updateOrganization($organization, $request->only(['name', 'contact', 'comment', 'ads_max', 'media_max', 'state_id']));
 
         return (new OrganizationResource($organization))->response()->setStatusCode(200);
         // return new OrganizationResource($organization);

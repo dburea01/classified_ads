@@ -27,6 +27,7 @@ class StoreOrganizationRequest extends FormRequest
             'name' => 'required|min:2',
             'contact' => 'required',
             'ads_max' => 'required|integer|gt:0',
+            'media_max' => 'integer|gt:0',
             'state_id' => 'required|in:VALIDATED,BLOCKED',
             'logo_file' => 'mimes:jpg,bmp,png|max:128'
         ];
