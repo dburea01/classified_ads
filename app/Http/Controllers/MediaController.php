@@ -2,11 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\GetMediasRequest;
 use App\Http\Requests\StoreMediaRequest;
 use App\Http\Resources\MediaResource;
+use App\Models\ClassifiedAd;
+use App\Models\Media;
 use App\Models\Organization;
 use App\Repositories\MediaRepository;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class MediaController extends Controller
 {
@@ -17,14 +23,26 @@ class MediaController extends Controller
         $this->mediaRepository = $mediaRepository;
     }
 
-    public function index()
+    public function index(Organization $organization, GetMediasRequest $request)
     {
+        $this->authorize('viewAny', [Media::class, $organization]);
+
+        try {
+            $medias = $this->mediaRepository->index($organization, $request->classified_ad_id);
+
+            return MediaResource::collection($medias);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 400);
+        }
     }
 
     public function store(Organization $organization, StoreMediaRequest $request)
     {
         $this->authorize('create', [Media::class, $organization->id, $request->classified_ad_id]);
-        $media = $this->mediaRepository->insert($request->only(['classified_ad_id']), 'toto');
+
+        $media = $this->mediaRepository->insert($request->only(['classified_ad_id']), null);
+
+        $this->storeMedia($organization, $media, $request->media_file);
 
         return new MediaResource($media);
     }
@@ -35,8 +53,11 @@ class MediaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Organization $organization, Media $media)
     {
+        $this->authorize('view', [Media::class, $organization]);
+
+        return new MediaResource($media);
     }
 
     /**
@@ -56,7 +77,36 @@ class MediaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Organization $organization, Media $media)
     {
+        $this->authorize('delete', [Media::class, $organization, $media]);
+
+        DB::beginTransaction();
+        try {
+            $this->mediaRepository->delete($media);
+            $this->deleteMedia($organization, $media);
+            DB::commit();
+
+            return response()->noContent();
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()]);
+        }
+    }
+
+    public function storeMedia(Organization $organization, Media $media, $image)
+    {
+        $fileName = $media->id . '.' . $image->getClientOriginalExtension();
+
+        $response = Storage::disk('organizations')->putFileAs("/{$organization->container_folder}/medias", $image, $fileName);
+        // Log::info($response);
+        $this->mediaRepository->update($media, ['name' => $fileName]);
+    }
+
+    public function deleteMedia(Organization $organization, Media $media)
+    {
+        $path = "/{$organization->container_folder}/medias/$media->name";
+        if (Storage::disk('organizations')->exists($path)) {
+            Storage::disk('organizations')->delete($path);
+        }
     }
 }

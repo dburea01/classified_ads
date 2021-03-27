@@ -4,38 +4,41 @@ declare(strict_types=1);
 
 namespace App\Repositories;
 
+use App\Models\ClassifiedAd;
 use App\Models\Domain;
 use App\Models\Media;
+use App\Models\Organization;
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class MediaRepository
 {
-    public function index(string $organizationId)
+    public function index(Organization $organization, string $classifiedAdId)
     {
-        $domains = Domain::where('organization_id', $organizationId)->orderBy('name')->get();
+        $medias = Media::where('classified_ad_id', $classifiedAdId)->orderBy('created_at');
 
-        return $domains;
+        return $medias->paginate(10);
     }
 
-    public function insert(array $data, string $mediaName) : Media
+    public function insert(array $data) : Media
     {
         $media = new Media();
         $media->fill($data);
-        $media->name = $mediaName;
         $media->save();
 
         return $media;
     }
 
-    public function updateDomain(Domain $domain, array $data) : Domain
+    public function update(Media $media, array $data) : Media
     {
-        $domain->fill($data);
-        $domain->save();
+        $media->fill($data);
+        $media->save();
 
-        return $domain;
+        return $media;
     }
 
-    public function deleteDomain(Domain $domain) : void
+    public function delete(Media $media) : void
     {
-        $domain->delete();
+        $media->delete();
     }
 }

@@ -42,7 +42,8 @@ class Organization extends Model
         'ads_max',
         'media_max',
         'state_id',
-        'logo'
+        'logo',
+        'container_folder'
     ];
 
     public function domains()

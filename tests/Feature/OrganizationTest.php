@@ -65,12 +65,13 @@ class OrganizationTest extends TestCase
             'contact' => 'organization contact',
             'comment' => 'organization comment',
             'ads_max' => 123,
-            'state_id' => 'VALIDATED'
+            'state_id' => 'VALIDATED',
+            'container_folder' => 'container name folder'
         ];
 
         $response = $this->json('POST', $this->getUrl() . '/organizations', $organizationToCreate);
-        $organizationCreatedId = $response->decodeResponseJson()['data']['id'];
         $response->assertStatus(201);
+        $organizationCreatedId = $response->decodeResponseJson()['data']['id'];
 
         $organizationCreated = Organization::find($organizationCreatedId);
         $this->assertEquals($organizationCreated->name, $organizationToCreate['name']);
@@ -107,7 +108,8 @@ class OrganizationTest extends TestCase
             'contact' => 'contact name modif',
             'comment' => 'comment comment comment modif',
             'ads_max' => 12345,
-            'state_id' => 'VALIDATED'
+            'state_id' => 'VALIDATED',
+            'container_folder' => 'container name folder'
         ];
         // echo('avant appel' . $organization->id);
         // $response = $this->json('PUT', $this->getUrl() . '/organizations/' . $organization->id, $organizationToModify);

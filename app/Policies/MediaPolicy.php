@@ -3,6 +3,7 @@
 namespace App\Policies;
 
 use App\Models\ClassifiedAd;
+use App\Models\Media;
 use App\Models\Organization;
 use App\Models\Site;
 use App\Models\User;
@@ -38,13 +39,17 @@ class MediaPolicy
                 $user->id === $classifiedAd->user_id;
     }
 
-    public function update(User $user, Organization $organization)
+    public function update(User $user, Organization $organization, Media $media)
     {
     }
 
-    public function delete(User $user, ClassifiedAd $classifiedAd)
+    public function delete(User $user, Organization $organization, Media $media)
     {
-        return $user->id === $classifiedAd->id;
+        $classifiedAd = ClassifiedAd::find($media->classified_ad_id);
+
+        return ($user->role_id === 'ADMIN' && $user->organization_id === $organization->id)
+                ||
+                $user->id === $classifiedAd->user_id;
     }
 
     public function restore(User $user, Site $site)

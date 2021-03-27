@@ -30,7 +30,7 @@ class OrganizationFactory extends Factory
             'ads_max' => random_int(0, 100000),
             'state_id' => $this->faker->boolean(80) ? 'VALIDATED' : 'BLOCKED',
             // 'logo' => 'logo_' . $this->faker->word,
-            'container_folder' => $name,
+            'container_folder' => 'container ' . $this->faker->word()
         ];
     }
 }

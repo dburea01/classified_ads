@@ -3,8 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class StoreOrganizationRequest extends FormRequest
+class GetMediasRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,13 +25,13 @@ class StoreOrganizationRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|min:2',
-            'contact' => 'required',
-            'ads_max' => 'required|integer|gt:0',
-            'media_max' => 'integer|gt:0',
-            'container_folder' => 'required',
-            'state_id' => 'required|in:VALIDATED,BLOCKED',
-            'logo_file' => 'mimes:jpg,bmp,png|max:128'
+            'classified_ad_id' => [
+                'required',
+                'uuid',
+                Rule::exists('classified_ads', 'id')->where(function ($query) {
+                    return $query->where('organization_id', $this->route('organization')->id);
+                })
+            ]
         ];
     }
 }
