@@ -85,7 +85,17 @@ class AuthController extends Controller
             $user->tokens()->delete();
             $tokenResult = $user->createToken('authToken')->plainTextToken;
 
-            return response()->json(['token' => $tokenResult]);
+            return response()->json(['token' => $tokenResult, 'user' => $user->only(['id', 'role_id', 'first_name', 'last_name'])]);
+            /*
+            $auth = [
+                'auth' => [
+                    'token' => $tokenResult,
+                    'user' => $user->only(['id', 'role_id', 'first_name', 'last_name'])
+                ]
+            ];
+
+            return response()->json($auth);
+            */
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'Internal server error',

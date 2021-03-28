@@ -101,7 +101,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\" : \"toto.toto@bosco.com\",\r\n    \"password\" : \"azerty\"\r\n}",
+							"raw": "{\r\n    \"email\" : \"hartmann.rae@example.org\",\r\n    \"password\" : \"azerty\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -237,10 +237,10 @@
 			"name": "organizations",
 			"item": [
 				{
-					"name": "photo of organization",
+					"name": "logo of organization",
 					"item": [
 						{
-							"name": "organizations logo only",
+							"name": "organizations logo",
 							"protocolProfileBehavior": {
 								"disabledSystemHeaders": {}
 							},
@@ -284,13 +284,13 @@
 									}
 								},
 								"url": {
-									"raw": "{{path}}/organizations/428902c3-a51c-4434-babf-db4c95f9b535/logos",
+									"raw": "{{path}}/organizations/b2bd7f32-578d-43f2-af78-7665593e1e98/logos",
 									"host": [
 										"{{path}}"
 									],
 									"path": [
 										"organizations",
-										"428902c3-a51c-4434-babf-db4c95f9b535",
+										"b2bd7f32-578d-43f2-af78-7665593e1e98",
 										"logos"
 									]
 								}
@@ -328,13 +328,13 @@
 									}
 								],
 								"url": {
-									"raw": "{{path}}/organizations/428902c3-a51c-4434-babf-db4c95f9b535/logos",
+									"raw": "{{path}}/organizations/c96a1449-f7b3-4f5e-a404-34d8a89e6304/logos",
 									"host": [
 										"{{path}}"
 									],
 									"path": [
 										"organizations",
-										"428902c3-a51c-4434-babf-db4c95f9b535",
+										"c96a1449-f7b3-4f5e-a404-34d8a89e6304",
 										"logos"
 									]
 								}
@@ -452,6 +452,11 @@
 								{
 									"key": "comment",
 									"value": "comment",
+									"type": "text"
+								},
+								{
+									"key": "container_folder",
+									"value": "container_folder_name",
 									"type": "text"
 								}
 							],
@@ -2409,6 +2414,224 @@
 								"9707313f-fd35-489b-acbc-a6d5a4280a8c",
 								"classified-ads",
 								"cd95170b-1f72-4d59-a314-73f75b9ca024"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "medias",
+			"item": [
+				{
+					"name": "post media",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "classified_ad_id",
+									"value": "6198a18c-a967-480b-a12a-f5e2668a574a",
+									"type": "text"
+								},
+								{
+									"key": "media_file",
+									"type": "file",
+									"src": "/C:/Users/Dominique/Downloads/logo_google.png"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "javascript"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{path}}/organizations/b2bd7f32-578d-43f2-af78-7665593e1e98/medias",
+							"host": [
+								"{{path}}"
+							],
+							"path": [
+								"organizations",
+								"b2bd7f32-578d-43f2-af78-7665593e1e98",
+								"medias"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "del media",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "classified_ad_id",
+									"value": "7dfc919e-7814-4fef-b2a0-f3c73e52b17d",
+									"type": "text"
+								},
+								{
+									"key": "media_file",
+									"type": "file",
+									"src": "/C:/Users/Dominique/Pictures/carotte.png"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "javascript"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{path}}/organizations/b2bd7f32-578d-43f2-af78-7665593e1e98/medias/42c96eae-372f-4f2e-9e9c-da156f50f4f3",
+							"host": [
+								"{{path}}"
+							],
+							"path": [
+								"organizations",
+								"b2bd7f32-578d-43f2-af78-7665593e1e98",
+								"medias",
+								"42c96eae-372f-4f2e-9e9c-da156f50f4f3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get medias",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{path}}/organizations/b2bd7f32-578d-43f2-af78-7665593e1e98/medias?classified_ad_id=7dfc919e-7814-4fef-b2a0-f3c73e52b17d",
+							"host": [
+								"{{path}}"
+							],
+							"path": [
+								"organizations",
+								"b2bd7f32-578d-43f2-af78-7665593e1e98",
+								"medias"
+							],
+							"query": [
+								{
+									"key": "classified_ad_id",
+									"value": "7dfc919e-7814-4fef-b2a0-f3c73e52b17d"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get media",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{path}}/organizations/b2bd7f32-578d-43f2-af78-7665593e1e98/medias?classified_ad_id=7dfc919e-7814-4fef-b2a0-f3c73e52b17d",
+							"host": [
+								"{{path}}"
+							],
+							"path": [
+								"organizations",
+								"b2bd7f32-578d-43f2-af78-7665593e1e98",
+								"medias"
+							],
+							"query": [
+								{
+									"key": "classified_ad_id",
+									"value": "7dfc919e-7814-4fef-b2a0-f3c73e52b17d"
+								}
 							]
 						}
 					},
