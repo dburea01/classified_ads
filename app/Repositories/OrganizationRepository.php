@@ -14,7 +14,8 @@ class OrganizationRepository
     {
         $organizations = QueryBuilder::for(Organization::class)
         ->allowedFilters([
-            AllowedFilter::partial('name')
+            AllowedFilter::partial('name'),
+            AllowedFilter::partial('state_id')
         ])
         ->defaultSort('name');
 

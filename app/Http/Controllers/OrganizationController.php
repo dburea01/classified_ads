@@ -7,6 +7,7 @@ use App\Http\Resources\OrganizationResource;
 use App\Models\Organization;
 use App\Repositories\OrganizationRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
@@ -116,10 +117,18 @@ class OrganizationController extends Controller
     {
         $this->authorize('delete', Organization::class);
 
-        $this->organizationRepository->deleteOrganization($organization);
-        $this->deleteImageLogo($organization);
+        DB::beginTransaction();
+        try {
+            $this->organizationRepository->deleteOrganization($organization);
+            $this->deleteImageLogo($organization);
+            DB::commit();
 
-        return response()->noContent();
+            return response()->noContent();
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            return response()->json(['error' => $e->getMessage()]);
+        }
     }
 
     public function processImageLogo(Organization $organization, $image)
