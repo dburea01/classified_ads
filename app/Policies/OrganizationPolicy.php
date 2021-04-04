@@ -12,6 +12,8 @@ class OrganizationPolicy
 
     public function before(User $user, $ability)
     {
+        return $user->role_id === 'SUPERADMIN';
+
         if ($user->role_id === 'SUPERADMIN') {
             return true;
         };

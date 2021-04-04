@@ -27,6 +27,8 @@ class OrganizationController extends Controller
      */
     public function index()
     {
+        $this->authorize('viewAny', Organization::class);
+
         $organizations = $this->organizationRepository->index();
 
         return OrganizationResource::collection($organizations);
