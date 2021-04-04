@@ -22,7 +22,8 @@ class SiteTypeResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'state_id' => $this->state_id,
-            'organization' => new OrganizationResource(Organization::find($this->organization_id))
+            'organization' => new OrganizationResource(Organization::find($this->organization_id)),
+            'sites_count' => $this->sites_count
         ];
     }
 }

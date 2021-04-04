@@ -26,7 +26,7 @@ class SiteTypeController extends Controller
      */
     public function index(Organization $organization)
     {
-        $this->authorize('view', $organization);
+        $this->authorize('viewAny', [SiteType::class, $organization]);
         $siteTypes = $this->siteTypeRepository->index($organization->id);
 
         return SiteTypeResource::collection($siteTypes);

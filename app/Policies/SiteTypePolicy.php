@@ -24,11 +24,9 @@ class SiteTypePolicy
      * @param  \App\Models\User  $user
      * @return mixed
      */
-    public function viewAny(User $user)
+    public function viewAny(User $user, Organization $organization)
     {
-        if ($user->role_id === 'SUPERADMIN') {
-            return true;
-        }
+        return  $user->role_id === 'ADMIN' && $user->organization_id === $organization->id;
     }
 
     /**
@@ -40,6 +38,7 @@ class SiteTypePolicy
      */
     public function view(User $user, SiteType $siteType)
     {
+        return  $user->role_id === 'ADMIN' && $user->organization_id === $organization->id;
     }
 
     /**

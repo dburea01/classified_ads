@@ -10,7 +10,7 @@ class SiteTypeRepository
 {
     public function index(string $organizationId)
     {
-        $siteTypes = SiteType::where('organization_id', $organizationId)->orderBy('name')->get();
+        $siteTypes = SiteType::where('organization_id', $organizationId)->withCount('sites')->orderBy('name')->get();
 
         return $siteTypes;
     }

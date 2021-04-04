@@ -85,7 +85,7 @@ class AuthController extends Controller
             $user->tokens()->delete();
             $tokenResult = $user->createToken('authToken')->plainTextToken;
 
-            return response()->json(['token' => $tokenResult, 'user' => $user->only(['id', 'role_id', 'first_name', 'last_name'])]);
+            return response()->json(['token' => $tokenResult, 'user' => $user->only(['id', 'role_id', 'first_name', 'last_name', 'organization_id'])]);
             /*
             $auth = [
                 'auth' => [
