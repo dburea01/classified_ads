@@ -36,7 +36,7 @@ class SiteTypePolicy
      * @param  \App\Models\SiteType  $siteType
      * @return mixed
      */
-    public function view(User $user, SiteType $siteType)
+    public function view(User $user, Organization $organization)
     {
         return  $user->role_id === 'ADMIN' && $user->organization_id === $organization->id;
     }

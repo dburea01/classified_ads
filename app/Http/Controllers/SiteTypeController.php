@@ -54,7 +54,7 @@ class SiteTypeController extends Controller
      */
     public function show(Organization $organization, SiteType $siteType)
     {
-        $this->authorize('view', $organization);
+        $this->authorize('view', [SiteType::class, $organization]);
 
         return new SiteTypeResource($siteType);
     }

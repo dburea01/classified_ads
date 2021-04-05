@@ -19,7 +19,7 @@ class SiteRepository
                     AllowedFilter::partial('name'),
                     AllowedFilter::partial('city'),
                     AllowedFilter::exact('site_type_id'),
-                    AllowedFilter::exact('status')
+                    AllowedFilter::exact('state_id')
                 ])
                 ->allowedFields(['id', 'internal_id', 'organization_id', 'site_type_id', 'name', 'city', 'address1', 'address2', 'address3', 'zip_code'])
                 ->where('organization_id', $organizationId)

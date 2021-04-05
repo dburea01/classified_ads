@@ -5,6 +5,7 @@ namespace App\Http\Resources;
 use App\Models\Organization;
 use App\Models\SiteType;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Auth;
 
 class SiteTypeResource extends JsonResource
 {
@@ -23,7 +24,9 @@ class SiteTypeResource extends JsonResource
             'name' => $this->name,
             'state_id' => $this->state_id,
             'organization' => new OrganizationResource(Organization::find($this->organization_id)),
-            'sites_count' => $this->sites_count
+            $this->mergeWhen(Auth::user()->role_id === 'ADMIN', [
+                'sites_count' => $this->sites->count()
+            ]),
         ];
     }
 }
