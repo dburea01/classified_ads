@@ -6,6 +6,7 @@ use App\Models\Organization;
 use App\Models\Site;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Support\Facades\Log;
 
 class SitePolicy
 {
@@ -36,8 +37,9 @@ class SitePolicy
      * @param  \App\Models\Site  $site
      * @return mixed
      */
-    public function view(User $user, Site $site)
+    public function view(User $user, Organization $organization, Site $site)
     {
+        return  $user->role_id === 'ADMIN' && $user->organization_id === $organization->id && $site->organization_id === $organization->id;
     }
 
     /**
@@ -58,9 +60,9 @@ class SitePolicy
      * @param  \App\Models\Site  $site
      * @return mixed
      */
-    public function update(User $user, Organization $organization)
+    public function update(User $user, Organization $organization, Site $site)
     {
-        return $user->role_id === 'ADMIN' && $user->organization_id === $organization->id;
+        return $user->role_id === 'ADMIN' && $user->organization_id === $organization->id && $site->organization_id === $organization->id;
     }
 
     /**
@@ -70,9 +72,9 @@ class SitePolicy
      * @param  \App\Models\Site  $site
      * @return mixed
      */
-    public function delete(User $user, Organization $organization)
+    public function delete(User $user, Organization $organization, Site $site)
     {
-        return $user->role_id === 'ADMIN' && $user->organization_id === $organization->id;
+        return $user->role_id === 'ADMIN' && $user->organization_id === $organization->id && $site->organization_id === $organization->id;
     }
 
     /**
