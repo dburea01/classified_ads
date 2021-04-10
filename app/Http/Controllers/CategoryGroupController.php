@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PutSortGroupCategoryRequest;
 use App\Http\Requests\StoreCategoryGroup;
 use App\Http\Requests\StoreCategoryGroupRequest;
 use App\Http\Resources\CategoryGroupResource;
@@ -58,7 +59,7 @@ class CategoryGroupController extends Controller
      */
     public function show(Organization $organization, CategoryGroup $categoryGroup)
     {
-        $this->authorize('view', [CategoryGroup::class, $organization]);
+        $this->authorize('view', [CategoryGroup::class, $organization, $categoryGroup]);
 
         return new CategoryGroupResource($categoryGroup);
     }
@@ -72,7 +73,7 @@ class CategoryGroupController extends Controller
      */
     public function update(StoreCategoryGroupRequest $request, Organization $organization, CategoryGroup $categoryGroup)
     {
-        $this->authorize('update', [CategoryGroup::class, $organization]);
+        $this->authorize('update', [CategoryGroup::class, $organization, $categoryGroup]);
 
         $this->categoryGroupRepository->update($categoryGroup, $request->only(['name', 'position', 'state_id']));
 
@@ -87,10 +88,19 @@ class CategoryGroupController extends Controller
      */
     public function destroy(Organization $organization, CategoryGroup $categoryGroup)
     {
-        $this->authorize('delete', [CategoryGroup::class, $organization]);
+        $this->authorize('delete', [CategoryGroup::class, $organization, $categoryGroup]);
 
         $this->categoryGroupRepository->delete($categoryGroup);
 
         return response()->noContent();
+    }
+
+    public function sortCategoryGroups(Organization $organization, PutSortGroupCategoryRequest $request)
+    {
+        $this->authorize('create', [CategoryGroup::class, $organization]);
+
+        $this->categoryGroupRepository->sortCategoryGroups($organization, $request->all());
+
+        return response()->json(['Sort OK'], 200);
     }
 }

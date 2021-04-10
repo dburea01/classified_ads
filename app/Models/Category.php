@@ -44,6 +44,10 @@ class Category extends Model
         'state_id'
     ];
 
+    protected $hidden = [
+        'created_at', 'updated_at', 'created_by', 'updated_by'
+    ];
+
     public function category_group()
     {
         return $this->belongsTo(CategoryGroup::class);

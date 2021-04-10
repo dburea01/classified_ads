@@ -3,8 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class StoreCategoryGroupRequest extends FormRequest
+class PutSortGroupCategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +25,16 @@ class StoreCategoryGroupRequest extends FormRequest
     public function rules()
     {
         return [
-            'position' => 'int|gte:0',
-            'name' => 'required',
-            'state_id' => 'required|in:ACTIVE,INACTIVE'
+            '*' => [
+                'uuid'
+            ]
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            '*.required' => 'Impossibe de trier les groupes de catégories.'
         ];
     }
 }

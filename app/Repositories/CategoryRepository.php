@@ -24,21 +24,28 @@ class CategoryRepository
         ->get();
         */
 
-        $categories = CategoryGroup::join('categories', 'category_groups.id', 'categories.category_group_id')
-        ->where('category_groups.organization_id', $organizationId);
+        // $categoriesTemp = CategoryGroup::join('categories', 'category_groups.id', 'categories.category_group_id')
+        // ->where('category_groups.organization_id', $organizationId);
         // ->get();
+        $categoriesTemp = Category::join('category_groups', 'category_groups.id', 'categories.category_group_id')
+        ->where('categories.organization_id', $organizationId)->select('categories.*')->with('category_group');
 
+        // return $categoriesTemp;
         // return $categories;
 
-        $categories = QueryBuilder::for($categories)
+        $categories = QueryBuilder::for($categoriesTemp)
                 ->allowedFilters([
-                    AllowedFilter::exact('category_groups.id')
+                    AllowedFilter::exact('categories.category_group_id'),
+                    AllowedFilter::partial('categories.name'),
+                    AllowedFilter::exact('categories.state_id'),
                 ])
-                ->allowedFields(['categories.id', 'categories.name', 'categories.position', 'categories.state_id'])
+                ->allowedFields(['categories.id', 'categories.name', 'categories.position', 'categories.state_id', 'categories.category_group_id'])
                 ->allowedSorts('categories.name', 'categories.position')
-                ->defaultSort('categories.position');
+                // ->where('category_groups.organization_id', $organizationId)
+                // ->allowedIncludes('category_group')
+                ->defaultSort('category_groups.position', 'categories.position');
 
-        return $categories->get();
+        return $categories->paginate(15);
     }
 
     public function insert(string $organizationId, array $data) : Category

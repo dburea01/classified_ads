@@ -10,6 +10,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryGroupController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\MediaController;
+use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -43,6 +44,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('organizations/{organization}/sites', SiteController::class)->whereUuid(['organization', 'site']);
     Route::apiResource('organizations/{organization}/users', UserController::class)->except('store')->whereUuid(['organization', 'user']);
     Route::apiResource('organizations/{organization}/category-groups', CategoryGroupController::class)->whereUuid(['organization', 'category_group']);
+    Route::patch('organizations/{organization}/category-groups/sort', [CategoryGroupController::class, 'sortCategoryGroups'])->whereUuid('organization');
     Route::apiResource('organizations/{organization}/categories', CategoryController::class)->whereUuid(['organization', 'category']);
     Route::apiResource('organizations/{organization}/classified-ads', ClassifiedAdController::class)->whereUuid(['organization', 'classified_ad']);
     Route::apiResource('organizations/{organization}/medias', MediaController::class)->whereUuid(['organization', 'media']);

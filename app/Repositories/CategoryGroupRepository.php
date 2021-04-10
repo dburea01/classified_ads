@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Repositories;
 
 use App\Models\CategoryGroup;
-use App\Models\SiteType;
+use App\Models\Organization;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
@@ -48,5 +48,16 @@ class CategoryGroupRepository
     public function delete(CategoryGroup $categoryGroup) : void
     {
         $categoryGroup->delete();
+    }
+
+    public function sortCategoryGroups(Organization $organization, array $ids)
+    {
+        foreach ($ids as $key => $id) {
+            CategoryGroup::where('id', $id)
+            ->where('organization_id', $organization->id)
+            ->update([
+                'position' => $key
+            ]);
+        }
     }
 }

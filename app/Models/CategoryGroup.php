@@ -41,6 +41,10 @@ class CategoryGroup extends Model
         'state_id'
     ];
 
+    protected $hidden = [
+        'created_by', 'updated_by', 'created_at', 'updated_at'
+    ];
+
     public function organization()
     {
         return $this->belongsTo(Organization::class);
