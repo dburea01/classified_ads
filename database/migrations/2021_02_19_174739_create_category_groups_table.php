@@ -16,7 +16,7 @@ class CreateCategoryGroupsTable extends Migration
         Schema::create('category_groups', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->uuid('organization_id');
-            $table->tinyInteger('position');
+            $table->tinyInteger('position')->default(99);
             $table->string('name');
             $table->string('state_id');
             $table->string('created_by')->nullable();

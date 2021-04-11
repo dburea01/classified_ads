@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PutSortCategoryRequest;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Resources\CategoryResource;
 use App\Models\Category;
+use App\Models\CategoryGroup;
 use App\Models\Organization;
 use App\Repositories\CategoryRepository;
 use Illuminate\Database\Eloquent\Collection;
@@ -70,7 +72,7 @@ class CategoryController extends Controller
      */
     public function update(StoreCategoryRequest $request, Organization $organization, Category $category)
     {
-        $this->authorize('update', [Category::class, $organization]);
+        $this->authorize('update', [Category::class, $organization, $category]);
         $this->categoryRepository->update($category, $request->only(['category_group_id', 'name', 'position', 'state_id']));
 
         return new Collection($category);
@@ -88,5 +90,14 @@ class CategoryController extends Controller
         $this->categoryRepository->delete($category);
 
         return response()->noContent();
+    }
+
+    public function sortCategories(Organization $organization, CategoryGroup $categoryGroup, PutSortCategoryRequest $request)
+    {
+        $this->authorize('sort', [Category::class, $organization, $categoryGroup]);
+
+        $this->categoryRepository->sortCategories($organization, $categoryGroup, $request->all());
+
+        return response()->json(['Sort OK'], 200);
     }
 }

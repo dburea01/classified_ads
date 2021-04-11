@@ -70,4 +70,17 @@ class CategoryRepository
     {
         $category->delete();
     }
+
+    public function sortCategories(Organization $organization, CategoryGroup $categoryGroup, array $ids) : void
+    {
+        foreach ($ids as $key => $id) {
+            $category = Category::where('id', $id)
+            ->where('organization_id', $organization->id)
+            ->where('category_group_id', $categoryGroup->id)
+            ->first();
+
+            $category->position = $key;
+            $category->save();
+        }
+    }
 }

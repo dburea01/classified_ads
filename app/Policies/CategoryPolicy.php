@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Models\CategoryGroup;
 use App\Models\Organization;
 use App\Models\SiteType;
 use App\Models\User;
@@ -31,15 +32,17 @@ class CategoryPolicy
 
     public function create(User $user, Organization $organization)
     {
-        Log::info($user);
-        Log::info($organization);
-
         return  $user->role_id === 'ADMIN' && $user->organization_id === $organization->id;
     }
 
     public function update(User $user, Organization $organization)
     {
         return $user->role_id === 'ADMIN' && $user->organization_id === $organization->id;
+    }
+
+    public function sort(User $user, Organization $organization, CategoryGroup $categoryGroup)
+    {
+        return $user->role_id === 'ADMIN' && $user->organization_id === $organization->id && $categoryGroup->organization_id === $organization->id;
     }
 
     public function delete(User $user, Organization $organization)

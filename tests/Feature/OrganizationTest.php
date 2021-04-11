@@ -130,10 +130,10 @@ class OrganizationTest extends TestCase
 
     public function testGetOrganizations() : void
     {
+        $this->actingAsRole('SUPERADMIN', null);
         $organizations = Organization::factory()->count(10)->create();
 
         $response = $this->get($this->getUrl() . '/organizations/');
-
         $response->assertStatus(200);
     }
 
@@ -142,8 +142,8 @@ class OrganizationTest extends TestCase
         $this->actingAsRole('SUPERADMIN', null);
 
         $organization = Organization::factory()->create();
-
-        $response = $this->json('DELETE', $this->getUrl() . '/organizations/' . $organization->id);
+        $response = $this->delete($this->getUrl() . '/organizations/' . $organization->id);
+        // $response = $this->json('DELETE', $this->getUrl() . '/organizations/' . $organization->id);
 
         $response->assertStatus(204);
     }

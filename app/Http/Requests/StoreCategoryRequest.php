@@ -35,7 +35,7 @@ class StoreCategoryRequest extends FormRequest
                 }),
             ],
             'name' => 'required',
-            'position' => 'int|gt:0',
+            'position' => 'int|gte:0',
             'state_id' => 'required|in:ACTIVE,INACTIVE'
         ];
     }
