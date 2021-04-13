@@ -14,7 +14,9 @@ class RoleController extends Controller
      */
     public function index()
     {
-        //
+        $roles = Role::orderBy('position')->where('displayable', true)->get();
+
+        return response()->json($roles, 200);
     }
 
     /**
@@ -24,7 +26,6 @@ class RoleController extends Controller
      */
     public function create()
     {
-        //
     }
 
     /**
@@ -35,7 +36,6 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        //
     }
 
     /**
@@ -46,7 +46,6 @@ class RoleController extends Controller
      */
     public function show(Role $role)
     {
-        //
     }
 
     /**
@@ -57,7 +56,6 @@ class RoleController extends Controller
      */
     public function edit(Role $role)
     {
-        //
     }
 
     /**
@@ -69,7 +67,6 @@ class RoleController extends Controller
      */
     public function update(Request $request, Role $role)
     {
-        //
     }
 
     /**
@@ -80,6 +77,5 @@ class RoleController extends Controller
      */
     public function destroy(Role $role)
     {
-        //
     }
 }

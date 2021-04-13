@@ -51,9 +51,9 @@ class UserController extends Controller
      */
     public function show(Organization $organization, User $user)
     {
-        $this->authorize('view', [User::class, $organization]);
+        $this->authorize('view', [User::class, $organization, $user]);
 
-        return new Collection($user);
+        return new UserResource($user);
     }
 
     /**
@@ -65,7 +65,7 @@ class UserController extends Controller
      */
     public function update(StoreUserRequest $request, Organization $organization, User $user)
     {
-        $this->authorize('update', [User::class, $organization]);
+        $this->authorize('update', [User::class, $organization, $user]);
 
         $this->userRepository->update($user, $request->only(['first_name', 'last_name', 'role_id', 'user_state_id', 'email']));
 

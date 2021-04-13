@@ -18,12 +18,13 @@ class CreateRolesTable extends Migration
             $table->string('id')->primary();
             $table->string('name');
             $table->tinyInteger('position');
+            $table->boolean('displayable')->default(false);
             $table->timestamps();
         });
 
-        Role::insert(['id' => 'EMPLOYEE', 'name' => 'Employé', 'position' => 10]);
-        Role::insert(['id' => 'ADMIN', 'name' => 'Administrateur', 'position' => 20]);
-        Role::insert(['id' => 'SUPERADMIN', 'name' => 'Super administrateur', 'position' => 30]);
+        Role::insert(['id' => 'EMPLOYEE', 'name' => 'Employé', 'position' => 10, 'displayable' => true]);
+        Role::insert(['id' => 'ADMIN', 'name' => 'Administrateur', 'position' => 20, 'displayable' => true]);
+        Role::insert(['id' => 'SUPERADMIN', 'name' => 'Super administrateur', 'position' => 30, 'displayable' => false]);
     }
 
     /**

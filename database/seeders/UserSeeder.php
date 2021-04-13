@@ -18,12 +18,12 @@ class UserSeeder extends Seeder
         $organizations = Organization::all();
 
         foreach ($organizations as $organization) {
-            User::factory()->count(random_int(1, 10))->create([
+            User::factory()->count(random_int(1, 50))->create([
                 'organization_id' => $organization->id,
                 'role_id' => 'EMPLOYEE'
             ]);
 
-            User::factory()->create([
+            User::factory()->count(3)->create([
                 'organization_id' => $organization->id,
                 'role_id' => 'ADMIN',
             ]);

@@ -51,13 +51,18 @@ class User extends Authenticatable
         'email_verification_code'
     ];
 
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+
     public function organisation()
     {
         return $this->belongsTo(Organization::class);
     }
 
-    public function classified_ads()
+    public function classifiedAds()
     {
-        return $this->hasMany(ClassifiedAds::class);
+        return $this->hasMany(ClassifiedAd::class);
     }
 }

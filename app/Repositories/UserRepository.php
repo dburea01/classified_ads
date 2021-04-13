@@ -19,11 +19,14 @@ class UserRepository
             AllowedFilter::partial('first_name'),
             AllowedFilter::partial('last_name'),
             AllowedFilter::partial('email'),
-            AllowedFilter::exact('user_state_id')
+            AllowedFilter::exact('user_state_id'),
+            AllowedFilter::exact('role_id')
         ])
         ->allowedFields(['id', 'organization_id', 'first_name', 'last_name', 'email', 'user_state_id'])
         ->allowedSorts('first_name', 'last_name', 'email')
+        ->allowedIncludes(['role', 'classified_ads'])
         ->where('organization_id', $organizationId)
+        // ->withCount('classified_ads')
         ->defaultSort('last_name');
 
         return $users->paginate(10)->appends(request()->query());

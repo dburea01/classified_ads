@@ -18,82 +18,35 @@ class UserPolicy
         }
     }
 
-    /**
-     * Determine whether the user can view any models.
-     *
-     * @param  \App\Models\User  $user
-     * @return mixed
-     */
     public function viewAny(User $user, Organization $organization)
     {
         return  $user->role_id === 'ADMIN' && $user->organization_id === $organization->id;
     }
 
-    /**
-     * Determine whether the user can view the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Site  $site
-     * @return mixed
-     */
-    public function view(User $user, Organization $organization)
+    public function view(User $user, Organization $organization, User $userToDisplay)
     {
-        return  $user->role_id === 'ADMIN' && $user->organization_id === $organization->id;
+        return  $user->role_id === 'ADMIN' && $user->organization_id === $organization->id && $userToDisplay->organization_id === $organization->id;
     }
 
-    /**
-     * Determine whether the user can create models.
-     *
-     * @param  \App\Models\User  $user
-     * @return mixed
-     */
     public function create(User $user, Organization $organization)
     {
         return  $user->role_id === 'ADMIN' && $user->organization_id === $organization->id;
     }
 
-    /**
-     * Determine whether the user can update the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Site  $site
-     * @return mixed
-     */
-    public function update(User $user, Organization $organization)
+    public function update(User $user, Organization $organization, User $userToUpdate)
     {
-        return $user->role_id === 'ADMIN' && $user->organization_id === $organization->id;
+        return $user->role_id === 'ADMIN' && $user->organization_id === $organization->id && $userToUpdate->organization_id === $organization->id;
     }
 
-    /**
-     * Determine whether the user can delete the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Site  $site
-     * @return mixed
-     */
     public function delete(User $user, Organization $organization)
     {
         return $user->role_id === 'ADMIN' && $user->organization_id === $organization->id;
     }
 
-    /**
-     * Determine whether the user can restore the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Site  $site
-     * @return mixed
-     */
     public function restore(User $user, Site $site)
     {
     }
 
-    /**
-     * Determine whether the user can permanently delete the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Site  $site
-     * @return mixed
-     */
     public function forceDelete(User $user, Site $site)
     {
     }
