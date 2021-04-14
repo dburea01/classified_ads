@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Repositories\UserRepository;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use PhpParser\ErrorHandler\Collecting;
 
 class UserController extends Controller
@@ -67,7 +68,12 @@ class UserController extends Controller
     {
         $this->authorize('update', [User::class, $organization, $user]);
 
-        $this->userRepository->update($user, $request->only(['first_name', 'last_name', 'role_id', 'user_state_id', 'email']));
+        if (in_array(Auth::user()->role_id, ['ADMIN', 'SUPERADMIN'])) {
+            $dataToUpdate = $request->only(['first_name', 'last_name', 'role_id', 'user_state_id']);
+        } else {
+            $dataToUpdate = $request->only(['first_name', 'last_name']);
+        }
+        $this->userRepository->update($user, $dataToUpdate);
 
         return new Collection($user);
     }
@@ -80,7 +86,7 @@ class UserController extends Controller
      */
     public function destroy(Organization $organization, User $user)
     {
-        $this->authorize('delete', [User::class, $organization]);
+        $this->authorize('delete', [User::class, $organization, $user]);
 
         $this->userRepository->delete($organization->id, $user->id);
 

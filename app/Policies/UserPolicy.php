@@ -25,7 +25,11 @@ class UserPolicy
 
     public function view(User $user, Organization $organization, User $userToDisplay)
     {
-        return  $user->role_id === 'ADMIN' && $user->organization_id === $organization->id && $userToDisplay->organization_id === $organization->id;
+        return  (
+            $user->role_id === 'ADMIN' && $user->organization_id === $organization->id && $userToDisplay->organization_id === $user->organization_id
+            ) || (
+                $user->id === $userToDisplay->id
+            );
     }
 
     public function create(User $user, Organization $organization)
@@ -35,12 +39,16 @@ class UserPolicy
 
     public function update(User $user, Organization $organization, User $userToUpdate)
     {
-        return $user->role_id === 'ADMIN' && $user->organization_id === $organization->id && $userToUpdate->organization_id === $organization->id;
+        return  (
+            $user->role_id === 'ADMIN' && $user->organization_id === $organization->id && $userToUpdate->organization_id === $user->organization_id
+            ) || (
+                $user->id === $userToUpdate->id
+            );
     }
 
-    public function delete(User $user, Organization $organization)
+    public function delete(User $user, Organization $organization, User $userToDelete)
     {
-        return $user->role_id === 'ADMIN' && $user->organization_id === $organization->id;
+        return $user->role_id === 'ADMIN' && $user->organization_id === $organization->id && $userToDelete->organization_id === $user->organization_id;
     }
 
     public function restore(User $user, Site $site)
