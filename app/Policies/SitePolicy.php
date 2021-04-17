@@ -27,7 +27,8 @@ class SitePolicy
      */
     public function viewAny(User $user, Organization $organization)
     {
-        return  $user->role_id === 'ADMIN' && $user->organization_id === $organization->id;
+        // return  $user->role_id === 'ADMIN' && $user->organization_id === $organization->id;
+        return $user->organization_id === $organization->id;
     }
 
     /**

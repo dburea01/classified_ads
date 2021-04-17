@@ -21,6 +21,7 @@ class CategoryGroupRepository
                 ])
                 ->allowedFields(['id', 'organization_id', 'name', 'position'])
                 ->allowedSorts('name', 'position')
+                ->with('categories')
                 ->where('organization_id', $organizationId)
                 ->defaultSort('position');
 

@@ -30,7 +30,7 @@ class ClassifiedAdRepository
                 ->where('organization_id', $organizationId)
                 ->defaultSort('-created_at');
 
-        return $classifiedAds->paginate(10);
+        return $classifiedAds->paginate(20);
     }
 
     public function getById(string $id)
