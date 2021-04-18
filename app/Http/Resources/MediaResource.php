@@ -28,9 +28,9 @@ class MediaResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'classified_ad_id' => $this->classified_ad_id,
-            $this->mergeWhen(Storage::disk('organizations')->exists($url) && $this->name !== null, [
-                'url_media' => Storage::disk('organizations')->url($url),
-            ])
+            // $this->mergeWhen(Storage::disk('organizations')->exists($url) && $this->name !== null, [
+            'url_media' => Storage::disk('organizations')->url($url),
+            // ])
         ];
     }
 }

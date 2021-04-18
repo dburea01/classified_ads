@@ -16,7 +16,7 @@ class CreateMediasTable extends Migration
         Schema::create('medias', function (Blueprint $table): void {
             $table->uuid('id')->primary();
             $table->uuid('classified_ad_id');
-            $table->string('name');
+            $table->string('name')->nullable();
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();
             $table->timestamps();

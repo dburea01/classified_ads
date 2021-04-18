@@ -26,7 +26,7 @@ class ClassifiedAdRepository
                 ])
                 ->allowedFields(['id', 'organization_id', 'site_id', 'title', 'description', 'category_id', 'created_at', 'price', 'currency_id',
                     'category.id', 'category.name'])
-                ->allowedIncludes(['category', 'site', 'currency'])
+                ->allowedIncludes(['category', 'site', 'currency', 'medias'])
                 ->where('organization_id', $organizationId)
                 ->defaultSort('-created_at');
 
