@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Requests\PutSortGroupCategoryRequest;
 use App\Http\Requests\StoreCategoryGroup;
@@ -10,8 +10,7 @@ use App\Models\CategoryGroup;
 use App\Models\Organization;
 use App\Repositories\CategoryGroupRepository;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Http\Request;
-use PhpParser\ErrorHandler\Collecting;
+use App\Http\Controllers\Controller;
 
 class CategoryGroupController extends Controller
 {

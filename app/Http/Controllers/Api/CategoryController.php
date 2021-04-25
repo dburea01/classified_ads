@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Requests\PutSortCategoryRequest;
 use App\Http\Requests\StoreCategoryRequest;
@@ -11,6 +11,7 @@ use App\Models\Organization;
 use App\Repositories\CategoryRepository;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class CategoryController extends Controller
 {

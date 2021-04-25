@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
-use App\Models\Role;
+use App\Models\SuperAdmin;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
-class RoleController extends Controller
+class SuperAdminController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +15,6 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $roles = Role::orderBy('position')->where('displayable', true)->get();
-
-        return response()->json($roles, 200);
     }
 
     /**
@@ -41,20 +39,20 @@ class RoleController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Role  $role
+     * @param  \App\Models\SuperAdmin  $superAdmin
      * @return \Illuminate\Http\Response
      */
-    public function show(Role $role)
+    public function show(SuperAdmin $superAdmin)
     {
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Role  $role
+     * @param  \App\Models\SuperAdmin  $superAdmin
      * @return \Illuminate\Http\Response
      */
-    public function edit(Role $role)
+    public function edit(SuperAdmin $superAdmin)
     {
     }
 
@@ -62,20 +60,20 @@ class RoleController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Role  $role
+     * @param  \App\Models\SuperAdmin  $superAdmin
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Role $role)
+    public function update(Request $request, SuperAdmin $superAdmin)
     {
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Role  $role
+     * @param  \App\Models\SuperAdmin  $superAdmin
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Role $role)
+    public function destroy(SuperAdmin $superAdmin)
     {
     }
 }

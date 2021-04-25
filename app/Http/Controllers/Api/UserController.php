@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Resources\UserResource;
@@ -10,7 +10,7 @@ use App\Repositories\UserRepository;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use PhpParser\ErrorHandler\Collecting;
+use App\Http\Controllers\Controller;
 
 class UserController extends Controller
 {

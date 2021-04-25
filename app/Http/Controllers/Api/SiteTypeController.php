@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Requests\StoreSiteTypeRequest;
 use App\Http\Resources\SiteTypeResource;
@@ -9,6 +9,7 @@ use App\Models\SiteType;
 use App\Policies\SiteTypePolicy;
 use App\Repositories\SiteTypeRepository;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class SiteTypeController extends Controller
 {
