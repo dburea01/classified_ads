@@ -1,16 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Requests\StoreSiteRequest;
 use App\Http\Resources\SiteResource;
 use App\Models\Organization;
 use App\Models\Site;
-use App\Policies\SitePolicy;
-use Illuminate\Http\Request;
 use App\Repositories\SiteRepository;
 use Illuminate\Database\Eloquent\Collection;
-use PhpParser\ErrorHandler\Collecting;
+use App\Http\Controllers\Controller;
 
 class SiteController extends Controller
 {

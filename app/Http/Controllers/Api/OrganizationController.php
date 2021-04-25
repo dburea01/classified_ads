@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Requests\StoreOrganizationRequest;
 use App\Http\Resources\OrganizationResource;
@@ -8,8 +8,8 @@ use App\Models\Organization;
 use App\Repositories\OrganizationRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Controllers\Controller;
 
 class OrganizationController extends Controller
 {

@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Requests\StoreClassifiedAdRequest;
 use App\Http\Resources\ClassifiedAdResource;
 use App\Models\ClassifiedAd;
 use App\Models\Organization;
 use App\Repositories\ClassifiedAdRepository;
+use App\Http\Controllers\Controller;
 
 class ClassifiedAdController extends Controller
 {

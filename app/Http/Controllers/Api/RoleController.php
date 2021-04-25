@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
-use App\Models\SuperAdmin;
+use App\Models\Role;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
-class SuperAdminController extends Controller
+class RoleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +15,9 @@ class SuperAdminController extends Controller
      */
     public function index()
     {
-        //
+        $roles = Role::orderBy('position')->where('displayable', true)->get();
+
+        return response()->json($roles, 200);
     }
 
     /**
@@ -24,7 +27,6 @@ class SuperAdminController extends Controller
      */
     public function create()
     {
-        //
     }
 
     /**
@@ -35,51 +37,46 @@ class SuperAdminController extends Controller
      */
     public function store(Request $request)
     {
-        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\SuperAdmin  $superAdmin
+     * @param  \App\Models\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function show(SuperAdmin $superAdmin)
+    public function show(Role $role)
     {
-        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\SuperAdmin  $superAdmin
+     * @param  \App\Models\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function edit(SuperAdmin $superAdmin)
+    public function edit(Role $role)
     {
-        //
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\SuperAdmin  $superAdmin
+     * @param  \App\Models\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, SuperAdmin $superAdmin)
+    public function update(Request $request, Role $role)
     {
-        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\SuperAdmin  $superAdmin
+     * @param  \App\Models\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function destroy(SuperAdmin $superAdmin)
+    public function destroy(Role $role)
     {
-        //
     }
 }

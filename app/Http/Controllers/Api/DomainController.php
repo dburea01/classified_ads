@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Requests\StoreDomainRequest;
 use App\Http\Resources\DomainResource;
@@ -9,6 +9,7 @@ use App\Models\Organization;
 use App\Repositories\DomainRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Controller;
 
 class DomainController extends Controller
 {
