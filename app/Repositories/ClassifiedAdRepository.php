@@ -25,8 +25,8 @@ class ClassifiedAdRepository
                     AllowedFilter::exact('ad_status_id')
                 ])
                 ->allowedFields(['id', 'organization_id', 'site_id', 'title', 'description', 'category_id', 'created_at', 'price', 'currency_id',
-                    'category.id', 'category.name'])
-                ->allowedIncludes(['category', 'site', 'currency', 'medias'])
+                    'category.id', 'category.name', 'user_id', 'user.id', 'user.first_name', 'user.last_name'])
+                ->allowedIncludes(['category', 'site', 'currency', 'medias', 'user'])
                 ->where('organization_id', $organizationId)
                 ->defaultSort('-created_at');
 

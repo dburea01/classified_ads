@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Ramsey\Uuid\Uuid;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -54,6 +55,8 @@ class User extends Authenticatable
 
     protected function serializeDate(DateTimeInterface $date)
     {
+        Log::info('toto');
+
         return $date->format('d/m/Y H:i');
     }
 
