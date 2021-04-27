@@ -1,16 +1,16 @@
 <?php
 
-use App\Http\Controllers\Api\ClassifiedAdController;
-use App\Http\Controllers\Api\OrganizationController;
-use App\Http\Controllers\Api\AuthController;
-use App\Http\Controllers\Api\DomainController;
-use App\Http\Controllers\Api\SiteTypeController;
-use App\Http\Controllers\Api\SiteController;
-use App\Http\Controllers\Api\UserController;
-use App\Http\Controllers\Api\RoleController;
-use App\Http\Controllers\Api\CategoryGroupController;
-use App\Http\Controllers\Api\CategoryController;
-use App\Http\Controllers\Api\MediaController;
+use App\Http\Controllers\ClassifiedAdController;
+use App\Http\Controllers\OrganizationController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DomainController;
+use App\Http\Controllers\SiteTypeController;
+use App\Http\Controllers\SiteController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\CategoryGroupController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\MediaController;
 use Illuminate\Support\Facades\Route;
 
 /*

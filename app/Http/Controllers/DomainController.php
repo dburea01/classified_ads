@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreDomainRequest;
 use App\Http\Resources\DomainResource;
