@@ -22,11 +22,12 @@ class MediaResource extends JsonResource
         $classifiedAd = ClassifiedAd::find($this->classified_ad_id);
         $organization = Organization::find($classifiedAd->organization_id);
 
-        $url = "{$organization->container_folder}/medias/{$this->name}";
+        $url = "{$organization->container_folder}/medias/{$this->storage_name}";
 
         return [
             'id' => $this->id,
-            'name' => $this->name,
+            'storage_name' => $this->storage_name,
+            'original_name' => $this->original_name,
             'classified_ad_id' => $this->classified_ad_id,
             // $this->mergeWhen(Storage::disk('organizations')->exists($url) && $this->name !== null, [
             'url_media' => Storage::disk('organizations')->url($url),

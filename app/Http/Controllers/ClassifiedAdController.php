@@ -8,12 +8,11 @@ use App\Models\ClassifiedAd;
 use App\Models\Organization;
 use App\Repositories\ClassifiedAdRepository;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Log;
 
 class ClassifiedAdController extends Controller
 {
     private $classifiedAdRepository;
-
-    private $organizationRepository;
 
     public function __construct(ClassifiedAdRepository $classifiedAdRepository)
     {

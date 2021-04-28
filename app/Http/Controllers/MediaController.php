@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Controller;
+use PhpParser\Node\Stmt\TryCatch;
 
 class MediaController extends Controller
 {
@@ -29,7 +30,7 @@ class MediaController extends Controller
         $this->authorize('viewAny', [Media::class, $organization]);
 
         try {
-            $medias = $this->mediaRepository->index($organization, $request->classified_ad_id);
+            $medias = $this->mediaRepository->index($request->classified_ad_id);
 
             return MediaResource::collection($medias);
         } catch (\Exception $e) {
@@ -41,11 +42,18 @@ class MediaController extends Controller
     {
         $this->authorize('create', [Media::class, $organization->id, $request->classified_ad_id]);
 
-        $media = $this->mediaRepository->insert($request->only(['classified_ad_id']), null);
+        DB::beginTransaction();
+        try {
+            $media = $this->mediaRepository->insert($request->only(['classified_ad_id', 'media_file']), null);
+            $this->storeMedia($organization, $request->media_file, $media->storage_name);
+            DB::commit();
 
-        $this->storeMedia($organization, $media, $request->media_file);
+            return new MediaResource($media);
+        } catch (\Throwable $th) {
+            DB::rollback();
 
-        return new MediaResource($media);
+            return response()->json(['message' => $th->getMessage()], 400);
+        }
     }
 
     /**
@@ -94,18 +102,14 @@ class MediaController extends Controller
         }
     }
 
-    public function storeMedia(Organization $organization, Media $media, $image)
+    public function storeMedia(Organization $organization, $image, string $storageName)
     {
-        $fileName = $media->id . '.' . $image->getClientOriginalExtension();
-
-        $response = Storage::disk('organizations')->putFileAs("/{$organization->container_folder}/medias", $image, $fileName);
-        // Log::info($response);
-        $this->mediaRepository->update($media, ['name' => $fileName]);
+        $response = Storage::disk('organizations')->putFileAs("/{$organization->container_folder}/medias", $image, $storageName);
     }
 
     public function deleteMedia(Organization $organization, Media $media)
     {
-        $path = "/{$organization->container_folder}/medias/$media->name";
+        $path = "/{$organization->container_folder}/medias/$media->storage_name";
         if (Storage::disk('organizations')->exists($path)) {
             Storage::disk('organizations')->delete($path);
         }

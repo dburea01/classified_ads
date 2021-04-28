@@ -55,8 +55,6 @@ class User extends Authenticatable
 
     protected function serializeDate(DateTimeInterface $date)
     {
-        Log::info('toto');
-
         return $date->format('d/m/Y H:i');
     }
 

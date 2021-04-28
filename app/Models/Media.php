@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
-use Ramsey\Uuid\Uuid;
 
 class Media extends Model
 {
@@ -18,7 +17,7 @@ class Media extends Model
     {
         parent::boot();
         self::creating(function ($model): void {
-            $model->id = Uuid::uuid4()->toString();
+            // $model->id = Uuid::uuid4()->toString();
             if (Auth::check()) {
                 $model->created_by = Auth::user()->id;
             }
@@ -38,7 +37,8 @@ class Media extends Model
 
     protected $fillable = [
         'classified_ad_id',
-        'name'
+        'storage_name',
+        'original_name'
     ];
 
     public function classified_ad()
