@@ -18,6 +18,7 @@ class DomainController extends Controller
     public function __construct(DomainRepository $domainRepository)
     {
         $this->domainRepository = $domainRepository;
+        $this->authorizeResource(Organization::class, 'organization');
     }
 
     /**
@@ -27,7 +28,7 @@ class DomainController extends Controller
      */
     public function index(Organization $organization)
     {
-        $this->authorize('viewAny', Domain::class);
+        // $this->authorize('viewAny', Domain::class);
 
         $domains = $this->domainRepository->index($organization->id);
 
@@ -42,8 +43,8 @@ class DomainController extends Controller
      */
     public function store(Organization $organization, StoreDomainRequest $request)
     {
-        $this->authorize('create', Domain::class);
-        Log::info($organization);
+        // $this->authorize('create', Domain::class);
+
         $domain = $this->domainRepository->insertDomain($organization->id, $request->only(['name']));
 
         // return (new DomainResource($domain))->response()->setStatusCode(201);
@@ -58,7 +59,7 @@ class DomainController extends Controller
      */
     public function show(Organization $organization, Domain $domain)
     {
-        $this->authorize('view', Domain::class);
+        // $this->authorize('view', Domain::class);
 
         return new DomainResource($domain);
     }
@@ -72,7 +73,7 @@ class DomainController extends Controller
      */
     public function update(StoreDomainRequest $request, Organization $organization, Domain $domain)
     {
-        $this->authorize('update', Domain::class);
+        // $this->authorize('update', Domain::class);
 
         $this->domainRepository->updateDomain($domain, $request->only(['name']));
 
@@ -87,7 +88,7 @@ class DomainController extends Controller
      */
     public function destroy(Organization $organization, Domain $domain)
     {
-        $this->authorize('delete', Domain::class);
+        // $this->authorize('delete', Domain::class);
 
         $this->domainRepository->deleteDomain($domain);
 

@@ -106,7 +106,6 @@ class SiteTypeTest extends TestCase
         $this->actingAsRole('ADMIN', $organization->id);
 
         $response = $this->delete($this->getUrl() . "/organizations/{$organization->id}/site-types/{$siteType->id}");
-
         $response->assertStatus(204);
 
         $response = $this->delete($this->getUrl() . "/organizations/{$organization->id}/site-types/{$siteType->id}");

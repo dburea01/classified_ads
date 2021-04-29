@@ -18,6 +18,7 @@ class OrganizationController extends Controller
     public function __construct(OrganizationRepository $organizationRepository)
     {
         $this->organizationRepository = $organizationRepository;
+        $this->authorizeResource(Organization::class, 'organization');
     }
 
     /**
@@ -27,7 +28,7 @@ class OrganizationController extends Controller
      */
     public function index()
     {
-        $this->authorize('viewAny', Organization::class);
+        // $this->authorize('viewAny', Organization::class);
 
         $organizations = $this->organizationRepository->index();
 
@@ -42,7 +43,7 @@ class OrganizationController extends Controller
      */
     public function store(StoreOrganizationRequest $request)
     {
-        $this->authorize('create', Organization::class);
+        // $this->authorize('create', Organization::class);
 
         $organization = $this->organizationRepository->insertOrganisation($request->only(['name', 'contact', 'comment', 'ads_max', 'media_max', 'state_id', 'container_folder']));
 
@@ -73,19 +74,16 @@ class OrganizationController extends Controller
      */
     public function update(StoreOrganizationRequest $request, Organization $organization)
     {
-        // dd($organization);
-        $this->authorize('update', Organization::class);
+        // $this->authorize('update', Organization::class);
 
         $this->organizationRepository->updateOrganization($organization, $request->only(['name', 'contact', 'comment', 'ads_max', 'media_max', 'state_id', 'container_folder']));
 
         return (new OrganizationResource($organization))->response()->setStatusCode(200);
-        // return new OrganizationResource($organization);
-        // return response()->json($organizationUpdated);
     }
 
     public function updateLogo(Request $request, Organization $organization)
     {
-        $this->authorize('update', [Organization::class, $organization]);
+        // $this->authorize('update', Organization::class);
 
         $request->validate([
             'logo_file' => 'required|image|mimes:jpg,bmp,png|max:128'
@@ -101,7 +99,7 @@ class OrganizationController extends Controller
 
     public function deleteLogo(Request $request, Organization $organization)
     {
-        $this->authorize('delete', Organization::class);
+        // $this->authorize('delete', Organization::class);
 
         $this->deleteImageLogo($organization);
         $this->organizationRepository->updateOrganization($organization, ['logo' => null]);
@@ -117,7 +115,7 @@ class OrganizationController extends Controller
      */
     public function destroy(Organization $organization)
     {
-        $this->authorize('delete', Organization::class);
+        // $this->authorize('delete', Organization::class);
 
         DB::beginTransaction();
         try {

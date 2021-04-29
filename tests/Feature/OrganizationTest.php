@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\Organization;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Support\Facades\Storage;
 use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
 
@@ -139,6 +140,7 @@ class OrganizationTest extends TestCase
 
     public function testDeleteOrganization() :void
     {
+        // Storage::fake('organizations');
         $this->actingAsRole('SUPERADMIN', null);
 
         $organization = Organization::factory()->create();
