@@ -44,14 +44,14 @@ class PoliciesOrganizationTest extends TestCase
     public function testPostOrganization(): void
     {
         $this->actingAsRole('SUPERADMIN', null);
-        $this->json('POST', $this->getUrl() . '/organizations')->assertStatus(422);
+        $this->json('POST', $this->getUrl() . self::URL)->assertStatus(422);
 
         $organization = Organization::factory()->create();
         $this->actingAsRole('ADMIN', $organization->id);
-        $this->json('POST', $this->getUrl() . '/organizations')->assertStatus(403);
+        $this->json('POST', $this->getUrl() . self::URL)->assertStatus(403);
 
         $this->actingAsRole('EMPLOYEE', $organization->id);
-        $this->json('POST', $this->getUrl() . '/organizations')->assertStatus(403);
+        $this->json('POST', $this->getUrl() . self::URL)->assertStatus(403);
     }
 
     public function testPutOrganization(): void

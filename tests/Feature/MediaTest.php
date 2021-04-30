@@ -19,6 +19,8 @@ class MediaTest extends TestCase
     use DatabaseTransactions;
     use Request;
 
+    const IMAGE_NAME = 'avatar.jpg';
+
     public function testPostMediaWithErrors(): void
     {
         $organization = Organization::factory()->create();
@@ -39,7 +41,7 @@ class MediaTest extends TestCase
 
         $post = [
             'classified_ad_id' => $classifiedAd->id,
-            'media_file' => UploadedFile::fake()->create('avatar.jpg', 3000)
+            'media_file' => UploadedFile::fake()->create(self::IMAGE_NAME, 3000)
         ];
 
         $response = $this->json('POST', $this->getUrl() . "/organizations/{$classifiedAd->organization_id}/medias", $post);
@@ -101,7 +103,7 @@ class MediaTest extends TestCase
         ];
 
         for ($i = 1; $i < 4; $i++) {
-            $response = $this->json('POST', $this->getUrl() . "/organizations/{$classifiedAd->organization_id}/medias", $post);
+            $this->json('POST', $this->getUrl() . "/organizations/{$classifiedAd->organization_id}/medias", $post);
         }
 
         $response = $this->json('POST', $this->getUrl() . "/organizations/{$classifiedAd->organization_id}/medias", $post);
@@ -117,7 +119,7 @@ class MediaTest extends TestCase
     public function testGetMedias() : void
     {
         $classifiedAd = $this->insertClassifiedAd();
-        $medias = Media::factory()->count(10)->create(['classified_ad_id' => $classifiedAd->id]);
+        Media::factory()->count(10)->create(['classified_ad_id' => $classifiedAd->id]);
 
         $response = $this->json('GET', $this->getUrl() . "/organizations/{$classifiedAd->organization_id}/medias?classified_ad_id={$classifiedAd->id}");
 
@@ -160,7 +162,8 @@ class MediaTest extends TestCase
         $site = Site::factory()->create(['organization_id' => $organization->id, 'site_type_id' => $siteType->id, 'country_id' => 'FR']);
 
         $user = $this->actingAsRole('EMPLOYEE', $organization->id);
-        $classifedAd = ClassifiedAd::factory()->create([
+
+        return ClassifiedAd::factory()->create([
             'organization_id' => $organization->id,
             'user_id' => $user->id,
             'category_id' => $category->id,
@@ -168,7 +171,5 @@ class MediaTest extends TestCase
             'ads_status_id' => 'VALIDATED',
             'category_id' => $category->id
         ]);
-
-        return $classifedAd;
     }
 }

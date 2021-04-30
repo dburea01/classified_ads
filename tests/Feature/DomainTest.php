@@ -12,6 +12,8 @@ class DomainTest extends TestCase
     use DatabaseTransactions;
     use Request;
 
+    const URL = '/organizations/';
+
     /**
      * A basic feature test example.
      *
@@ -22,7 +24,7 @@ class DomainTest extends TestCase
         $organization = Organization::factory()->create();
         $this->actingAsRole('SUPERADMIN', $organization->id);
 
-        $response = $this->json('POST', $this->getUrl() . '/organizations/' . $organization->id . '/domains');
+        $response = $this->json('POST', $this->getUrl() . self::URL . $organization->id . '/domains');
 
         $response->assertStatus(422)
         ->assertJsonValidationErrors([
@@ -39,8 +41,8 @@ class DomainTest extends TestCase
             'name' => 'domain name'
         ];
 
-        $response = $this->post($this->getUrl() . '/organizations/' . $organization->id . '/domains', $domainToCreate);
-        $domainCreatedId = $response->decodeResponseJson()['data']['id'];
+        $response = $this->post($this->getUrl() . self::URL . $organization->id . '/domains', $domainToCreate);
+        $response->decodeResponseJson()['data']['id'];
         $response->assertStatus(201);
     }
 
@@ -49,7 +51,7 @@ class DomainTest extends TestCase
         $organization = Organization::factory()->create();
         $this->actingAsRole('SUPERADMIN', $organization->id);
 
-        $response = $this->json('PUT', $this->getUrl() . '/organizations/' . $organization->id);
+        $response = $this->json('PUT', $this->getUrl() . self::URL . $organization->id);
 
         $response->assertStatus(422)
         ->assertJsonValidationErrors([

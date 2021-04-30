@@ -11,7 +11,7 @@ class UserPolicy
 {
     use HandlesAuthorization;
 
-    public function before(User $user, $ability)
+    public function before(User $user)
     {
         if ($user->role_id === 'SUPERADMIN') {
             return true;
@@ -49,13 +49,5 @@ class UserPolicy
     public function delete(User $user, Organization $organization, User $userToDelete)
     {
         return $user->role_id === 'ADMIN' && $user->organization_id === $organization->id && $userToDelete->organization_id === $user->organization_id;
-    }
-
-    public function restore(User $user, Site $site)
-    {
-    }
-
-    public function forceDelete(User $user, Site $site)
-    {
     }
 }

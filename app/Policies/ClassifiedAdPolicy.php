@@ -11,7 +11,7 @@ class ClassifiedAdPolicy
 {
     use HandlesAuthorization;
 
-    public function before(User $user, $ability)
+    public function before(User $user)
     {
         if ($user->role_id === 'SUPERADMIN') {
             return true;
@@ -72,27 +72,5 @@ class ClassifiedAdPolicy
         return
         ($user->id === $classifiedAd->user_id) ||
         ($user->role_id === 'ADMIN' && $user->organization_id === $organization->id);
-    }
-
-    /**
-     * Determine whether the user can restore the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\ClassifiedAd  $classifiedAd
-     * @return mixed
-     */
-    public function restore(User $user, ClassifiedAd $classifiedAd)
-    {
-    }
-
-    /**
-     * Determine whether the user can permanently delete the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\ClassifiedAd  $classifiedAd
-     * @return mixed
-     */
-    public function forceDelete(User $user, ClassifiedAd $classifiedAd)
-    {
     }
 }

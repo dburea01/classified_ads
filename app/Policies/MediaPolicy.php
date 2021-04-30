@@ -38,11 +38,6 @@ class MediaPolicy
                 $user->id === $classifiedAd->user_id;
     }
 
-    public function update()
-    {
-        // ...
-    }
-
     public function delete(User $user, Organization $organization, Media $media)
     {
         $classifiedAd = ClassifiedAd::find($media->classified_ad_id);
@@ -50,15 +45,5 @@ class MediaPolicy
         return ($user->role_id === 'ADMIN' && $user->organization_id === $organization->id)
                 ||
                 $user->id === $classifiedAd->user_id;
-    }
-
-    public function restore()
-    {
-        // ...
-    }
-
-    public function forceDelete()
-    {
-        // ...
     }
 }

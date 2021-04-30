@@ -18,7 +18,7 @@ class SiteTypePolicy
         $this->organization = request()->route()->parameter('organization');
     }
 
-    public function before(User $user, $ability)
+    public function before(User $user)
     {
         if ($user->role_id === 'SUPERADMIN') {
             return true;
@@ -48,13 +48,5 @@ class SiteTypePolicy
     public function delete(User $user)
     {
         return $user->role_id === 'ADMIN' && $user->organization_id === $this->organization->id;
-    }
-
-    public function restore(User $user, SiteType $siteType)
-    {
-    }
-
-    public function forceDelete(User $user, SiteType $siteType)
-    {
     }
 }

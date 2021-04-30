@@ -13,8 +13,6 @@ class ClassifiedAdRepository
 {
     public function getAll(string $organizationId)
     {
-        // return ClassifiedAd::with('organization')->where('organization_id', $organizationId)->paginate(10);
-
         $classifiedAds = QueryBuilder::for(ClassifiedAd::class)
                 ->allowedFilters([
                     AllowedFilter::partial('title'),
@@ -35,13 +33,11 @@ class ClassifiedAdRepository
 
     public function getById(string $id)
     {
-        $classifiedAd = QueryBuilder::for(ClassifiedAd::class)
+        return QueryBuilder::for(ClassifiedAd::class)
                 ->allowedFields(['id', 'organization_id', 'site_id', 'title', 'description', 'category_id', 'created_at', 'price', 'currency_id',
                     'category.id', 'category.name', 'site.id', 'site.name'])
                 ->allowedIncludes(['category', 'site', 'currency'])
                 ->find($id);
-
-        return $classifiedAd;
     }
 
     public function insert(string $organizationId, array $data)

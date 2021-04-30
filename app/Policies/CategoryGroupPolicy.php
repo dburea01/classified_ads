@@ -12,7 +12,7 @@ class CategoryGroupPolicy
 {
     use HandlesAuthorization;
 
-    public function before(User $user, $ability)
+    public function before(User $user)
     {
         if ($user->role_id === 'SUPERADMIN') {
             return true;
@@ -44,11 +44,13 @@ class CategoryGroupPolicy
         return $user->role_id === 'ADMIN' && $user->organization_id === $organization->id && $categoryGroup->organization_id === $organization->id;
     }
 
-    public function restore(User $user, SiteType $siteType)
+    public function restore()
     {
+        // ...
     }
 
-    public function forceDelete(User $user, SiteType $siteType)
+    public function forceDelete()
     {
+        // ...
     }
 }

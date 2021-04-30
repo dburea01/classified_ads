@@ -17,9 +17,15 @@ class AuthRegistrationTest extends TestCase
     use DatabaseTransactions;
     use Request;
 
+    const URL = '/register';
+
+    const FIRST_NAME = 'First name';
+
+    const LAST_NAME = 'Last name';
+
     public function testRegisterWithoutCredentials(): void
     {
-        $response = $this->postJson($this->getUrl() . '/register');
+        $response = $this->postJson($this->getUrl() . self::URL);
 
         $response->assertStatus(422)
         ->assertJsonValidationErrors([
@@ -33,10 +39,10 @@ class AuthRegistrationTest extends TestCase
 
     public function testRegisterWithErrors(): void
     {
-        $response = $this->postJson($this->getUrl() . '/register', [
+        $response = $this->postJson($this->getUrl() . self::URL, [
             'email' => 'wrongemail',
-            'first_name' => 'First name',
-            'last_name' => 'Last name',
+            'first_name' => self::FIRST_NAME,
+            'last_name' => self::LAST_NAME,
             'password' => 'short',
             'password_confirmation' => 'password',
             'organization_id' => 'wrongorganization'
@@ -53,14 +59,14 @@ class AuthRegistrationTest extends TestCase
     {
         $organization = Organization::factory()->create();
 
-        $domains = Domain::factory()->count(2)->create([
+        Domain::factory()->count(2)->create([
             'organization_id' => $organization->id
         ]);
 
-        $response = $this->postJson($this->getUrl() . '/register', [
+        $response = $this->postJson($this->getUrl() . self::URL, [
             'email' => 'email.email@email.fr',
-            'first_name' => 'First name',
-            'last_name' => 'Last name',
+            'first_name' => self::FIRST_NAME,
+            'last_name' => self::LAST_NAME,
             'password' => 'azerty',
             'password_confirmation' => 'azerty',
             'organization_id' => $organization->id
@@ -82,10 +88,10 @@ class AuthRegistrationTest extends TestCase
             'user_state_id' => 'VALIDATED'
         ]);
 
-        $response = $this->postJson($this->getUrl() . '/register', [
+        $response = $this->postJson($this->getUrl() . self::URL, [
             'email' => $user->email,
-            'first_name' => 'First name',
-            'last_name' => 'Last name',
+            'first_name' => self::FIRST_NAME,
+            'last_name' => self::LAST_NAME,
             'password' => 'azerty',
             'password_confirmation' => 'azerty',
             'organization_id' => $organization->id
@@ -108,13 +114,13 @@ class AuthRegistrationTest extends TestCase
         ]);
 
         $userToRegister = [
-            'first_name' => 'first name',
-            'last_name' => 'last name',
+            'first_name' => self::FIRST_NAME,
+            'last_name' => self::LAST_NAME,
             'email' => 'firstname.lastname@' . $domain->name,
             'password' => 'azerty'
         ];
 
-        $response = $this->postJson($this->getUrl() . '/register', [
+        $response = $this->postJson($this->getUrl() . self::URL, [
             'email' => $userToRegister['email'],
             'first_name' => $userToRegister['first_name'],
             'last_name' => $userToRegister['last_name'],

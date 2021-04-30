@@ -39,7 +39,7 @@ class CategoryGroupTest extends TestCase
         ];
 
         $response = $this->post($this->getUrl() . "/organizations/{$organization->id}/category-groups", $categoryGroupToCreate);
-        // $response->dump();
+
         $response->assertStatus(201);
     }
 
@@ -79,7 +79,7 @@ class CategoryGroupTest extends TestCase
     public function testGetCategoryGroups() : void
     {
         $organization = Organization::factory()->create();
-        $categoryGroups = CategoryGroup::factory()->count(10)->create(['organization_id' => $organization->id]);
+        CategoryGroup::factory()->count(10)->create(['organization_id' => $organization->id]);
 
         $this->actingAsRole('ADMIN', $organization->id);
 

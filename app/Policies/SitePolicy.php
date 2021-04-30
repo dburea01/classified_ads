@@ -12,7 +12,7 @@ class SitePolicy
 {
     use HandlesAuthorization;
 
-    public function before(User $user, $ability)
+    public function before(User $user)
     {
         if ($user->role_id === 'SUPERADMIN') {
             return true;
@@ -27,7 +27,6 @@ class SitePolicy
      */
     public function viewAny(User $user, Organization $organization)
     {
-        // return  $user->role_id === 'ADMIN' && $user->organization_id === $organization->id;
         return $user->organization_id === $organization->id;
     }
 
@@ -76,27 +75,5 @@ class SitePolicy
     public function delete(User $user, Organization $organization, Site $site)
     {
         return $user->role_id === 'ADMIN' && $user->organization_id === $organization->id && $site->organization_id === $organization->id;
-    }
-
-    /**
-     * Determine whether the user can restore the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Site  $site
-     * @return mixed
-     */
-    public function restore(User $user, Site $site)
-    {
-    }
-
-    /**
-     * Determine whether the user can permanently delete the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Site  $site
-     * @return mixed
-     */
-    public function forceDelete(User $user, Site $site)
-    {
     }
 }
