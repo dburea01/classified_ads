@@ -7,13 +7,6 @@
 
     <title>Laravel</title>
 
-
-
-    <style>
-        body {
-            font-family: 'Nunito';
-        }
-    </style>
 </head>
 
 <body>
