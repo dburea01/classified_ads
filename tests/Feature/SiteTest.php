@@ -2,7 +2,6 @@
 
 namespace Tests\Feature;
 
-use App\Models\Country;
 use App\Models\Organization;
 use App\Models\Site;
 use App\Models\SiteType;
@@ -14,10 +13,12 @@ class SiteTest extends TestCase
     use DatabaseTransactions;
     use Request;
 
+    const SITE_NAME = 'site name';
+
     public function testPostSiteWithErrors(): void
     {
         $organization = Organization::factory()->create();
-        $siteType = SiteType::factory()->create(['organization_id' => $organization->id]);
+        SiteType::factory()->create(['organization_id' => $organization->id]);
 
         $this->actingAsRole('ADMIN', $organization->id);
 
@@ -45,7 +46,7 @@ class SiteTest extends TestCase
             'site_type_id' => 'fake',
             'country_id' => 'fake',
             'internal_id' => 'toto',
-            'name' => 'site name',
+            'name' => self::SITE_NAME,
             'state_id' => 'FAKE'
         ];
 
@@ -77,7 +78,7 @@ class SiteTest extends TestCase
             'internal_id' => $site->internal_id,
             'zip_code' => 59320,
             'city' => 'city',
-            'name' => 'site name',
+            'name' => self::SITE_NAME,
             'state_id' => 'ACTIVE',
         ];
 
@@ -102,7 +103,7 @@ class SiteTest extends TestCase
             'internal_id' => '123',
             'zip_code' => 59320,
             'city' => 'city',
-            'name' => 'site name',
+            'name' => self::SITE_NAME,
             'state_id' => 'ACTIVE',
         ];
 
@@ -127,7 +128,7 @@ class SiteTest extends TestCase
             'internal_id' => '123',
             'zip_code' => 59320,
             'city' => 'city',
-            'name' => 'site name',
+            'name' => self::SITE_NAME,
             'state_id' => 'FAKE',
         ];
 
@@ -157,7 +158,7 @@ class SiteTest extends TestCase
             'internal_id' => '123',
             'zip_code' => 59320,
             'city' => 'city',
-            'name' => 'site name',
+            'name' => self::SITE_NAME,
             'state_id' => 'INACTIVE',
         ];
 

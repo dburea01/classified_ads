@@ -104,7 +104,7 @@ class MediaController extends Controller
 
     public function storeMedia(Organization $organization, $image, string $storageName)
     {
-        $response = Storage::disk('organizations')->putFileAs("/{$organization->container_folder}/medias", $image, $storageName);
+        Storage::disk('organizations')->putFileAs("/{$organization->container_folder}/medias", $image, $storageName);
     }
 
     public function deleteMedia(Organization $organization, Media $media)

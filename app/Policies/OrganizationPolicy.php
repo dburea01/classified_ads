@@ -10,7 +10,7 @@ class OrganizationPolicy
 {
     use HandlesAuthorization;
 
-    public function before(User $user, $ability)
+    public function before(User $user)
     {
         return $user->role_id === 'SUPERADMIN';
     }
@@ -21,7 +21,7 @@ class OrganizationPolicy
      * @param  \App\Models\User  $user
      * @return mixed
      */
-    public function viewAny(User $user)
+    public function viewAny()
     {
     }
 
@@ -43,7 +43,7 @@ class OrganizationPolicy
      * @param  \App\Models\User  $user
      * @return mixed
      */
-    public function create(User $user)
+    public function create()
     {
     }
 
@@ -54,7 +54,7 @@ class OrganizationPolicy
      * @param  \App\Models\Organization  $organization
      * @return mixed
      */
-    public function update(User $user, Organization $organization)
+    public function update()
     {
     }
 
@@ -65,7 +65,7 @@ class OrganizationPolicy
      * @param  \App\Models\Organization  $organization
      * @return mixed
      */
-    public function delete(User $user, Organization $organization)
+    public function delete()
     {
     }
 
@@ -76,7 +76,7 @@ class OrganizationPolicy
      * @param  \App\Models\Organization  $organization
      * @return mixed
      */
-    public function restore(User $user, Organization $organization)
+    public function restore()
     {
     }
 
@@ -87,7 +87,7 @@ class OrganizationPolicy
      * @param  \App\Models\Organization  $organization
      * @return mixed
      */
-    public function forceDelete(User $user, Organization $organization)
+    public function forceDelete()
     {
     }
 }

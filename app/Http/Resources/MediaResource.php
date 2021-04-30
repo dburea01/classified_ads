@@ -17,8 +17,6 @@ class MediaResource extends JsonResource
      */
     public function toArray($request)
     {
-        // return parent::toArray($request);
-
         $classifiedAd = ClassifiedAd::find($this->classified_ad_id);
         $organization = Organization::find($classifiedAd->organization_id);
 
@@ -29,9 +27,7 @@ class MediaResource extends JsonResource
             'storage_name' => $this->storage_name,
             'original_name' => $this->original_name,
             'classified_ad_id' => $this->classified_ad_id,
-            // $this->mergeWhen(Storage::disk('organizations')->exists($url) && $this->name !== null, [
-            'url_media' => Storage::disk('organizations')->url($url),
-            // ])
+            'url_media' => Storage::disk('organizations')->url($url)
         ];
     }
 }

@@ -10,7 +10,7 @@ class DomainPolicy
 {
     use HandlesAuthorization;
 
-    public function before(User $user, $ability)
+    public function before(User $user)
     {
         return $user->role_id === 'SUPERADMIN';
     }
@@ -21,7 +21,7 @@ class DomainPolicy
      * @param  \App\Models\User  $user
      * @return mixed
      */
-    public function viewAny(User $user)
+    public function viewAny()
     {
     }
 
@@ -32,7 +32,7 @@ class DomainPolicy
      * @param  \App\Models\Domain  $domain
      * @return mixed
      */
-    public function view(User $user, Domain $domain)
+    public function view()
     {
     }
 
@@ -42,7 +42,7 @@ class DomainPolicy
      * @param  \App\Models\User  $user
      * @return mixed
      */
-    public function create(User $user)
+    public function create()
     {
     }
 
@@ -53,7 +53,7 @@ class DomainPolicy
      * @param  \App\Models\Domain  $domain
      * @return mixed
      */
-    public function update(User $user, Domain $domain)
+    public function update()
     {
     }
 
@@ -64,7 +64,7 @@ class DomainPolicy
      * @param  \App\Models\Domain  $domain
      * @return mixed
      */
-    public function delete(User $user, Domain $domain)
+    public function delete()
     {
     }
 
@@ -75,7 +75,7 @@ class DomainPolicy
      * @param  \App\Models\Domain  $domain
      * @return mixed
      */
-    public function restore(User $user, Domain $domain)
+    public function restore()
     {
     }
 
@@ -86,7 +86,7 @@ class DomainPolicy
      * @param  \App\Models\Domain  $domain
      * @return mixed
      */
-    public function forceDelete(User $user, Domain $domain)
+    public function forceDelete()
     {
     }
 }

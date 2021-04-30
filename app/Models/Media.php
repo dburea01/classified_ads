@@ -17,7 +17,6 @@ class Media extends Model
     {
         parent::boot();
         self::creating(function ($model): void {
-            // $model->id = Uuid::uuid4()->toString();
             if (Auth::check()) {
                 $model->created_by = Auth::user()->id;
             }

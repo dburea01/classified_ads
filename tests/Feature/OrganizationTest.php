@@ -5,7 +5,6 @@ namespace Tests\Feature;
 use App\Models\Organization;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Support\Facades\Storage;
 use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
 
@@ -13,6 +12,8 @@ class OrganizationTest extends TestCase
 {
     use DatabaseTransactions;
     use Request;
+
+    const URL = '/organizations';
 
     /**
      * A basic feature test example.
@@ -23,7 +24,7 @@ class OrganizationTest extends TestCase
     {
         $this->actingAsRole('SUPERADMIN', null);
 
-        $response = $this->json('POST', $this->getUrl() . '/organizations');
+        $response = $this->json('POST', $this->getUrl() . self::URL);
 
         $response->assertStatus(422)
         ->assertJsonValidationErrors([
@@ -37,7 +38,7 @@ class OrganizationTest extends TestCase
     {
         $this->actingAsRole('SUPERADMIN', null);
 
-        $response = $this->json('POST', $this->getUrl() . '/organizations', [
+        $response = $this->json('POST', $this->getUrl() . self::URL, [
             'name' => 'a',
             'contact' => '',
             'ads_max' => -1,
@@ -70,7 +71,7 @@ class OrganizationTest extends TestCase
             'container_folder' => 'container name folder'
         ];
 
-        $response = $this->json('POST', $this->getUrl() . '/organizations', $organizationToCreate);
+        $response = $this->json('POST', $this->getUrl() . self::URL, $organizationToCreate);
         $response->assertStatus(201);
         $organizationCreatedId = $response->decodeResponseJson()['data']['id'];
 
@@ -88,7 +89,7 @@ class OrganizationTest extends TestCase
 
         $organization = Organization::factory()->create();
 
-        $response = $this->json('PUT', $this->getUrl() . '/organizations/' . $organization->id);
+        $response = $this->json('PUT', $this->getUrl() . self::URL . '/' . $organization->id);
 
         $response->assertStatus(422)
         ->assertJsonValidationErrors([
@@ -112,10 +113,9 @@ class OrganizationTest extends TestCase
             'state_id' => 'VALIDATED',
             'container_folder' => 'container name folder'
         ];
-        // echo('avant appel' . $organization->id);
-        // $response = $this->json('PUT', $this->getUrl() . '/organizations/' . $organization->id, $organizationToModify);
-        $response = $this->put($this->getUrl() . '/organizations/' . $organization->id, $organizationToModify);
-        // $response->dump();
+
+        $response = $this->put($this->getUrl() . self::URL . '/' . $organization->id, $organizationToModify);
+
         $response->assertStatus(200);
     }
 
@@ -124,28 +124,26 @@ class OrganizationTest extends TestCase
         $this->actingAsRole('SUPERADMIN', null);
         $organization = Organization::factory()->create();
 
-        $response = $this->json('GET', $this->getUrl() . '/organizations/' . $organization->id);
-        // $response->dump();
+        $response = $this->json('GET', $this->getUrl() . self::URL . '/' . $organization->id);
+
         $response->assertStatus(200);
     }
 
     public function testGetOrganizations() : void
     {
         $this->actingAsRole('SUPERADMIN', null);
-        $organizations = Organization::factory()->count(10)->create();
+        Organization::factory()->count(10)->create();
 
-        $response = $this->get($this->getUrl() . '/organizations/');
+        $response = $this->get($this->getUrl() . self::URL);
         $response->assertStatus(200);
     }
 
     public function testDeleteOrganization() :void
     {
-        // Storage::fake('organizations');
         $this->actingAsRole('SUPERADMIN', null);
 
         $organization = Organization::factory()->create();
-        $response = $this->delete($this->getUrl() . '/organizations/' . $organization->id);
-        // $response = $this->json('DELETE', $this->getUrl() . '/organizations/' . $organization->id);
+        $response = $this->delete($this->getUrl() . self::URL . '/' . $organization->id);
 
         $response->assertStatus(204);
     }

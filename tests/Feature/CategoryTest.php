@@ -15,10 +15,12 @@ class CategoryTest extends TestCase
     use DatabaseTransactions;
     use Request;
 
+    const CATEGORY_NAME = 'category name';
+
     public function testPostCategoryWithErrors(): void
     {
         $organization = Organization::factory()->create();
-        $categoryGroup = CategoryGroup::factory()->create(['organization_id' => $organization->id]);
+        CategoryGroup::factory()->create(['organization_id' => $organization->id]);
 
         $this->actingAsRole('ADMIN', $organization->id);
 
@@ -36,13 +38,13 @@ class CategoryTest extends TestCase
     public function testPostCategoryErrors2(): void
     {
         $organization = Organization::factory()->create();
-        $categoryGroup = CategoryGroup::factory()->create(['organization_id' => $organization->id]);
+        CategoryGroup::factory()->create(['organization_id' => $organization->id]);
 
         $this->actingAsRole('ADMIN', $organization->id);
 
         $categoryToCreate = [
             'category_group_id' => 'fake',
-            'name' => 'category name',
+            'name' => self::CATEGORY_NAME,
             'state_id' => 'FAKE'
         ];
 
@@ -60,7 +62,7 @@ class CategoryTest extends TestCase
 
         $categoryToCreate = [
             'category_group_id' => $categoryGroup->id,
-            'name' => 'category name',
+            'name' => self::CATEGORY_NAME,
             'state_id' => 'ACTIVE',
             'position' => 12
         ];
@@ -78,14 +80,14 @@ class CategoryTest extends TestCase
         $category = Category::factory()->create([
             'organization_id' => $organization->id,
             'category_group_id' => $categoryGroup->id,
-            'name' => 'category name',
+            'name' => self::CATEGORY_NAME,
             'state_id' => 'ACTIVE',
             'position' => '123'
         ]);
 
         $categoryToUpdate = [
             'category_group_id' => $categoryGroup->id,
-            'name' => 'category name',
+            'name' => self::CATEGORY_NAME,
             'state_id' => 'TOTO',
             'position' => '123'
         ];
@@ -108,7 +110,7 @@ class CategoryTest extends TestCase
         $category = Category::factory()->create([
             'organization_id' => $organization->id,
             'category_group_id' => $categoryGroup->id,
-            'name' => 'category name',
+            'name' => self::CATEGORY_NAME,
             'state_id' => 'ACTIVE',
             'position' => '123'
         ]);
@@ -131,7 +133,7 @@ class CategoryTest extends TestCase
         $organization = Organization::factory()->create();
         $categoryGroup = CategoryGroup::factory()->create(['organization_id' => $organization->id]);
 
-        $categories = Category::factory()->count(10)->create([
+        Category::factory()->count(10)->create([
             'organization_id' => $organization->id,
             'category_group_id' => $categoryGroup->id
         ]);
@@ -150,7 +152,7 @@ class CategoryTest extends TestCase
         $category = Category::factory()->create([
             'organization_id' => $organization->id,
             'category_group_id' => $categoryGroup->id,
-            'name' => 'category name',
+            'name' => self::CATEGORY_NAME,
             'state_id' => 'ACTIVE',
             'position' => '123'
         ]);
@@ -169,7 +171,7 @@ class CategoryTest extends TestCase
         $category = Category::factory()->create([
             'organization_id' => $organization->id,
             'category_group_id' => $categoryGroup->id,
-            'name' => 'category name',
+            'name' => self::CATEGORY_NAME,
             'state_id' => 'ACTIVE',
             'position' => '123'
         ]);
