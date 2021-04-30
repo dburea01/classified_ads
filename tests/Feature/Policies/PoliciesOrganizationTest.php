@@ -60,7 +60,6 @@ class PoliciesOrganizationTest extends TestCase
         $this->actingAsRole('SUPERADMIN', null);
         $this->json('PUT', $this->getUrl() . "/organizations/{$organization->id}")->assertStatus(422);
 
-        // $organization = Organization::factory()->create();
         $this->actingAsRole('ADMIN', $organization->id);
         $this->json('PUT', $this->getUrl() . "/organizations/{$organization->id}")->assertStatus(403);
 
