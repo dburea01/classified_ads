@@ -57,7 +57,7 @@ class MediaTest extends TestCase
 
         $post = [
             'classified_ad_id' => $classifiedAd->id,
-            'media_file' => UploadedFile::fake()->create('avatar.pdf', 10)
+            'media_file' => UploadedFile::fake()->create('pdfFile.pdf', 10)
         ];
 
         $response = $this->json('POST', $this->getUrl() . "/organizations/{$classifiedAd->organization_id}/medias", $post);
@@ -76,7 +76,7 @@ class MediaTest extends TestCase
 
         $post = [
             'classified_ad_id' => $classifiedAd->id,
-            'media_file' => UploadedFile::fake()->create('avatar.jpg', 10)
+            'media_file' => UploadedFile::fake()->create(self::IMAGE_NAME, 10)
         ];
 
         $response = $this->json('POST', $this->getUrl() . "/organizations/{$classifiedAd->organization_id}/medias", $post);
@@ -99,7 +99,7 @@ class MediaTest extends TestCase
 
         $post = [
             'classified_ad_id' => $classifiedAd->id,
-            'media_file' => UploadedFile::fake()->create('avatar.jpg', 10)
+            'media_file' => UploadedFile::fake()->create(self::IMAGE_NAME, 10)
         ];
 
         for ($i = 1; $i < 4; $i++) {

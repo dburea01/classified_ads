@@ -36,7 +36,7 @@ class CheckOrganizationDomain implements Rule
         }
 
         $domainOfThisEmail = $parts[1];
-        // dd($this->organizationId);
+
         if (!Str::isUuid($this->organizationId)) {
             return false;
         }

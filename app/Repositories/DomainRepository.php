@@ -10,9 +10,7 @@ class DomainRepository
 {
     public function index(string $organizationId)
     {
-        $domains = Domain::where('organization_id', $organizationId)->orderBy('name')->get();
-
-        return $domains;
+        return Domain::where('organization_id', $organizationId)->orderBy('name')->get();
     }
 
     public function insertDomain(string $organizationId, array $data) : Domain

@@ -43,14 +43,4 @@ class CategoryGroupPolicy
     {
         return $user->role_id === 'ADMIN' && $user->organization_id === $organization->id && $categoryGroup->organization_id === $organization->id;
     }
-
-    public function restore()
-    {
-        // ...
-    }
-
-    public function forceDelete()
-    {
-        // ...
-    }
 }

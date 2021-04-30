@@ -14,15 +14,6 @@ trait Request
         return '/api';
     }
 
-    /*
-    public function getHeaders(): array
-    {
-        return [
-            'Content-Type' => 'application/json',
-            'Authorization' => 'Bearer ' . $token
-        ];
-    }
-    */
     public function actingAsRole(string $roleId, string $organizationId = null) : User
     {
         $user = User::factory()->create([

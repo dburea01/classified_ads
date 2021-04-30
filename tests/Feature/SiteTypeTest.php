@@ -77,7 +77,7 @@ class SiteTypeTest extends TestCase
     public function testGetSiteTypes() : void
     {
         $organization = Organization::factory()->create();
-        $siteTypes = SiteType::factory()->count(10)->create(['organization_id' => $organization->id]);
+        SiteType::factory()->count(10)->create(['organization_id' => $organization->id]);
 
         $this->actingAsRole('ADMIN', $organization->id);
 

@@ -12,8 +12,6 @@ class SiteRepository
 {
     public function getAll(string $organizationId)
     {
-        // return ClassifiedAd::with('organization')->where('organization_id', $organizationId)->paginate(10);
-
         $sites = QueryBuilder::for(Site::class)
                 ->allowedFilters([
                     AllowedFilter::partial('name'),
@@ -32,13 +30,11 @@ class SiteRepository
 
     public function getById(string $organizationId, string $siteId)
     {
-        $site = QueryBuilder::for(Site::class)
+        return QueryBuilder::for(Site::class)
         ->allowedFields(['id', 'internal_id', 'organization_id', 'site_type_id', 'name', 'city', 'address1', 'address2', 'address3', 'zip_code'])
         ->where('organization_id', $organizationId)
         ->where('id', $siteId)
         ->first();
-
-        return $site;
     }
 
     public function insert(string $organizationId, array $data) : Site

@@ -13,8 +13,6 @@ class CategoryGroupRepository
 {
     public function index(string $organizationId)
     {
-        // $categoryGroups = CategoryGroup::where('organization_id', $organizationId)->orderBy('position')->get();
-
         $categoryGroups = QueryBuilder::for(CategoryGroup::class)
                 ->allowedFilters([
                     AllowedFilter::exact('state_id')
