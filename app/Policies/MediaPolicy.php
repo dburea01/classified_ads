@@ -5,7 +5,6 @@ namespace App\Policies;
 use App\Models\ClassifiedAd;
 use App\Models\Media;
 use App\Models\Organization;
-use App\Models\Site;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -13,7 +12,7 @@ class MediaPolicy
 {
     use HandlesAuthorization;
 
-    public function before(User $user, $ability)
+    public function before(User $user)
     {
         if ($user->role_id === 'SUPERADMIN') {
             return true;
@@ -39,8 +38,9 @@ class MediaPolicy
                 $user->id === $classifiedAd->user_id;
     }
 
-    public function update(User $user, Organization $organization, Media $media)
+    public function update()
     {
+        // ...
     }
 
     public function delete(User $user, Organization $organization, Media $media)
@@ -52,11 +52,13 @@ class MediaPolicy
                 $user->id === $classifiedAd->user_id;
     }
 
-    public function restore(User $user, Site $site)
+    public function restore()
     {
+        // ...
     }
 
-    public function forceDelete(User $user, Site $site)
+    public function forceDelete()
     {
+        // ...
     }
 }
