@@ -16,9 +16,6 @@ class OrganizationResource extends JsonResource
      */
     public function toArray($request)
     {
-        // return parent::toArray($request);
-        // dd(Auth::check());
-
         return [
             'id' => $this->id,
             'name' => $this->name,
@@ -26,7 +23,7 @@ class OrganizationResource extends JsonResource
             $this->mergeWhen($this->logo, [
                 'url_logo' => Storage::disk('organizations')->url("{$this->container_folder}/logos/{$this->logo}"),
             ]),
-            // 'url_logo' => Storage::disk('organizations')->url("{$this->container_folder}/logos/{$this->logo}"),
+
             $this->mergeWhen(Auth::check() && Auth::user()->role_id === 'SUPERADMIN', [
                 'contact' => $this->contact,
                 'comment' => $this->comment,

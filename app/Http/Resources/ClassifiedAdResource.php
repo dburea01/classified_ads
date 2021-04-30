@@ -16,8 +16,6 @@ class ClassifiedAdResource extends JsonResource
      */
     public function toArray($request)
     {
-        // return parent::toArray($request);
-
         return [
             'id' => $this->id,
             'organization_id' => $this->organization_id,

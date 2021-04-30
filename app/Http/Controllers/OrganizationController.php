@@ -28,8 +28,6 @@ class OrganizationController extends Controller
      */
     public function index()
     {
-        // $this->authorize('viewAny', Organization::class);
-
         $organizations = $this->organizationRepository->index();
 
         return OrganizationResource::collection($organizations);
@@ -43,8 +41,6 @@ class OrganizationController extends Controller
      */
     public function store(StoreOrganizationRequest $request)
     {
-        // $this->authorize('create', Organization::class);
-
         $organization = $this->organizationRepository->insertOrganisation($request->only(['name', 'contact', 'comment', 'ads_max', 'media_max', 'state_id', 'container_folder']));
 
         if ($request->has('logo_file')) {
@@ -74,8 +70,6 @@ class OrganizationController extends Controller
      */
     public function update(StoreOrganizationRequest $request, Organization $organization)
     {
-        // $this->authorize('update', Organization::class);
-
         $this->organizationRepository->updateOrganization($organization, $request->only(['name', 'contact', 'comment', 'ads_max', 'media_max', 'state_id', 'container_folder']));
 
         return (new OrganizationResource($organization))->response()->setStatusCode(200);
@@ -83,8 +77,6 @@ class OrganizationController extends Controller
 
     public function updateLogo(Request $request, Organization $organization)
     {
-        // $this->authorize('update', Organization::class);
-
         $request->validate([
             'logo_file' => 'required|image|mimes:jpg,bmp,png|max:128'
         ]);
@@ -99,8 +91,6 @@ class OrganizationController extends Controller
 
     public function deleteLogo(Request $request, Organization $organization)
     {
-        // $this->authorize('delete', Organization::class);
-
         $this->deleteImageLogo($organization);
         $this->organizationRepository->updateOrganization($organization, ['logo' => null]);
 
@@ -115,8 +105,6 @@ class OrganizationController extends Controller
      */
     public function destroy(Organization $organization)
     {
-        // $this->authorize('delete', Organization::class);
-
         DB::beginTransaction();
         try {
             $this->organizationRepository->deleteOrganization($organization);
@@ -135,8 +123,8 @@ class OrganizationController extends Controller
     {
         $fileName = $organization->id . '.' . $image->getClientOriginalExtension();
 
-        $response = Storage::disk('organizations')->putFileAs("/{$organization->container_folder}/logos", $image, $fileName);
-        // Log::info($response);
+        Storage::disk('organizations')->putFileAs("/{$organization->container_folder}/logos", $image, $fileName);
+
         $this->organizationRepository->updateOrganization($organization, ['logo' => $fileName]);
     }
 

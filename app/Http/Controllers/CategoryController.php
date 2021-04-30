@@ -32,8 +32,6 @@ class CategoryController extends Controller
         $this->authorize('viewAny', [Category::class, $organization]);
         $categories = $this->categoryRepository->index($organization->id);
 
-        // return response()->json($categories, 200);
-
         return CategoryResource::collection($categories);
     }
 
