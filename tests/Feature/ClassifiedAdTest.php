@@ -38,7 +38,7 @@ class ClassifiedAdTest extends TestCase
     {
         $organization = Organization::factory()->create();
         $site = Site::factory()->create(['organization_id' => $organization->id, 'country_id' => 'FR']);
-        $categoryGroup = CategoryGroup::factory()->create(['organization_id' => $organization->id]);
+        CategoryGroup::factory()->create(['organization_id' => $organization->id]);
         $category = Category::factory()->create(['organization_id' => $organization->id]);
 
         $this->actingAsRole('EMPLOYEE', $organization->id);
@@ -62,7 +62,7 @@ class ClassifiedAdTest extends TestCase
     {
         $organization = Organization::factory()->create();
         $site = Site::factory()->create(['organization_id' => $organization->id, 'country_id' => 'FR']);
-        $categoryGroup = CategoryGroup::factory()->create(['organization_id' => $organization->id]);
+        CategoryGroup::factory()->create(['organization_id' => $organization->id]);
         $category = Category::factory()->create(['organization_id' => $organization->id]);
 
         $user = $this->actingAsRole('EMPLOYEE', $organization->id);
@@ -103,7 +103,7 @@ class ClassifiedAdTest extends TestCase
     {
         $organization = Organization::factory()->create();
         $site = Site::factory()->create(['organization_id' => $organization->id, 'country_id' => 'FR']);
-        $categoryGroup = CategoryGroup::factory()->create(['organization_id' => $organization->id]);
+        CategoryGroup::factory()->create(['organization_id' => $organization->id]);
         $category = Category::factory()->create(['organization_id' => $organization->id]);
 
         $user = $this->actingAsRole('EMPLOYEE', $organization->id);
@@ -140,11 +140,11 @@ class ClassifiedAdTest extends TestCase
     {
         $organization = Organization::factory()->create();
         $site = Site::factory()->create(['organization_id' => $organization->id, 'country_id' => 'FR']);
-        $categoryGroup = CategoryGroup::factory()->create(['organization_id' => $organization->id]);
+        CategoryGroup::factory()->create(['organization_id' => $organization->id]);
         $category = Category::factory()->create(['organization_id' => $organization->id]);
 
         $user = $this->actingAsRole('EMPLOYEE', $organization->id);
-        $classifiedAd = ClassifiedAd::factory()->count(10)->create([
+        ClassifiedAd::factory()->count(10)->create([
             'organization_id' => $organization->id,
             'category_id' => $category->id,
             'user_id' => $user->id,
@@ -161,7 +161,7 @@ class ClassifiedAdTest extends TestCase
     {
         $organization = Organization::factory()->create();
         $site = Site::factory()->create(['organization_id' => $organization->id, 'country_id' => 'FR']);
-        $categoryGroup = CategoryGroup::factory()->create(['organization_id' => $organization->id]);
+        CategoryGroup::factory()->create(['organization_id' => $organization->id]);
         $category = Category::factory()->create(['organization_id' => $organization->id]);
 
         $user = $this->actingAsRole('EMPLOYEE', $organization->id);
@@ -182,7 +182,7 @@ class ClassifiedAdTest extends TestCase
     {
         $organization = Organization::factory()->create();
         $site = Site::factory()->create(['organization_id' => $organization->id, 'country_id' => 'FR']);
-        $categoryGroup = CategoryGroup::factory()->create(['organization_id' => $organization->id]);
+        CategoryGroup::factory()->create(['organization_id' => $organization->id]);
         $category = Category::factory()->create(['organization_id' => $organization->id]);
 
         $user = $this->actingAsRole('EMPLOYEE', $organization->id);
