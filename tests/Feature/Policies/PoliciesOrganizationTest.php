@@ -1,11 +1,11 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Policies;
 
 use App\Models\Organization;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
+use tests\Feature\Request;
 
 class PoliciesOrganizationTest extends TestCase
 {
