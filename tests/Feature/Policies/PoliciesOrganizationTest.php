@@ -60,7 +60,7 @@ class PoliciesOrganizationTest extends TestCase
         $this->actingAsRole('SUPERADMIN', null);
         $this->json('PUT', $this->getUrl() . "/organizations/{$organization->id}")->assertStatus(422);
 
-        $organization = Organization::factory()->create();
+        // $organization = Organization::factory()->create();
         $this->actingAsRole('ADMIN', $organization->id);
         $this->json('PUT', $this->getUrl() . "/organizations/{$organization->id}")->assertStatus(403);
 
@@ -71,14 +71,14 @@ class PoliciesOrganizationTest extends TestCase
     public function testDeleteOrganization(): void
     {
         $organization = Organization::factory()->create();
-        $this->actingAsRole('SUPERADMIN', null);
-        $this->json('DELETE', $this->getUrl() . "/organizations/{$organization->id}")->assertStatus(204);
 
-        $organization = Organization::factory()->create();
         $this->actingAsRole('ADMIN', $organization->id);
         $this->json('DELETE', $this->getUrl() . "/organizations/{$organization->id}")->assertStatus(403);
 
         $this->actingAsRole('EMPLOYEE', $organization->id);
         $this->json('DELETE', $this->getUrl() . "/organizations/{$organization->id}")->assertStatus(403);
+
+        $this->actingAsRole('SUPERADMIN', null);
+        $this->json('DELETE', $this->getUrl() . "/organizations/{$organization->id}")->assertStatus(204);
     }
 }
