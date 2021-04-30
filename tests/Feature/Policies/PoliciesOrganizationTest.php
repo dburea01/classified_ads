@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\Organization;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
 
 class PoliciesOrganizationTest extends TestCase
@@ -16,13 +17,13 @@ class PoliciesOrganizationTest extends TestCase
     {
         $organizations = Organization::factory()->count(10)->create();
         $this->actingAsRole('SUPERADMIN', null);
-        $this->json('GET', $this->getUrl() . '/organizations')->assertStatus(200);
+        $this->json('GET', $this->getUrl() . '/organizations')->assertOk();
 
         $this->actingAsRole('ADMIN', $organizations[0]->id);
-        $this->json('GET', $this->getUrl() . '/organizations')->assertStatus(403);
+        $this->json('GET', $this->getUrl() . '/organizations')->assertForbidden();
 
         $this->actingAsRole('EMPLOYEE', $organizations[0]->id);
-        $this->json('GET', $this->getUrl() . '/organizations')->assertStatus(403);
+        $this->json('GET', $this->getUrl() . '/organizations')->assertForbidden();
     }
 
     public function testGetOrganization(): void
