@@ -67,18 +67,18 @@ class ClassifiedAdTest extends TestCase
     {
         $this->createOrganization();
         $user = $this->actingAsRole('EMPLOYEE', $this->organization->id);
-        $classifiedAd = ClassifiedAd::factory()->create([
-            'organization_id' => $this->organization->id,
-            'category_id' => $this->category->id,
-            'user_id' => $user->id,
-            'site_id' => $this->site->id,
-            //'ads_status_id' => 'VALIDATED',
-            'title' => 'title',
-            'description' => 'description',
-            'price' => 123,
-            'currency_id' => 'EUR'
-        ]);
 
+        $classifiedAd = $this->createClassifiedAd(
+            $this->organization->id,
+            $this->category->id,
+            $user->id,
+            $this->site->id,
+            'VALIDATED',
+            'title',
+            'description',
+            123,
+            'EUR'
+        );
         $classifiedAdToUpdate = [
             'organization_id' => $this->organization->id,
             'category_id' => $this->category->id,
@@ -105,17 +105,18 @@ class ClassifiedAdTest extends TestCase
         $this->createOrganization();
 
         $user = $this->actingAsRole('EMPLOYEE', $this->organization->id);
-        $classifiedAd = ClassifiedAd::factory()->create([
-            'organization_id' => $this->organization->id,
-            'category_id' => $this->category->id,
-            'user_id' => $user->id,
-            'site_id' => $this->site->id,
-            'ads_status_id' => 'VALIDATED',
-            'title' => 'title',
-            'description' => 'description',
-            'price' => 123,
-            'currency_id' => 'EUR'
-        ]);
+
+        $classifiedAd = $this->createClassifiedAd(
+            $this->organization->id,
+            $this->category->id,
+            $user->id,
+            $this->site->id,
+            'VALIDATED',
+            'title',
+            'description',
+            123,
+            'EUR'
+        );
 
         $classifiedAdToUpdate = [
             'organization_id' => $this->organization->id,
@@ -196,5 +197,29 @@ class ClassifiedAdTest extends TestCase
         $this->site = Site::factory()->create(['organization_id' => $this->organization->id, 'country_id' => 'FR']);
         $this->categoryGroup = CategoryGroup::factory()->create(['organization_id' => $this->organization->id]);
         $this->category = Category::factory()->create(['organization_id' => $this->organization->id]);
+    }
+
+    public function createClassifiedAd(
+        string $organizationId,
+        string $categoryId,
+        string $userId,
+        string $siteId,
+        string $adsStatusId,
+        string $title,
+        string $description,
+        string $price,
+        string $currencyId
+    ): ClassifiedAd {
+        return ClassifiedAd::factory()->create([
+            'organization_id' => $organizationId,
+            'category_id' => $categoryId,
+            'user_id' => $userId,
+            'site_id' => $siteId,
+            'ads_status_id' => $adsStatusId,
+            'title' => $title,
+            'description' => $description,
+            'price' => $price,
+            'currency_id' => $currencyId
+        ]);
     }
 }
