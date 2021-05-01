@@ -22,8 +22,6 @@ class SiteController extends Controller
 
     public function index(Organization $organization)
     {
-        // $this->authorize('viewAny', [Site::class, $organization]);
-
         $sites = $this->siteRepository->getAll($organization->id);
 
         return SiteResource::collection($sites);
@@ -31,8 +29,6 @@ class SiteController extends Controller
 
     public function store(StoreSiteRequest $request, Organization $organization)
     {
-        // $this->authorize('create', [Site::class, $organization]);
-
         $site = $this->siteRepository->insert($organization->id, $request->only(['site_type_id', 'country_id', 'internal_id', 'name', 'address1', 'address2', 'address3', 'zip_code', 'city', 'state_id']));
 
         return new SiteResource($site);
@@ -40,7 +36,6 @@ class SiteController extends Controller
 
     public function show(Organization $organization, Site $site)
     {
-        // $this->authorize('view', [Site::class, $organization, $site]);
         $site = $this->siteRepository->getById($organization->id, $site->id);
 
         return new SiteResource($site);
@@ -48,7 +43,6 @@ class SiteController extends Controller
 
     public function update(StoreSiteRequest $request, Organization $organization, Site $site)
     {
-        // $this->authorize('update', [Site::class, $organization, $site]);
         $this->siteRepository->update($site, $request->only(['site_type_id', 'country_id', 'internal_id', 'name', 'address1', 'address2', 'address3', 'zip_code', 'city', 'state_id']));
 
         return new Collection($site);
@@ -56,7 +50,6 @@ class SiteController extends Controller
 
     public function destroy(Organization $organization, Site $site)
     {
-        // $this->authorize('delete', [Site::class, $organization, $site]);
         $this->siteRepository->delete($site);
 
         return response()->noContent();
