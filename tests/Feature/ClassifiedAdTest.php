@@ -199,6 +199,9 @@ class ClassifiedAdTest extends TestCase
         $this->category = Category::factory()->create(['organization_id' => $this->organization->id]);
     }
 
+    /**
+     * generic function to insert a classified ad in db
+     */
     public function createClassifiedAd(
         string $organizationId,
         string $categoryId,
