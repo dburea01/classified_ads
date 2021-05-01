@@ -43,6 +43,11 @@ class Organization extends Model
         );
     }
 
+    public function siteTypes()
+    {
+        return $this->hasMany(SiteType::class);
+    }
+
     public function classifiedAds()
     {
         return $this->hasMany(ClassifiedAd::class);

@@ -27,12 +27,12 @@ class SiteTypePolicy
 
     public function viewAny(User $user)
     {
-        return  $user->role_id === 'ADMIN' && $user->organization_id === $this->organization->id;
+        return $user->organization_id === $this->organization->id;
     }
 
     public function view(User $user)
     {
-        return  $user->role_id === 'ADMIN' && $user->organization_id === $this->organization->id;
+        return  $user->organization_id === $this->organization->id;
     }
 
     public function create(User $user)
