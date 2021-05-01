@@ -15,6 +15,14 @@ class ClassifiedAdTest extends TestCase
     use DatabaseTransactions;
     use Request;
 
+    private $organization;
+
+    private $site;
+
+    private $categoryGroup;
+
+    private $category;
+
     public function testPostClassifiedAdWithErrors(): void
     {
         $organization = Organization::factory()->create();
@@ -36,16 +44,13 @@ class ClassifiedAdTest extends TestCase
 
     public function testPostClassifiedAdOk(): void
     {
-        $organization = Organization::factory()->create();
-        $site = Site::factory()->create(['organization_id' => $organization->id, 'country_id' => 'FR']);
-        CategoryGroup::factory()->create(['organization_id' => $organization->id]);
-        $category = Category::factory()->create(['organization_id' => $organization->id]);
+        $this->createOrganization();
 
-        $this->actingAsRole('EMPLOYEE', $organization->id);
+        $this->actingAsRole('EMPLOYEE', $this->organization->id);
 
         $classifiedAdToCreate = [
-            'category_id' => $category->id,
-            'site_id' => $site->id,
+            'category_id' => $this->category->id,
+            'site_id' => $this->site->id,
             'title' => 'title test',
             'description' => 'description test',
             'price' => '123',
@@ -53,24 +58,20 @@ class ClassifiedAdTest extends TestCase
             // 'ads_status_id' => 'CREATED',
         ];
 
-        $response = $this->json('POST', $this->getUrl() . "/organizations/{$organization->id}/classified-ads", $classifiedAdToCreate);
+        $response = $this->json('POST', $this->getUrl() . "/organizations/{$this->organization->id}/classified-ads", $classifiedAdToCreate);
 
         $response->assertStatus(201);
     }
 
     public function testPutClassifiedAdWithErrors()
     {
-        $organization = Organization::factory()->create();
-        $site = Site::factory()->create(['organization_id' => $organization->id, 'country_id' => 'FR']);
-        CategoryGroup::factory()->create(['organization_id' => $organization->id]);
-        $category = Category::factory()->create(['organization_id' => $organization->id]);
-
-        $user = $this->actingAsRole('EMPLOYEE', $organization->id);
+        $this->createOrganization();
+        $user = $this->actingAsRole('EMPLOYEE', $this->organization->id);
         $classifiedAd = ClassifiedAd::factory()->create([
-            'organization_id' => $organization->id,
-            'category_id' => $category->id,
+            'organization_id' => $this->organization->id,
+            'category_id' => $this->category->id,
             'user_id' => $user->id,
-            'site_id' => $site->id,
+            'site_id' => $this->site->id,
             //'ads_status_id' => 'VALIDATED',
             'title' => 'title',
             'description' => 'description',
@@ -79,10 +80,10 @@ class ClassifiedAdTest extends TestCase
         ]);
 
         $classifiedAdToUpdate = [
-            'organization_id' => $organization->id,
-            'category_id' => $category->id,
+            'organization_id' => $this->organization->id,
+            'category_id' => $this->category->id,
             'user_id' => $user->id,
-            'site_id' => $site->id,
+            'site_id' => $this->site->id,
             //'ads_status_id' => 'FAKE',
             'title' => 'title',
             'description' => 'description',
@@ -90,7 +91,7 @@ class ClassifiedAdTest extends TestCase
             'currency_id' => 'TOTO'
         ];
 
-        $response = $this->json('PUT', $this->getUrl() . "/organizations/{$organization->id}/classified-ads/{$classifiedAd->id}", $classifiedAdToUpdate);
+        $response = $this->json('PUT', $this->getUrl() . "/organizations/{$this->organization->id}/classified-ads/{$classifiedAd->id}", $classifiedAdToUpdate);
 
         $response->assertStatus(422)
         ->assertJsonValidationErrors([
@@ -101,17 +102,14 @@ class ClassifiedAdTest extends TestCase
 
     public function testPutClassifiedAdOk()
     {
-        $organization = Organization::factory()->create();
-        $site = Site::factory()->create(['organization_id' => $organization->id, 'country_id' => 'FR']);
-        CategoryGroup::factory()->create(['organization_id' => $organization->id]);
-        $category = Category::factory()->create(['organization_id' => $organization->id]);
+        $this->createOrganization();
 
-        $user = $this->actingAsRole('EMPLOYEE', $organization->id);
+        $user = $this->actingAsRole('EMPLOYEE', $this->organization->id);
         $classifiedAd = ClassifiedAd::factory()->create([
-            'organization_id' => $organization->id,
-            'category_id' => $category->id,
+            'organization_id' => $this->organization->id,
+            'category_id' => $this->category->id,
             'user_id' => $user->id,
-            'site_id' => $site->id,
+            'site_id' => $this->site->id,
             'ads_status_id' => 'VALIDATED',
             'title' => 'title',
             'description' => 'description',
@@ -120,10 +118,10 @@ class ClassifiedAdTest extends TestCase
         ]);
 
         $classifiedAdToUpdate = [
-            'organization_id' => $organization->id,
-            'category_id' => $category->id,
+            'organization_id' => $this->organization->id,
+            'category_id' => $this->category->id,
             'user_id' => $user->id,
-            'site_id' => $site->id,
+            'site_id' => $this->site->id,
             'ads_status_id' => 'CREATED',
             'title' => 'title',
             'description' => 'description',
@@ -131,75 +129,72 @@ class ClassifiedAdTest extends TestCase
             'currency_id' => 'EUR'
         ];
 
-        $response = $this->json('PUT', $this->getUrl() . "/organizations/{$organization->id}/classified-ads/{$classifiedAd->id}", $classifiedAdToUpdate);
+        $response = $this->json('PUT', $this->getUrl() . "/organizations/{$this->organization->id}/classified-ads/{$classifiedAd->id}", $classifiedAdToUpdate);
 
         $response->assertStatus(200);
     }
 
     public function testGetClassifiedAds() : void
     {
-        $organization = Organization::factory()->create();
-        $site = Site::factory()->create(['organization_id' => $organization->id, 'country_id' => 'FR']);
-        CategoryGroup::factory()->create(['organization_id' => $organization->id]);
-        $category = Category::factory()->create(['organization_id' => $organization->id]);
+        $this->createOrganization();
 
-        $user = $this->actingAsRole('EMPLOYEE', $organization->id);
+        $user = $this->actingAsRole('EMPLOYEE', $this->organization->id);
         ClassifiedAd::factory()->count(10)->create([
-            'organization_id' => $organization->id,
-            'category_id' => $category->id,
+            'organization_id' => $this->organization->id,
+            'category_id' => $this->category->id,
             'user_id' => $user->id,
-            'site_id' => $site->id,
+            'site_id' => $this->site->id,
             'ads_status_id' => 'VALIDATED'
         ]);
 
-        $response = $this->json('GET', $this->getUrl() . "/organizations/{$organization->id}/classified-ads");
+        $response = $this->json('GET', $this->getUrl() . "/organizations/{$this->organization->id}/classified-ads");
 
         $response->assertStatus(200);
     }
 
     public function testGetClassifiedAd() : void
     {
-        $organization = Organization::factory()->create();
-        $site = Site::factory()->create(['organization_id' => $organization->id, 'country_id' => 'FR']);
-        CategoryGroup::factory()->create(['organization_id' => $organization->id]);
-        $category = Category::factory()->create(['organization_id' => $organization->id]);
-
-        $user = $this->actingAsRole('EMPLOYEE', $organization->id);
+        $this->createOrganization();
+        $user = $this->actingAsRole('EMPLOYEE', $this->organization->id);
         $classifiedAd = ClassifiedAd::factory()->create([
-            'organization_id' => $organization->id,
-            'category_id' => $category->id,
+            'organization_id' => $this->organization->id,
+            'category_id' => $this->category->id,
             'user_id' => $user->id,
-            'site_id' => $site->id,
+            'site_id' => $this->site->id,
             'ads_status_id' => 'VALIDATED'
         ]);
 
-        $response = $this->json('GET', $this->getUrl() . "/organizations/{$organization->id}/classified-ads/{$classifiedAd->id}");
+        $response = $this->json('GET', $this->getUrl() . "/organizations/{$this->organization->id}/classified-ads/{$classifiedAd->id}");
 
         $response->assertStatus(200);
     }
 
     public function testDeleteClassifiedAd() :void
     {
-        $organization = Organization::factory()->create();
-        $site = Site::factory()->create(['organization_id' => $organization->id, 'country_id' => 'FR']);
-        CategoryGroup::factory()->create(['organization_id' => $organization->id]);
-        $category = Category::factory()->create(['organization_id' => $organization->id]);
-
-        $user = $this->actingAsRole('EMPLOYEE', $organization->id);
+        $this->createOrganization();
+        $user = $this->actingAsRole('EMPLOYEE', $this->organization->id);
         $classifiedAd = ClassifiedAd::factory()->create([
-            'organization_id' => $organization->id,
-            'category_id' => $category->id,
+            'organization_id' => $this->organization->id,
+            'category_id' => $this->category->id,
             'user_id' => $user->id,
-            'site_id' => $site->id,
+            'site_id' => $this->site->id,
             'ads_status_id' => 'VALIDATED'
         ]);
 
-        $response = $this->delete($this->getUrl() . "/organizations/{$organization->id}/classified-ads/{$classifiedAd->id}");
+        $response = $this->delete($this->getUrl() . "/organizations/{$this->organization->id}/classified-ads/{$classifiedAd->id}");
 
         $response->assertStatus(204);
 
-        $response = $this->delete($this->getUrl() . "/organizations/{$organization->id}/classified-ads/{$classifiedAd->id}");
+        $response = $this->delete($this->getUrl() . "/organizations/{$this->organization->id}/classified-ads/{$classifiedAd->id}");
 
         $response->assertStatus(404);
+    }
+
+    public function createOrganization(): void
+    {
+        $this->organization = Organization::factory()->create();
+        $this->site = Site::factory()->create(['organization_id' => $this->organization->id, 'country_id' => 'FR']);
+        CategoryGroup::factory()->create(['organization_id' => $this->organization->id]);
+        $this->category = Category::factory()->create(['organization_id' => $this->organization->id]);
     }
 }
