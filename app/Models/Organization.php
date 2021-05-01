@@ -48,6 +48,11 @@ class Organization extends Model
         return $this->hasMany(SiteType::class);
     }
 
+    public function sites()
+    {
+        return $this->hasMany(Site::class);
+    }
+
     public function classifiedAds()
     {
         return $this->hasMany(ClassifiedAd::class);

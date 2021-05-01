@@ -41,7 +41,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::apiResource('organizations/{organization}/domains', DomainController::class)->whereUuid(['organization', 'domain']);
     Route::apiResource('organizations/{organization}/site-types', SiteTypeController::class)->whereUuid(['organization', 'site_type'])->scoped();
-    Route::apiResource('organizations/{organization}/sites', SiteController::class)->whereUuid(['organization', 'site']);
+    Route::apiResource('organizations/{organization}/sites', SiteController::class)->whereUuid(['organization', 'site'])->scoped();
     Route::apiResource('organizations/{organization}/users', UserController::class)->except('store')->whereUuid(['organization', 'user']);
     Route::get('roles', [RoleController::class, 'index']);
     Route::apiResource('organizations/{organization}/category-groups', CategoryGroupController::class)->whereUuid(['organization', 'category_group']);
