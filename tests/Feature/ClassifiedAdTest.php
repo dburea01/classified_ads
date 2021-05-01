@@ -25,11 +25,11 @@ class ClassifiedAdTest extends TestCase
 
     public function testPostClassifiedAdWithErrors(): void
     {
-        $organization = Organization::factory()->create();
+        $organizationCreated = Organization::factory()->create();
 
-        $this->actingAsRole('EMPLOYEE', $organization->id);
+        $this->actingAsRole('EMPLOYEE', $organizationCreated->id);
 
-        $response = $this->json('POST', $this->getUrl() . "/organizations/{$organization->id}/classified-ads");
+        $response = $this->json('POST', $this->getUrl() . "/organizations/{$organizationCreated->id}/classified-ads");
 
         $response->assertStatus(422)
         ->assertJsonValidationErrors([
@@ -194,7 +194,7 @@ class ClassifiedAdTest extends TestCase
     {
         $this->organization = Organization::factory()->create();
         $this->site = Site::factory()->create(['organization_id' => $this->organization->id, 'country_id' => 'FR']);
-        CategoryGroup::factory()->create(['organization_id' => $this->organization->id]);
+        $this->categoryGroup = CategoryGroup::factory()->create(['organization_id' => $this->organization->id]);
         $this->category = Category::factory()->create(['organization_id' => $this->organization->id]);
     }
 }
