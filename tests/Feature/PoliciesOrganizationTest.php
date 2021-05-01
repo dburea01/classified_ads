@@ -1,11 +1,10 @@
 <?php
 
-namespace Tests\Feature\Policies;
+namespace Tests\Feature;
 
 use App\Models\Organization;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
-use tests\Feature\Request;
 
 class PoliciesOrganizationTest extends TestCase
 {
