@@ -200,7 +200,7 @@ class ClassifiedAdTest extends TestCase
     }
 
     /**
-     * generic function to insert a classified ad in db
+     * generic function to insert a classified ad in dbase
      */
     public function createClassifiedAd(
         string $organizationId,
