@@ -193,6 +193,16 @@ class SiteTest extends TestCase
         $response->assertStatus(200);
     }
 
+    public function testGetSiteNotUuidShouldReturn404() : void
+    {
+        $organization = Organization::factory()->create();
+        $this->actingAsRole('ADMIN', $organization->id);
+
+        $response = $this->json('GET', $this->getUrl() . "/organizations/{$organization->id}/sites/123");
+
+        $response->assertStatus(404);
+    }
+
     public function testDeleteSite() :void
     {
         $organization = Organization::factory()->create();

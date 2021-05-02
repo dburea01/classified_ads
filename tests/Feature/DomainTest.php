@@ -119,6 +119,16 @@ class DomainTest extends TestCase
         $response->assertStatus(404);
     }
 
+    public function testGetDomainNotUuidShouldReturn404() : void
+    {
+        $organization = Organization::factory()->create();
+        $this->actingAsRole('SUPERADMIN', $organization->id);
+
+        $response = $this->get($this->getUrl() . "/organizations/{$organization->id}/domains/toto");
+
+        $response->assertStatus(404);
+    }
+
     public function testGetDomains() : void
     {
         $organization = Organization::factory()->create();

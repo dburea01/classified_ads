@@ -16,6 +16,7 @@ class DomainController extends Controller
     public function __construct(DomainRepository $domainRepository)
     {
         $this->domainRepository = $domainRepository;
+        $this->authorizeResource(Organization::class);
     }
 
     /**

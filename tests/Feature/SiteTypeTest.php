@@ -111,4 +111,19 @@ class SiteTypeTest extends TestCase
         $response = $this->delete($this->getUrl() . "/organizations/{$organization->id}/site-types/{$siteType->id}");
         $response->assertStatus(404);
     }
+
+    public function testGetSiteTypeFromAnotherOrganizationShouldReturn404() : void
+    {
+        $organization = Organization::factory()->create();
+        SiteType::factory()->create(['organization_id' => $organization->id]);
+
+        $organizationOther = Organization::factory()->create();
+        $siteTypeOther = SiteType::factory()->create(['organization_id' => $organizationOther->id]);
+
+        $this->actingAsRole('SUPERADMIN', $organization->id);
+
+        $response = $this->delete($this->getUrl() . "/organizations/{$organization->id}/site-types/{$siteTypeOther->id}");
+
+        $response->assertStatus(404);
+    }
 }

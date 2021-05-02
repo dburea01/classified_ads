@@ -16,7 +16,7 @@ class SiteTypeController extends Controller
     public function __construct(SiteTypeRepository $siteTypeRepository)
     {
         $this->siteTypeRepository = $siteTypeRepository;
-        $this->authorizeResource(SiteType::class, 'site_type');
+        $this->authorizeResource(SiteType::class);
     }
 
     public function index(Organization $organization)

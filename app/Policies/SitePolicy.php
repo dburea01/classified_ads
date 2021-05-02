@@ -2,11 +2,8 @@
 
 namespace App\Policies;
 
-use App\Models\Organization;
-use App\Models\Site;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
-use Illuminate\Support\Facades\Log;
 
 class SitePolicy
 {
