@@ -74,6 +74,25 @@ class DomainTest extends TestCase
         $response->assertStatus(200);
     }
 
+    public function testPutDomainFromAnotherOrganizationShouldReturn404()
+    {
+        $organization = Organization::factory()->create();
+        Domain::factory()->create(['organization_id' => $organization->id]);
+
+        $organizationOther = Organization::factory()->create();
+        $domainOther = Domain::factory()->create(['organization_id' => $organizationOther->id]);
+
+        $this->actingAsRole('SUPERADMIN', $organization->id);
+
+        $domainToModify = [
+            'name' => 'domain name modif'
+        ];
+
+        $response = $this->put($this->getUrl() . "/organizations/{$organization->id}/domains/{$domainOther->id}", $domainToModify);
+
+        $response->assertStatus(404);
+    }
+
     public function testGetDomain() : void
     {
         $organization = Organization::factory()->create();
@@ -83,6 +102,21 @@ class DomainTest extends TestCase
         $response = $this->get($this->getUrl() . "/organizations/{$organization->id}/domains/{$domain->id}");
 
         $response->assertStatus(200);
+    }
+
+    public function testGetDomainFromAnotherOrganizationShouldReturn404() : void
+    {
+        $organization = Organization::factory()->create();
+        Domain::factory()->create(['organization_id' => $organization->id]);
+
+        $organizationOther = Organization::factory()->create();
+        $domainOther = Domain::factory()->create(['organization_id' => $organizationOther->id]);
+
+        $this->actingAsRole('SUPERADMIN', $organization->id);
+
+        $response = $this->get($this->getUrl() . "/organizations/{$organization->id}/domains/{$domainOther->id}");
+
+        $response->assertStatus(404);
     }
 
     public function testGetDomains() : void
@@ -105,5 +139,20 @@ class DomainTest extends TestCase
         $response = $this->delete($this->getUrl() . "/organizations/{$organization->id}/domains/{$domain->id}");
 
         $response->assertStatus(204);
+    }
+
+    public function testDeleteDomainFromAnotherOrganizationShouldReturn404() : void
+    {
+        $organization = Organization::factory()->create();
+        Domain::factory()->create(['organization_id' => $organization->id]);
+
+        $organizationOther = Organization::factory()->create();
+        $domainOther = Domain::factory()->create(['organization_id' => $organizationOther->id]);
+
+        $this->actingAsRole('SUPERADMIN', $organization->id);
+
+        $response = $this->delete($this->getUrl() . "/organizations/{$organization->id}/domains/{$domainOther->id}");
+
+        $response->assertStatus(404);
     }
 }

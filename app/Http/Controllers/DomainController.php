@@ -7,8 +7,6 @@ use App\Http\Resources\DomainResource;
 use App\Models\Domain;
 use App\Models\Organization;
 use App\Repositories\DomainRepository;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 
 class DomainController extends Controller
@@ -18,7 +16,6 @@ class DomainController extends Controller
     public function __construct(DomainRepository $domainRepository)
     {
         $this->domainRepository = $domainRepository;
-        $this->authorizeResource(Organization::class, 'organization');
     }
 
     /**

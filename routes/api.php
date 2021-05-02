@@ -35,11 +35,24 @@ Route::post('reset-password', [AuthController::class, 'resetPassword']);
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);
 
-    Route::apiResource('organizations', OrganizationController::class)->whereUuid('organization');
-    Route::post('organizations/{organization}/logos', [OrganizationController::class, 'updateLogo'])->whereUuid('organization');
-    Route::delete('organizations/{organization}/logos', [OrganizationController::class, 'deleteLogo'])->whereUuid('organization');
+    // Route::apiResource('organizations', OrganizationController::class)->whereUuid('organization');
+    // Routes for the organizations
+    Route::get('organizations', [OrganizationController::class, 'index'])->middleware('can:viewAny,App\Models\Organization');
+    Route::get('organizations/{organization}', [OrganizationController::class, 'show'])->middleware('can:view,App\Models\Organization')->whereUuid('organization');
+    Route::post('organizations', [OrganizationController::class, 'store'])->middleware('can:create,App\Models\Organization');
+    Route::put('organizations/{organization}', [OrganizationController::class, 'update'])->middleware('can:update,App\Models\Organization')->whereUuid('organization');
+    Route::delete('organizations/{organization}', [OrganizationController::class, 'destroy'])->middleware('can:delete,App\Models\Organization')->whereUuid('organization');
+    Route::post('organizations/{organization}/logos', [OrganizationController::class, 'updateLogo'])->middleware('can:create,App\Models\Organization')->whereUuid('organization');
+    Route::delete('organizations/{organization}/logos', [OrganizationController::class, 'deleteLogo'])->middleware('can:create,App\Models\Organization')->whereUuid('organization');
 
-    Route::apiResource('organizations/{organization}/domains', DomainController::class)->whereUuid(['organization', 'domain']);
+    // Routes for the domains of one organization
+    // Route::apiResource('organizations/{organization}/domains', DomainController::class)->whereUuid(['organization', 'domain']);
+    Route::get('organizations/{organization}/domains', [DomainController::class, 'index'])->middleware('can:viewAny,App\Models\Domain')->whereUuid('organization');
+    Route::get('organizations/{organization}/domains/{domain:id}', [DomainController::class, 'show'])->middleware('can:view,App\Models\Domain')->whereUuid(['organization', 'domain']);
+    Route::post('organizations/{organization}/domains', [DomainController::class, 'store'])->middleware('can:view,App\Models\Domain')->whereUuid('organization');
+    Route::put('organizations/{organization}/domains/{domain:id}', [DomainController::class, 'update'])->middleware('can:update,App\Models\Domain')->whereUuid(['organization', 'domain']);
+    Route::delete('organizations/{organization}/domains/{domain:id}', [DomainController::class, 'destroy'])->middleware('can:delete,App\Models\Domain')->whereUuid(['organization', 'domain']);
+
     Route::apiResource('organizations/{organization}/site-types', SiteTypeController::class)->whereUuid(['organization', 'site_type'])->scoped();
     Route::apiResource('organizations/{organization}/sites', SiteController::class)->whereUuid(['organization', 'site'])->scoped();
     Route::apiResource('organizations/{organization}/users', UserController::class)->except('store')->whereUuid(['organization', 'user']);
