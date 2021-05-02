@@ -3,9 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Role;
-use App\Models\State;
 use App\Models\User;
-use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 
@@ -25,7 +23,10 @@ class UserFactory extends Factory
      */
     public function definition()
     {
+        $roles = Role::all()->pluck('id');
+
         return [
+            'role_id' => $this->faker->randomElement($roles),
             'user_state_id' => $this->faker->boolean(90) ? 'VALIDATED' : 'CREATED',
             'first_name' => $this->faker->firstName(),
             'last_name' => $this->faker->lastName(),

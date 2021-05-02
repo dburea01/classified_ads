@@ -18,55 +18,27 @@ class UserController extends Controller
     public function __construct(UserRepository $userRepository)
     {
         $this->userRepository = $userRepository;
+        $this->authorizeResource(User::class);
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(Organization $organization)
     {
-        $this->authorize('viewAny', [User::class, $organization]);
         $users = $this->userRepository->index($organization->id);
 
         return UserResource::collection($users);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
     public function show(Organization $organization, User $user)
     {
-        $this->authorize('view', [User::class, $organization, $user]);
-
         return new UserResource($user);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
     public function update(StoreUserRequest $request, Organization $organization, User $user)
     {
-        $this->authorize('update', [User::class, $organization, $user]);
-
         if (in_array(Auth::user()->role_id, ['ADMIN', 'SUPERADMIN'])) {
             $dataToUpdate = $request->only(['first_name', 'last_name', 'role_id', 'user_state_id']);
         } else {
@@ -77,16 +49,8 @@ class UserController extends Controller
         return new Collection($user);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Organization $organization, User $user)
     {
-        $this->authorize('delete', [User::class, $organization, $user]);
-
         $this->userRepository->delete($organization->id, $user->id);
 
         return response()->noContent();
