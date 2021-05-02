@@ -30,6 +30,7 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
+        //do nothing, this method should not be called. To create an user, it must be made by the user himself.
     }
 
     public function show(Organization $organization, User $user)
