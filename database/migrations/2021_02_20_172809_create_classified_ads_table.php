@@ -17,7 +17,7 @@ class CreateClassifiedAdsTable extends Migration
             $table->uuid('id')->primary();
             $table->uuid('organization_id');
             $table->uuid('category_id')->nullable();
-            $table->uuid('user_id')->nullable();
+            $table->uuid('user_id');
             $table->uuid('site_id')->nullable();
             $table->string('ads_status_id', 10);
             $table->string('title');

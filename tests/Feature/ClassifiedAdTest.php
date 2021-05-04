@@ -170,6 +170,25 @@ class ClassifiedAdTest extends TestCase
         $response->assertStatus(200);
     }
 
+    public function testGetClassifiedAdAnotherOrganization() : void
+    {
+        $this->createOrganization();
+        $user = $this->actingAsRole('EMPLOYEE', $this->organization->id);
+        $classifiedAd = ClassifiedAd::factory()->create([
+            'organization_id' => $this->organization->id,
+            'category_id' => $this->category->id,
+            'user_id' => $user->id,
+            'site_id' => $this->site->id,
+            'ads_status_id' => 'VALIDATED'
+        ]);
+
+        $organizationOther = Organization::factory()->create();
+
+        $response = $this->json('GET', $this->getUrl() . "/organizations/{$organizationOther->id}/classified-ads/{$classifiedAd->id}");
+
+        $response->assertNotFound();
+    }
+
     public function testDeleteClassifiedAd() :void
     {
         $this->createOrganization();

@@ -48,6 +48,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::patch('organizations/{organization}/category-groups/sort', [CategoryGroupController::class, 'sortCategoryGroups'])->whereUuid('organization');
     Route::apiResource('organizations/{organization}/categories', CategoryController::class)->whereUuid(['organization', 'category'])->scoped();
     Route::patch('organizations/{organization}/category-groups/{categoryGroup:id}/sortCategories', [CategoryController::class, 'sortCategories'])->whereUuid(['organization', 'category_group']);
-    Route::apiResource('organizations/{organization}/classified-ads', ClassifiedAdController::class)->whereUuid(['organization', 'classified_ad']);
+    Route::apiResource('organizations/{organization}/classified-ads', ClassifiedAdController::class)->whereUuid(['organization', 'classified_ad'])->scoped();
     Route::apiResource('organizations/{organization}/medias', MediaController::class)->whereUuid(['organization', 'media']);
 });
