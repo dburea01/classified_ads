@@ -34,7 +34,7 @@ class PutSortGroupCategoryRequest extends FormRequest
     public function messages()
     {
         return [
-            '*.required' => 'Impossibe de trier les groupes de catégories.'
+            '*.required' => 'Impossible de trier les groupes de catégories.'
         ];
     }
 }

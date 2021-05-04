@@ -6,6 +6,7 @@ use App\Models\CategoryGroup;
 use App\Models\Organization;
 use App\Models\SiteType;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Support\Facades\Log;
 use Tests\TestCase;
 
 class CategoryGroupTest extends TestCase
@@ -100,6 +101,21 @@ class CategoryGroupTest extends TestCase
         $response->assertStatus(200);
     }
 
+    public function testGetCategoryGroupFromAnotherOrganization() : void
+    {
+        $organization = Organization::factory()->create();
+        CategoryGroup::factory()->create(['organization_id' => $organization->id]);
+
+        $organizationOther = Organization::factory()->create();
+        $categoryGroupOther = CategoryGroup::factory()->create(['organization_id' => $organizationOther->id]);
+
+        $this->actingAsRole('ADMIN', $organization->id);
+
+        $response = $this->json('GET', $this->getUrl() . "/organizations/{$organization->id}/category-groups/{$categoryGroupOther->id}");
+
+        $response->assertStatus(404);
+    }
+
     public function testDeleteCategoryGroup() :void
     {
         $organization = Organization::factory()->create();
@@ -113,5 +129,31 @@ class CategoryGroupTest extends TestCase
 
         $response = $this->delete($this->getUrl() . "/organizations/{$organization->id}/category-groups/{$categoryGroup->id}");
         $response->assertStatus(404);
+    }
+
+    public function testSortCategoryGroup(): void
+    {
+        $organization = Organization::factory()->create();
+        $categoryGroups = CategoryGroup::factory()->count(3)->create(['organization_id' => $organization->id]);
+
+        $this->actingAsRole('ADMIN', $organization->id);
+        $newOrder = [
+            $categoryGroups[0]->id,
+            $categoryGroups[1]->id,
+            $categoryGroups[2]->id
+        ];
+
+        $response = $this->patch($this->getUrl() . "/organizations/{$organization->id}/category-groups/sort", $newOrder);
+        $response->assertOk();
+
+        $categoryGroupsSorted = CategoryGroup::where('organization_id', $organization->id)->orderBy('position')->get();
+
+        $this->assertEquals($newOrder[0], $categoryGroupsSorted[0]->id);
+        $this->assertEquals($newOrder[1], $categoryGroupsSorted[1]->id);
+        $this->assertEquals($newOrder[2], $categoryGroupsSorted[2]->id);
+
+        $this->assertEquals(0, $categoryGroupsSorted[0]->position);
+        $this->assertEquals(1, $categoryGroupsSorted[1]->position);
+        $this->assertEquals(2, $categoryGroupsSorted[2]->position);
     }
 }
