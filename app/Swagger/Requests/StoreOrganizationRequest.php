@@ -45,7 +45,7 @@ class StoreOrganizationRequest
      *
      * @var string
      */
-    private $comment;
+    public $comment;
 
     /**
      * @OA\Property(
@@ -58,7 +58,7 @@ class StoreOrganizationRequest
      *
      * @var integer
      */
-    private $ads_max;
+    public $ads_max;
 
     /**
      * @OA\Property(
@@ -71,5 +71,5 @@ class StoreOrganizationRequest
      *
      * @var integer
      */
-    private $media_max;
+    public $media_max;
 }

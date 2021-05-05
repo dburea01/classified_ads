@@ -19,5 +19,5 @@ class OrganizationResource
      *
      * @var \App\Swagger\Models\Organization
      */
-    private $data;
+    public $data;
 }

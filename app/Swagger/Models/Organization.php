@@ -18,7 +18,7 @@ class Organization
      *
      * @var string
      */
-    private $id;
+    public $id;
 
     /**
      * @OA\Property(
