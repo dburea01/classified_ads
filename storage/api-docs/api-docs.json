@@ -1,0 +1,384 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "ClassifiedAds - Api Documentation,oh yeah  !!!",
+        "description": "Here you will find all the necessary documentation to use the endpoints.",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8000/api",
+            "description": "Demo API Server"
+        }
+    ],
+    "paths": {
+        "/organizations": {
+            "get": {
+                "tags": [
+                    "Organizations"
+                ],
+                "summary": "Get list of organizations",
+                "description": "Returns list of organizations",
+                "operationId": "getOrganizationsList",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "path",
+                        "description": "Page number",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "fields[]",
+                        "in": "path",
+                        "description": "The available fields",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Organization"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Organizations"
+                ],
+                "summary": "Store a new organization",
+                "description": "Store new organization",
+                "operationId": "storeOrganizations",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StoreOrganizationRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Organization"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/organizations/{id}": {
+            "get": {
+                "tags": [
+                    "Organizations"
+                ],
+                "summary": "Get organization information",
+                "description": "Returns organization data",
+                "operationId": "getOrganizationById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Organization id",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Organization"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Organizations"
+                ],
+                "summary": "Update existing organization",
+                "description": "Returns updated organization data",
+                "operationId": "updateOrganization",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Organization id",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StoreOrganizationRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "202": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Organization"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Organizations"
+                ],
+                "summary": "Delete existing organization",
+                "description": "Deletes an organization and returns no content",
+                "operationId": "deleteOrganization",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Organization id",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Organization": {
+                "title": "Organization",
+                "description": "Organization model",
+                "properties": {
+                    "id": {
+                        "title": "Id",
+                        "type": "string",
+                        "format": "uuid",
+                        "example": "f5d3101b-de3a-4778-8f6d-90479534c2e5"
+                    },
+                    "name": {
+                        "title": "Name",
+                        "type": "string",
+                        "example": "My organization"
+                    },
+                    "contact": {
+                        "title": "Contact",
+                        "type": "string",
+                        "example": "Tony BANKS"
+                    },
+                    "comment": {
+                        "title": "Comment",
+                        "type": "string",
+                        "example": "This is a comment ...."
+                    },
+                    "ads_max": {
+                        "title": "Ads max",
+                        "type": "integer",
+                        "example": "10000"
+                    },
+                    "media_max": {
+                        "title": "Media max",
+                        "type": "integer",
+                        "example": "3"
+                    }
+                },
+                "type": "object"
+            },
+            "StoreOrganizationRequest": {
+                "title": "StoreOrganizationRequest",
+                "description": "Store Organization request body data",
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "name": {
+                        "title": "Name of the new organization",
+                        "description": "Name of the new organization",
+                        "type": "string",
+                        "example": "My organization"
+                    },
+                    "contact": {
+                        "title": "Contact of the new organization",
+                        "description": "Contact of the new organization",
+                        "type": "string",
+                        "example": "Tony BANKS"
+                    },
+                    "comment": {
+                        "title": "Comment",
+                        "description": "A comment for this new organization",
+                        "type": "string",
+                        "example": "This is a comment."
+                    },
+                    "ads_max": {
+                        "title": "Ads max",
+                        "description": "Qty maximum of classified ads for this new organization",
+                        "type": "integer",
+                        "example": 10000
+                    },
+                    "media_max": {
+                        "title": "Media max",
+                        "description": "Qty maximum of medias for a classified ad for this new organization",
+                        "type": "integer",
+                        "example": 3
+                    }
+                },
+                "type": "object"
+            },
+            "OrganizationResource": {
+                "title": "OrganizationResource",
+                "description": "Organization resource",
+                "properties": {
+                    "data": {
+                        "title": "Data",
+                        "description": "Data wrapper"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "OrganizationResource"
+                }
+            }
+        },
+        "securitySchemes": {
+            "bearer_token": {
+                "type": "apiKey",
+                "description": "Enter token in format (Bearer <token>)",
+                "name": "Authorization",
+                "in": "header"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Organizations",
+            "description": "API Endpoints of Organizations"
+        },
+        {
+            "name": "Artists",
+            "description": "API Endpoints of Artists"
+        }
+    ],
+    "security": [
+        []
+    ]
+}
