@@ -5,7 +5,7 @@ return [
     'documentations' => [
         'default' => [
             'api' => [
-                'title' => 'Music Domi',
+                'title' => 'Classified-ads my company',
             ],
             'routes' => [
                 /*
