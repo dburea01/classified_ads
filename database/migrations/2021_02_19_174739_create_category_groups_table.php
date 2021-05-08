@@ -18,7 +18,7 @@ class CreateCategoryGroupsTable extends Migration
             $table->uuid('organization_id');
             $table->tinyInteger('position')->default(99);
             $table->string('name');
-            $table->string('state_id');
+            $table->string('state_id')->default('VALIDE');
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();
             $table->timestamps();

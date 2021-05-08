@@ -10,22 +10,21 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Controller;
+use App\Repositories\CategoryRepository;
 
 class OrganizationController extends Controller
 {
     private $organizationRepository;
 
-    public function __construct(OrganizationRepository $organizationRepository)
+    private $categoryRepository;
+
+    public function __construct(OrganizationRepository $organizationRepository, CategoryRepository $categoryRepository)
     {
         $this->organizationRepository = $organizationRepository;
+        $this->categoryRepository = $categoryRepository;
         $this->authorizeResource(Organization::class, 'organization');
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $organizations = $this->organizationRepository->index();
@@ -33,21 +32,25 @@ class OrganizationController extends Controller
         return OrganizationResource::collection($organizations);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(StoreOrganizationRequest $request)
     {
-        $organization = $this->organizationRepository->insertOrganisation($request->only(['name', 'contact', 'comment', 'ads_max', 'media_max', 'state_id', 'container_folder']));
+        DB::beginTransaction();
+        try {
+            $organization = $this->organizationRepository->insertOrganisation($request->only(['name', 'contact', 'comment', 'ads_max', 'media_max', 'state_id', 'container_folder']));
+            $this->categoryRepository->insertDefaultCategories($organization->id);
 
-        if ($request->has('logo_file')) {
-            $this->processImageLogo($organization, $request->logo_file);
+            if ($request->has('logo_file')) {
+                $this->processImageLogo($organization, $request->logo_file);
+            }
+
+            DB::commit();
+
+            return (new OrganizationResource($organization))->response()->setStatusCode(201);
+        } catch (\Throwable $th) {
+            DB::rollBack();
+
+            return response()->json(['erreur' => 'Impossible to create this organization'], 422);
         }
-
-        return (new OrganizationResource($organization))->response()->setStatusCode(201);
     }
 
     /**
@@ -61,13 +64,6 @@ class OrganizationController extends Controller
         return new OrganizationResource($organization);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(StoreOrganizationRequest $request, Organization $organization)
     {
         $this->organizationRepository->updateOrganization($organization, $request->only(['name', 'contact', 'comment', 'ads_max', 'media_max', 'state_id', 'container_folder']));
@@ -97,12 +93,6 @@ class OrganizationController extends Controller
         return new OrganizationResource($organization);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Organization $organization)
     {
         DB::beginTransaction();

@@ -6,7 +6,9 @@ namespace App\Repositories;
 
 use App\Models\Category;
 use App\Models\CategoryGroup;
+use App\Models\DefaultCategoryGroup;
 use App\Models\Organization;
+use Illuminate\Support\Facades\Log;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
@@ -40,6 +42,28 @@ class CategoryRepository
         $category->save();
 
         return $category;
+    }
+
+    public function insertDefaultCategories(string $organizationId) : void
+    {
+        $defaultCategoryGroups = DefaultCategoryGroup::with('default_categories')->get();
+
+        foreach ($defaultCategoryGroups as $defaultCategoryGroup) {
+            $categoryGroup = new CategoryGroup();
+            $categoryGroup->organization_id = $organizationId;
+            $categoryGroup->position = $defaultCategoryGroup->position;
+            $categoryGroup->name = $defaultCategoryGroup->name;
+            $categoryGroup->save();
+
+            foreach ($defaultCategoryGroup->default_categories as $defaultCategory) {
+                $category = new Category();
+                $category->organization_id = $organizationId;
+                $category->category_group_id = $categoryGroup->id;
+                $category->position = $defaultCategory->position;
+                $category->name = $defaultCategory->name;
+                $category->save();
+            }
+        }
     }
 
     public function update(Category $category, array $data) : Category

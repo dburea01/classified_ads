@@ -24,13 +24,16 @@ class UserFactory extends Factory
     public function definition()
     {
         $roles = Role::all()->pluck('id');
+        $firstName = $this->faker->firstName();
+        $lastName = $this->faker->lastName();
 
         return [
             'role_id' => $this->faker->randomElement($roles),
             'user_state_id' => $this->faker->boolean(90) ? 'VALIDATED' : 'CREATED',
-            'first_name' => $this->faker->firstName(),
-            'last_name' => $this->faker->lastName(),
-            'email' => $this->faker->unique()->safeEmail,
+            'first_name' => $firstName,
+            'last_name' => $lastName,
+            // 'email' => $this->faker->unique()->safeEmail,
+            'email' => strtolower($firstName) . '.' . strtolower($lastName) . '@fakeAdressDomain.toto',
             'password' => Hash::make('azerty'),
             'email_verification_code' => $this->faker->word(),
             'email_verified_at' => $this->faker->dateTimeThisYear()
